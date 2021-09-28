@@ -1,0 +1,24 @@
+@import '../../shared/scss/utilities';
+
+.header {
+    width: 100%;
+    border-bottom: 1.5px solid gainsboro;
+    padding: 1em;
+    .web-title {
+        display: flex;
+        align-items: center;
+        gap: 1.75em;
+        font-family: "Lato", "Open Sans", sans-serif;
+        img {
+            width: 75px;
+        }
+        .web-title-content {
+            h3 {
+                font-size: 1.4em;
+            }
+            p {
+                color: $sub-color;
+            }
+        }
+    }
+}
