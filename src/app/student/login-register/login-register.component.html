@@ -1,9 +1,59 @@
 <div class="header">
-    <div class="web-title">
-        <img src="../../../assets/img/annauniv-logo.png" alt="annauniv-logo">
-        <div class="web-title-content">
-            <h3>Centre for University - Industry Collaboration</h3>
-            <p>Anna University, Chennai</p>
-        </div>
+  <div class="web-title">
+    <img src="../../../assets/img/annauniv-logo.png" alt="annauniv-logo" />
+    <div class="web-title-content">
+      <h3>Centre for University - Industry Collaboration</h3>
+      <p>Anna University, Chennai</p>
     </div>
+  </div>
+</div>
+
+<div class="center-wrap">
+  <div class="auth-wrap">
+    <div class="img"></div>
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Login">
+        <form [formGroup]="loginForm">
+          <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="Username" required />
+            <mat-error *ngIf="loginForm.get('Username').invalid"
+              >Please enter the username</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="Password"
+              required
+            />
+            <mat-error *ngIf="loginForm.get('Password').invalid"
+              >Please enter the password</mat-error
+            >
+          </mat-form-field>
+          <button [disabled]="loginForm.invalid">Login</button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Register">
+        <form [formGroup]="loginForm">
+          <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="Username" required />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="Password"
+              required
+            />
+          </mat-form-field>
+          <button>Register</button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

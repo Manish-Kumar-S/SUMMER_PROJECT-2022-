@@ -1,24 +1,66 @@
-@import '../../shared/scss/utilities';
+@import "../../shared/scss/utilities";
+@import "../../shared/scss/model";
+@import "../../shared/scss/inherit";
 
 .header {
-    width: 100%;
-    border-bottom: 1.5px solid gainsboro;
-    padding: 1em;
-    .web-title {
-        display: flex;
-        align-items: center;
-        gap: 1.75em;
-        font-family: "Lato", "Open Sans", sans-serif;
-        img {
-            width: 75px;
-        }
-        .web-title-content {
-            h3 {
-                font-size: 1.4em;
-            }
-            p {
-                color: $sub-color;
-            }
-        }
+  width: 100%;
+  border-bottom: 1.5px solid gainsboro;
+  padding: 1em;
+  .web-title {
+    display: flex;
+    align-items: center;
+    gap: 1.75em;
+    font-family: "Lato", "Open Sans", sans-serif;
+    img {
+      width: 75px;
     }
+    .web-title-content {
+      h3 {
+        font-size: 1.4em;
+      }
+      p {
+        color: $sub-color;
+      }
+    }
+  }
+}
+
+.center-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85%;
+  .auth-wrap {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    height: 55vh;
+    width: 55vw;
+    min-width: 50%;
+    border-radius: 15px;
+    .img {
+      background-image: url("../../../assets/img/regi-img.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2em;
+      button {
+        margin-top: 2em;
+        @extend %buttons;
+        background: $sub-color;
+        padding: 0.5em 1.5em;
+        color: white;
+        border-radius: 0.3em;
+        font-size: 1.1em;
+        width: 100%;
+      }
+    }
+  }
 }
