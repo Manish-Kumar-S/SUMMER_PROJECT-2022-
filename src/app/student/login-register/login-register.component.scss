@@ -1,6 +1,4 @@
-@import "../../shared/scss/utilities";
-@import "../../shared/scss/model";
-@import "../../shared/scss/inherit";
+@import "../../shared/scss/main.scss";
 
 .header {
   width: 100%;
@@ -10,7 +8,7 @@
     display: flex;
     align-items: center;
     gap: 1.75em;
-    font-family: "Lato", "Open Sans", sans-serif;
+    font-family: $primary_font;
     img {
       width: 75px;
     }
@@ -33,11 +31,11 @@
   .auth-wrap {
     display: grid;
     grid-template-columns: 1.5fr 2fr;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: $medium_shadow;
     padding: 1em;
-    height: 55vh;
+    height: 60vh;
     width: 55vw;
-    min-width: 50%;
+    min-width: max(55vw, 60%);
     border-radius: 15px;
     .img {
       background-image: url("../../../assets/img/regi-img.png");
@@ -60,6 +58,40 @@
         border-radius: 0.3em;
         font-size: 1.1em;
         width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,medium)) {
+  .center-wrap {
+    padding: 1.5em;
+    .auth-wrap {
+      grid-template-columns: 1fr;
+      width: 100%;
+      .img {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,small)) {
+  .header {
+    .web-title {
+      gap: 1em;
+      .web-title-content {
+        h3 {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  .center-wrap {
+    height: calc(85% - 122.3px);
+    .auth-wrap {
+      form {
+        padding: 0.85em;
       }
     }
   }
