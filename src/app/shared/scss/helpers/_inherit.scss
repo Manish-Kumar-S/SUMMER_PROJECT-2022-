@@ -3,6 +3,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  transition: all 0.2s ease-in;
   &:disabled {
     background: gainsboro;
     cursor: not-allowed;

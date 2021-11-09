@@ -1,11 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginRegisterComponent } from './login-register/login-register.component';
-import { MaterialModule } from '../shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { StudentRoutingModule } from './student-routing.module';
+import { NgModule } from '@angular/core';
+
+import { NavComponent } from './nav/nav.component';
+import { StudentComponent } from './student.component';
+import { StudentDetailsComponent } from './student-details/student-details.component';
 
 @NgModule({
-  declarations: [LoginRegisterComponent],
-  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  declarations: [NavComponent, StudentComponent, StudentDetailsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    SharedModule,
+    StudentRoutingModule,
+  ],
 })
 export class StudentModule {}

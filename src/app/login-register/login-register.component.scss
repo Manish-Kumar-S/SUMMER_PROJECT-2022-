@@ -1,4 +1,4 @@
-@import "../../shared/scss/main.scss";
+@import "../shared/scss/main.scss";
 
 .header {
   width: 100%;
@@ -38,7 +38,7 @@
     min-width: max(55vw, 60%);
     border-radius: 15px;
     .img {
-      background-image: url("../../../assets/img/regi-img.png");
+      background-image: url("../../assets/img/regi-img.png");
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
@@ -52,12 +52,24 @@
       button {
         margin-top: 2em;
         @extend %buttons;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
         background: $sub-color;
         padding: 0.5em 1.5em;
         color: white;
         border-radius: 0.3em;
         font-size: 1.1em;
         width: 100%;
+        &:hover {
+          outline: 2px solid $sub-color;
+          outline-offset: 0.3em;
+        }
+        &:disabled {
+          transform: scale(1);
+          outline: none;
+        }
       }
     }
   }
