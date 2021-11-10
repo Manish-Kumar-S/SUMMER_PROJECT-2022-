@@ -1,5 +1,9 @@
 @import "../shared/scss/main.scss";
 
+.msg {
+  width: 100%;
+}
+
 .header {
   width: 100%;
   border-bottom: 1.5px solid gainsboro;
@@ -62,13 +66,34 @@
         border-radius: 0.3em;
         font-size: 1.1em;
         width: 100%;
+        span {
+          opacity: 0;
+          margin-left: -10%;
+        }
         &:hover {
           outline: 2px solid $sub-color;
           outline-offset: 0.3em;
+          span {
+            animation: btn_slide 0.4s ease-in-out;
+            animation-fill-mode: forwards;
+          }
         }
         &:disabled {
           transform: scale(1);
           outline: none;
+          span {
+            animation: none;
+          }
+        }
+        @keyframes btn_slide {
+          from {
+            opacity: 0;
+            margin-left: -10%;
+          }
+          to {
+            opacity: 1;
+            margin-left: 0%;
+          }
         }
       }
     }

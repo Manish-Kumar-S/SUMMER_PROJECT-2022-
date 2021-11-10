@@ -1,3 +1,4 @@
+<app-adblock *ngIf="adBlockDetected"></app-adblock>
 <div class="header">
   <div class="web-title">
     <img src="../../../assets/img/annauniv-logo.png" alt="annauniv-logo" />
@@ -14,6 +15,7 @@
     <mat-tab-group mat-align-tabs="start">
       <mat-tab label="Login">
         <form [formGroup]="loginForm">
+          <div class="msg error" *ngIf="loginError">{{ loginError }}</div>
           <mat-form-field class="form-field">
             <mat-label>Email</mat-label>
             <input matInput type="text" formControlName="email" required />
@@ -33,6 +35,17 @@
               >Please enter the password</mat-error
             >
           </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let role of roles" [value]="role.id">{{
+                role.name
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="loginForm.get('role').invalid"
+              >Please enter the role</mat-error
+            >
+          </mat-form-field>
           <button [disabled]="loginForm.invalid" (click)="onLogin()">
             Login
             <span class="material-icons"> east </span>
@@ -41,6 +54,7 @@
       </mat-tab>
       <mat-tab label="Register">
         <form [formGroup]="registerForm">
+          <div class="msg error" *ngIf="registerError">{{ registerError }}</div>
           <mat-form-field class="form-field">
             <mat-label>Email</mat-label>
             <input matInput type="text" formControlName="email" required />
@@ -58,17 +72,6 @@
             />
             <mat-error *ngIf="registerForm.get('password').invalid"
               >Please enter the password</mat-error
-            >
-          </mat-form-field>
-          <mat-form-field class="form-field">
-            <mat-label>Role</mat-label>
-            <mat-select formControlName="role">
-              <mat-option *ngFor="let role of roles" [value]="role.id">{{
-                role.name
-              }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.get('role').invalid"
-              >Please enter the role</mat-error
             >
           </mat-form-field>
           <button [disabled]="registerForm.invalid" (click)="onRegister()">
