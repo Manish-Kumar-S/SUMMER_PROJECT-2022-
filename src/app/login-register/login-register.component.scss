@@ -1,4 +1,4 @@
-@import "../shared/scss/main.scss";
+@import "/src/app/shared/scss/main.scss";
 
 .msg {
   width: 100%;
@@ -42,7 +42,7 @@
     min-width: max(55vw, 60%);
     border-radius: 15px;
     .img {
-      background-image: url("../../assets/img/regi-img.png");
+      background-image: url("#{$img_url}/regi-img.png");
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;

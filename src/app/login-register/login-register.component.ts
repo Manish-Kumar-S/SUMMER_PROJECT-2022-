@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../shared/auth/auth.service';
+import { API, IMG_URL } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-register',
@@ -17,9 +18,11 @@ export class LoginRegisterComponent implements OnInit {
   loginError: string;
   registerError: string;
   adBlockDetected: boolean;
+  logo: string;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.url = 'http://localhost:9000/api/v1/user';
+    this.url = `${API}/user`;
+    this.logo = `${IMG_URL}/annauniv-logo.png`;
     this.adBlockDetected = false;
     this.roles = [
       { id: 1, name: 'Student' },

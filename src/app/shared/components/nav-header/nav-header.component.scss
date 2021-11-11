@@ -1,4 +1,4 @@
-@import "../scss/main.scss";
+@import "/src/app/shared/scss/main.scss";
 
 :host {
   width: 100%;
@@ -44,7 +44,7 @@
   background-size: 1.5em;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url("../../../assets/svg/user-menu.svg");
+  background-image: url("#{$svg_url}/user-menu.svg");
   filter: invert(1);
   cursor: pointer;
   display: block;
@@ -74,7 +74,7 @@
   }
 
   .icon-user {
-    background-image: url("../../../assets/svg/user-drop.svg");
+    background-image: url("#{$svg_url}/user-drop.svg");
     filter: unset;
   }
   .user-info {
@@ -120,10 +120,10 @@
         margin-right: 0.5em;
 
         &.log {
-          background-image: url("../../../assets/svg/logout.svg");
+          background-image: url("#{$svg_url}/logout.svg");
         }
         &.pass {
-          background-image: url("../../../assets/svg/password.svg");
+          background-image: url("#{$svg_url}/password.svg");
         }
       }
     }

@@ -1,12 +1,12 @@
 // Helpers
-@import "./helpers/inherit";
-@import "./helpers/variables";
+@import "/src/app/shared/scss/helpers/inherit";
+@import "/src/app/shared/scss/helpers/variables";
 
 // Base
-@import "./base/fonts";
-@import "./base/material";
+@import "/src/app/shared/scss/base/fonts";
+@import "/src/app/shared/scss/base/material";
 
 // Layouts
-@import "./layouts/msg";
-@import "./layouts/form";
-@import "./layouts/nav";
+@import "/src/app/shared/scss/layouts/msg";
+@import "/src/app/shared/scss/layouts/form";
+@import "/src/app/shared/scss/layouts/nav";
