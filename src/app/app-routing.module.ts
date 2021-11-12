@@ -3,7 +3,11 @@ import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 
 const routes: Routes = [
-  { path: '', component: LoginRegisterComponent },
+  {
+    path: '',
+    component: LoginRegisterComponent,
+    data: { title: 'CUIC | Anna University' },
+  },
   {
     path: 'student',
     loadChildren: () =>
@@ -16,7 +20,7 @@ const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
   scrollOffset: [0, 120],
   relativeLinkResolution: 'legacy',
-  useHash: true,
+  useHash: false,
 };
 @NgModule({
   imports: [RouterModule.forRoot(routes, routerOptions)],

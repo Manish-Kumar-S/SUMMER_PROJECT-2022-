@@ -9,16 +9,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  isHandset$: Observable<boolean>;
+  isClicked: boolean;
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.isHandset$ = this.breakpointObserver
-      .observe([Breakpoints.XSmall, Breakpoints.Small])
-      .pipe(
-        map((result) => result.matches),
-        shareReplay()
-      );
+    this.isClicked = false;
   }
 
   ngOnInit(): void {}
+
+  onToggle() {
+    this.isClicked = !this.isClicked;
+  }
 }

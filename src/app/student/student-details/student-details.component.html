@@ -1,3 +1,43 @@
 <div class="container">
-  <p>student-details works!</p>
+  <div class="main">
+    <div class="profile-section">
+      <div class="profile-left">
+        <div class="image-wrap">
+          <img [src]="photographLink" class="profile-photo" />
+        </div>
+        <h2 class="student-name">{{ student.firstName }}</h2>
+        <span class="register-no">{{ student.regNo }}</span>
+        <span class="college">Department of Computer Technology</span>
+        <span class="college">Anna University, MIT Campus, India</span>
+      </div>
+      <div class="vertical-line-break"></div>
+      <div class="profile-right">
+        <h3 class="section-title">
+          <span>Profile</span>
+          <!-- *ngIf="fetched && Status === null" -->
+          <!-- (click)="onOpenModel()" -->
+          <span class="edit-icon">Edit Profile</span>
+        </h3>
+        <div class="text-wrap">
+          <span class="label">Name</span>
+          <p>
+            {{ student.firstName }}
+            {{ student.lastName }}
+          </p>
+        </div>
+        <div class="text-wrap">
+          <span class="label">Email Address</span>
+          <p>
+            <a>{{ student.email }}</a>
+          </p>
+        </div>
+        <div class="text-wrap">
+          <span class="label">Contact</span>
+          <p>
+            <a>{{ student.phone }}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

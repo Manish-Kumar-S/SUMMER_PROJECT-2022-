@@ -21,7 +21,7 @@
         font-size: 1.4em;
       }
       p {
-        color: $sub-color;
+        color: $primary-color;
       }
     }
   }
@@ -60,7 +60,7 @@
         align-items: center;
         justify-content: center;
         gap: 1em;
-        background: $sub-color;
+        background: $primary-color;
         padding: 0.5em 1.5em;
         color: white;
         border-radius: 0.3em;
@@ -71,7 +71,7 @@
           margin-left: -10%;
         }
         &:hover {
-          outline: 2px solid $sub-color;
+          outline: 2px solid $primary-color;
           outline-offset: 0.3em;
           span {
             animation: btn_slide 0.4s ease-in-out;
