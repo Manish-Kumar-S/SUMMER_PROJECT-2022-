@@ -1,0 +1,296 @@
+<div fxLayout="column" fxFlexOffset="40px" fxLayoutGap="30px" fxFlex style="height: 90vh">
+
+  <div fxFlex="1%"></div>
+
+  <h1>Enroll Campus Drive</h1>
+
+  <form fxLayout="column">
+
+    <H3>Company Details</H3>
+    <br>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Company Name</mat-label>
+        <input matInput placeholder="Company Name" disabled>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Drive Name</mat-label>
+        <input matInput placeholder="Campus Drive Name" required>
+        <!-- <mat-hint>Eg. SDE</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Roles</mat-label>
+        <input matInput placeholder="Role Offered" required>
+        <mat-hint>Eg. SDE</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Role type</mat-label>
+        <mat-select required>
+          <mat-option value="fte">Full Time Employment</mat-option>
+          <mat-option value="fte+intern">Internship + Full Time Employment</mat-option>
+          <mat-option value="intern">Internship Only</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>About the Company</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Job Description Link</mat-label>
+        <input matInput placeholder="Job Description PDF Link">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <br>
+
+    <H3>Eligbility Criteria</H3>
+    <br>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>UG CGPA Criteria</mat-label>
+        <mat-select required>
+          <mat-option value="9">9+</mat-option>
+          <mat-option value="8.5">8.5+</mat-option>
+          <mat-option value="8">8+</mat-option>
+          <mat-option value="7.5">7.5+</mat-option>
+          <mat-option value="7">7+</mat-option>
+          <mat-option value="6.5">6.5+</mat-option>
+          <mat-option value="6">6+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>PG CGPA Criteria</mat-label>
+        <mat-select>
+          <mat-option value="9">9+</mat-option>
+          <mat-option value="8.5">8.5+</mat-option>
+          <mat-option value="8">8+</mat-option>
+          <mat-option value="7.5">7.5+</mat-option>
+          <mat-option value="7">7+</mat-option>
+          <mat-option value="6.5">6.5+</mat-option>
+          <mat-option value="6">6+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="60%" required>
+        <mat-label>Allow students with History of Arrears?</mat-label>
+        <div fxFlex="10%"></div>
+        <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
+        <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <br>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>HSC (Xth Marks) Criteria</mat-label>
+        <mat-select required>
+          <!-- <mat-option value="9">90%+</mat-option> -->
+          <mat-option value="80">80%+</mat-option>
+          <mat-option value="75">75%+</mat-option>
+          <mat-option value="70">70%+</mat-option>
+          <mat-option value="60">60%+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>SSLC (XIIth Marks) Criteria</mat-label>
+        <mat-select required>
+          <!-- <mat-option value="9">90%+</mat-option> -->
+          <mat-option value="80">80%+</mat-option>
+          <mat-option value="75">75%+</mat-option>
+          <mat-option value="70">70%+</mat-option>
+          <mat-option value="60">60%+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Eligible Departments</mat-label>
+        <mat-select [formControl]="dept" multiple>
+          <mat-select-trigger>
+            {{dept.value ? dept.value[0] : ''}}
+            <span *ngIf="dept.value?.length > 1" class="example-additional-selection">
+              (+{{dept.value.length - 1}} {{dept.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let val of deptList" [value]="val">{{val}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <br>
+
+    <h3>Interview/Shortlist Process</h3>
+    <br>
+
+
+
+    <div fxLayout="column">
+
+      <div>
+        <mat-form-field appearance="outline" fxFlex="30%">
+          <mat-label>Pre-Placement Talk Schedule</mat-label>
+          <input matInput type="datetime-local" placeholder="start date" required>
+          <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+        </mat-form-field>
+      </div>
+
+      <b>Please Select Applicable Rounds:</b>
+      <mat-checkbox value="1">Aptitude/Physometric Assesment</mat-checkbox>
+      <mat-checkbox value="2">Coding Assesment</mat-checkbox>
+      <mat-checkbox value="2">Group Discussion</mat-checkbox>
+      <mat-checkbox value="3">Technical Interview 1</mat-checkbox>
+      <mat-checkbox value="4">Technical Interview 2</mat-checkbox>
+      <mat-checkbox value="5">Technical Interview 3</mat-checkbox>
+      <mat-checkbox value="6">HR Interview</mat-checkbox>
+    </div>
+
+    <br>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="30%">
+        <mat-label>First Assesment Schedule</mat-label>
+        <input matInput type="datetime-local" placeholder="start date" required>
+        <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
+      </mat-form-field>
+      <div fxFlex="1%"></div>
+      <mat-form-field appearance="outline" fxFlex="30%">
+        <mat-label>Interview Schedule</mat-label>
+        <input matInput type="datetime-local" placeholder="start date" required>
+        <mat-hint>Date for the First Interview Round</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br>
+
+    <H3>Compensation Details</H3>
+    <br>
+
+    <h4>FTE Compensation</h4>
+    <div>
+      <mat-form-field appearance="outline" fxFlex="40%" floatLabel="always">
+        <mat-label>Salary Offered for UG</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" required>
+        <span matPrefix>₹&nbsp;</span>
+        <span matSuffix>CTC</span>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="40%" floatLabel="always">
+        <mat-label>Salary Offered for PG</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" required>
+        <span matPrefix>₹&nbsp;</span>
+        <span matSuffix>CTC</span>
+      </mat-form-field>
+    </div>
+
+    <h4>Intern Compensation</h4>
+    <div>
+      <mat-form-field appearance="outline" fxFlex="40%" floatLabel="always">
+        <mat-label>Stipend Offered for UG</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0">
+        <span matPrefix>₹&nbsp;</span>
+        <span matSuffix>CTC</span>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="40%" floatLabel="always">
+        <mat-label>Stipend Offered for PG</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0">
+        <span matPrefix>₹&nbsp;</span>
+        <span matSuffix>CTC</span>
+      </mat-form-field>
+    </div>
+
+    <h3>Bond Details</h3>
+    <br>
+
+    <div>
+      <mat-radio-group aria-label="Bond Applicable?" fxFlex="40%" required (change)="showBondDetails($event)">
+        <mat-label>Bond Applicable?</mat-label>
+        <div fxFlex="10%"></div>
+        <mat-radio-button value="1" fxFlex="30%" selected>Applicable</mat-radio-button>
+        <mat-radio-button value="2" fxFlex="30%">Not Applicable</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div [fxShow]="bond">
+      <mat-form-field appearance="outline" fxFlex="40%">
+        <mat-label>Bond Period (Months/Years)</mat-label>
+        <mat-select required>
+          <mat-option value="0.5">6 Months</mat-option>
+          <mat-option value="1">1 Year</mat-option>
+          <mat-option value="2">2 Years</mat-option>
+          <mat-option value="3">3 Years</mat-option>
+          <mat-option value="4">4 Years</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div [fxShow]="bond">
+      <mat-form-field appearance="outline" fxFlex="40%" floatLabel="always">
+        <mat-label>Bond Breakage Amount(If Any)</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0">
+        <span matPrefix>₹&nbsp;</span>
+        <span matSuffix>INR</span>
+      </mat-form-field>
+    </div>
+
+    <br>
+
+    <h3>Other Information</h3>
+    <br>
+    
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Other Details/Instructions(if any)</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </div>
+
+    
+    <div>
+      <button mat-raised-button color="primary" fxFlex="20%">Submit</button>
+    </div>
+
+    <div style="height: 40vh;"></div>
+
+  </form>
+
+</div>
+<div fxLayout="column" fxFlexOffSet="40px"></div>

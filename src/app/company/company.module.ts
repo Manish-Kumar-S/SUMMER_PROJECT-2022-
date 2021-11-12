@@ -9,12 +9,17 @@ import { SharedModule } from '../shared/shared.module';
 import { MatTableModule } from '@angular/material/table';
 import { CompanyDashboardComponent } from './dashboard/dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CampusDriveComponent } from './campus-drive/campus-drive.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
   declarations: [
     CompanyComponent,
     CompanyDashboardComponent,
+    CampusDriveComponent,
     NavComponent
   ],
   imports: [
@@ -23,6 +28,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatCheckboxModule,
     FlexLayoutModule,
     RouterModule,
     SharedModule
