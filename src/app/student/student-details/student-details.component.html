@@ -1,41 +1,92 @@
 <div class="container">
-  <div class="main">
-    <div class="profile-section">
-      <div class="profile-left">
-        <div class="image-wrap">
-          <img [src]="photographLink" class="profile-photo" />
+  <div class="btn-container">
+    <button>Edit Personal Details</button>
+  </div>
+  <div class="grid c-2">
+    <div class="box">
+      <div class="img-container">
+        <img [src]="photographLink" alt="Profile" class="img" />
+        <div class="header-content">
+          <h3>Jitiendran KS</h3>
+          <p>2018503527</p>
         </div>
-        <h2 class="student-name">{{ student.firstName }}</h2>
-        <span class="register-no">{{ student.regNo }}</span>
-        <span class="college">Department of Computer Technology</span>
-        <span class="college">Anna University, MIT Campus, India</span>
       </div>
-      <div class="vertical-line-break"></div>
-      <div class="profile-right">
-        <h3 class="section-title">
-          <span>Profile</span>
-          <!-- *ngIf="fetched && Status === null" -->
-          <!-- (click)="onOpenModel()" -->
-          <span class="edit-icon">Edit Profile</span>
-        </h3>
-        <div class="text-wrap">
-          <span class="label">Name</span>
-          <p>
-            {{ student.firstName }}
-            {{ student.lastName }}
-          </p>
+      <div class="additional-details">
+        <div class="details">
+          <i class="far fa-envelope"></i>
+          <p>jitiendranjiji2000@gmail.com</p>
         </div>
-        <div class="text-wrap">
-          <span class="label">Email Address</span>
-          <p>
-            <a>{{ student.email }}</a>
-          </p>
+        <div class="details">
+          <i class="fas fa-mobile-alt"></i>
+          <p>+91 6379277452</p>
         </div>
-        <div class="text-wrap">
-          <span class="label">Contact</span>
-          <p>
-            <a>{{ student.phone }}</a>
-          </p>
+        <div class="details">
+          <i class="far fa-building"></i>
+          <p>Madras Insitute Of Technology</p>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <h3>College Information</h3>
+      <div class="additional-details">
+        <div class="grid c-2 equal">
+          <div class="details col">
+            <h3>Programme</h3>
+            <p class="outline">B.E.</p>
+          </div>
+          <div class="details col">
+            <h3>Branch</h3>
+            <p class="outline">Computer Science and Engineering</p>
+          </div>
+          <div class="details col">
+            <h3>Course Type</h3>
+            <p class="outline">Full Time</p>
+          </div>
+          <div class="details col">
+            <h3>Current Arrears</h3>
+            <p class="outline">No</p>
+          </div>
+          <div class="details col">
+            <h3>History Of Arrears</h3>
+            <p class="outline">No</p>
+          </div>
+          <div class="details col">
+            <h3>Number of Arrears</h3>
+            <p class="outline">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid c-1">
+    <div class="box">
+      <h3>Educational Information</h3>
+      <div class="additional-details">
+        <div class="grid c-2 equal">
+          <div class="details col">
+            <h3>SSLC School Name</h3>
+            <p class="outline">Prince Matriculation Higher Secondary School</p>
+          </div>
+          <div class="details col">
+            <h3>SSLC percentage</h3>
+            <p class="outline">96.8</p>
+          </div>
+          <div class="details col">
+            <h3>HSC Institution Name</h3>
+            <p class="outline">Prince Matriculation Higher Secondary School</p>
+          </div>
+          <div class="details col">
+            <h3>HSC Percentage</h3>
+            <p class="outline">92.5</p>
+          </div>
+          <div class="details col">
+            <h3>UG Percentage</h3>
+            <p class="outline">9.9</p>
+          </div>
+          <div class="details col">
+            <h3>Year Gap</h3>
+            <p class="outline">0</p>
+          </div>
         </div>
       </div>
     </div>

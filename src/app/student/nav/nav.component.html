@@ -1,6 +1,15 @@
 <div class="main">
   <div class="nav-wrapper">
-    <h3>Student Portal</h3>
+    <div class="icon-container">
+      <div class="icon-wrapper">
+        <img
+          [src]="imgUrl + '/annauniv-logo-transparent.png'"
+          alt="Anna University"
+        />
+        <h3>CUIC | Student</h3>
+      </div>
+      <div class="line"></div>
+    </div>
     <div class="nav">
       <a
         routerLink="/"
@@ -16,7 +25,7 @@
       </a>
       <a routerLink="#" routerLinkActive="active">
         <i class="fas fa-building"></i>
-        <span>Companies</span>
+        <span>Upcoming Companies</span>
       </a>
     </div>
     <div class="dropup-wrap">
@@ -25,8 +34,10 @@
         <button>Logout</button>
       </div>
       <div class="profile-wrap" (click)="onToggle()">
-        <img src="../../../assets/img/back.jpg" alt="" />
+        <img [src]="imgUrl + '/back.jpg'" alt="user" />
         <span>Jitiendran</span>
+        <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
+        <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
       </div>
     </div>
   </div>
