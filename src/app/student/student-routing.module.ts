@@ -8,8 +8,15 @@ const routes: Routes = [
     path: '',
     component: StudentComponent,
     children: [
-      { path: '', redirectTo: 'personal-details' },
-      { path: 'personal-details', component: StudentDetailsComponent },
+      {
+        path: '',
+        redirectTo: 'personal-details',
+      },
+      {
+        path: 'personal-details',
+        component: StudentDetailsComponent,
+        data: { title: 'CUIC | Student' },
+      },
     ],
   },
 ];
