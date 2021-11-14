@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { API } from 'src/environments/environment';
 
 export interface DashboardData {
   position: number;
@@ -26,10 +27,21 @@ export class CompanyDashboardComponent implements OnInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
+  url: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
+    this.url = API;
     this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status'];
     this.dataSource = ELEMENT_DATA;
+
+    // const form = new FormData();
+    // form.append('email', 'admin@admin.com');
+    // form.append('password', 'asd');
+    // form.append('role', '3');
+    // this.http.post(`${this.url}/admin/registercompany`, form).subscribe(
+    //   (data) => console.log(data),
+    //   (err) => console.log(err)
+    // );
   }
 
   ngOnInit(): void {

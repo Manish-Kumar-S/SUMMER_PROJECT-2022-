@@ -1,12 +1,162 @@
-<div fxLayout="column" fxFlexOffset="40px" fxLayoutGap="30px" fxFlex style="height: 90vh">
+<div fxLayout="column" fxFlexOffset="40px" fxLayoutGap="20px" fxFlex class="container">
 
   <div fxFlex="1%"></div>
 
   <h1>Dashboard</h1>
 
   <div>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-spinner [fxShow]="false" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="height: 100px;">
+          <mat-panel-title fxFlex="100%">
+            <div fxLayout="column" fxLayoutGap="10px" fxFlex>
+              <h3 fxFlex="100%"> Pienzatech Campus Drive Anna University</h3>
+              <div fxLayout="row">
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="30%">
+                    <p> Role: </p>
+                    <p> Applied On: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="70%">
+                    <i>SDE</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Online test Schedule </p>
+                    <p> Interview Schedule: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>19/01/2021</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Eligible Departments </p>
+                    <p> CGPA Criteria </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>CSE, IT, MECH, AUTO...</i>
+                    <i>7.5+</i>
+                  </div>
+                </div>
+              </div>
+              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
+              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div fxFlex="100%">
+          <div fxLayout="column" fxLayoutGap="5px">
+
+            <div fxLayout="column">
+              <div fxLayoutAlign="end">
+                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
+                <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
+              </div>
+              <br>
+              <mat-divider></mat-divider>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" min="1">
+            </mat-form-field>
+          </div>
+          
+        </div>
     
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="70%">
+      </mat-expansion-panel>
+    
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="height: 100px;">
+          <mat-panel-title fxFlex="100%">
+            <div fxLayout="column" fxLayoutGap="10px" fxFlex>
+              <h3 fxFlex="100%">  Pienzatech Intern Campus Drive Anna University <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
+              <div fxLayout="row">
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="30%">
+                    <p> Role: </p>
+                    <p> Applied On: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="70%">
+                    <i>SDE</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Online test Schedule </p>
+                    <p> Interview Schedule: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>19/01/2021</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Eligible Departments </p>
+                    <p> CGPA Criteria </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>CSE, IT, MECH, AUTO...</i>
+                    <i>7.5+</i>
+                  </div>
+                </div>
+              </div>
+              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
+              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div fxFlex="100%">
+          <div fxLayout="column" fxLayoutGap="5px">
+
+            <div fxLayout="column">
+              <div fxLayoutAlign="end">
+                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
+                <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
+              </div>
+              <br>
+              <mat-divider></mat-divider>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" min="1">
+            </mat-form-field>
+
+            <app-campus-drive></app-campus-drive>
+          </div>
+          
+        </div>
+    
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div>
+    
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="100%">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
