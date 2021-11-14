@@ -15,15 +15,15 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('errorJWT');
   }
 
   isAuthenticated() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('errorJWT');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('errorJWT');
     this.router.navigateByUrl('/');
   }
 }

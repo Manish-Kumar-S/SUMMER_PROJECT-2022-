@@ -6,8 +6,8 @@
 
   <div>
     <mat-accordion class="example-headers-align" multi>
-      <mat-spinner [fxShow]="false" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
-      <mat-expansion-panel>
+      <mat-spinner [fxShow]="isLoading" [fxHide]="!isLoading" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
+      <mat-expansion-panel [fxHide]="isLoading">
         <mat-expansion-panel-header style="height: 100px;">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>

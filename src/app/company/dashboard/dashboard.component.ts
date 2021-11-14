@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { API } from 'src/environments/environment';
 
 export interface DashboardData {
@@ -23,28 +24,51 @@ const ELEMENT_DATA: DashboardData[] = [
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class CompanyDashboardComponent implements OnInit {
+export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
-  url: any;
+  driveResponse: any;
+  dashData: any[];
 
-  constructor(private http: HttpClient) {
-    this.url = API;
+  isLoading: boolean;
+
+  constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
+    this.isLoading = true;
     this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status'];
     this.dataSource = ELEMENT_DATA;
-
-    // const form = new FormData();
-    // form.append('email', 'admin@admin.com');
-    // form.append('password', 'asd');
-    // form.append('role', '3');
-    // this.http.post(`${this.url}/admin/registercompany`, form).subscribe(
-    //   (data) => console.log(data),
-    //   (err) => console.log(err)
-    // );
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+
+    console.log('sending req');
+
+    const form = new FormData();
+    form.append('email', 'company@company.com');
+    form.append('password', 'asd');
+    form.append('role', '2');
+    this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
+      (data) => {
+        console.log(data)
+        localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
+        console.log(data.headers.get('Tokenstring'));
+      },
+      (err) => console.log(err)
+    );
+
+    this.http.get(`${API}/company/drive`).subscribe((res) => {
+      this.driveResponse = res;
+      console.log(res);
+      this.isLoading = false;
+      this.changeDetection.markForCheck();
+      this.driveResponse.forEach(e => {
+        console.log(e);
+        this.dashData.push(e);
+      });
+    })
   }
 
 }
