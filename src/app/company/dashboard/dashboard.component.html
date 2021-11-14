@@ -132,17 +132,183 @@
               <mat-divider></mat-divider>
             </div>
 
-            <mat-form-field appearance="fill">
-              <mat-label>First name</mat-label>
-              <input matInput>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>Age</mat-label>
-              <input matInput type="number" min="1">
-            </mat-form-field>
+            <div fxLayout="row" fxFlex fxLayoutGap="50px">
 
-            <app-campus-drive></app-campus-drive>
+              <div fxLayout="column" fxFlex="60%">
+
+                <h3>Change Interview/Shortlist Process</h3>
+                <br>
+
+                <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
+
+                  <div fxLayout="column" fxFlex>
+
+                    <b>Please Select Applicable Rounds:</b>
+                    <mat-checkbox value="1">Aptitude/Physometric Assesment</mat-checkbox>
+                    <mat-checkbox value="2">Coding Assesment</mat-checkbox>
+                    <mat-checkbox value="2">Group Discussion</mat-checkbox>
+                    <mat-checkbox value="3">Technical Interview 1</mat-checkbox>
+                    <mat-checkbox value="4">Technical Interview 2</mat-checkbox>
+                    <mat-checkbox value="5">Technical Interview 3</mat-checkbox>
+                    <mat-checkbox value="6">HR Interview</mat-checkbox>
+      
+                  </div>
+      
+                  <div fxLayout="column" fxFlex>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Pre-Placement Talk Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>First Assesment Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Interview Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <mat-hint>Date for the First Interview Round</mat-hint>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <br>
+
+                <H3>Update Compensation Details</H3>
+                <br>
+
+                <div fxLayout="row" fxFlex fxLayoutGap="5px">
+
+                  <div fxLayout="column" fxFlex>
+                    
+                    <h4>FTE Compensation</h4>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Salary Offered for UG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0" required>
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Salary Offered for PG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0" required>
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                  <div fxLayout="column" fxFlex>
+
+                    <h4>Intern Compensation</h4>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Stipend Offered for UG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0">
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Stipend Offered for PG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0">
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div fxLayout="column" fxFlex="40%">
+
+                <H3>Update Eligbility Criteria</H3>
+                <br>
+
+                <div>
+                  <mat-form-field appearance="outline" fxFlex="60%">
+                    <mat-label>UG CGPA Criteria</mat-label>
+                    <mat-select required>
+                      <mat-option value="9">9+</mat-option>
+                      <mat-option value="8.5">8.5+</mat-option>
+                      <mat-option value="8">8+</mat-option>
+                      <mat-option value="7.5">7.5+</mat-option>
+                      <mat-option value="7">7+</mat-option>
+                      <mat-option value="6.5">6.5+</mat-option>
+                      <mat-option value="6">6+</mat-option>
+                    </mat-select>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field appearance="outline" fxFlex="60%">
+                    <mat-label>PG CGPA Criteria</mat-label>
+                    <mat-select>
+                      <mat-option value="9">9+</mat-option>
+                      <mat-option value="8.5">8.5+</mat-option>
+                      <mat-option value="8">8+</mat-option>
+                      <mat-option value="7.5">7.5+</mat-option>
+                      <mat-option value="7">7+</mat-option>
+                      <mat-option value="6.5">6.5+</mat-option>
+                      <mat-option value="6">6+</mat-option>
+                    </mat-select>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="60%" required>
+                    <mat-label>Allow students with History of Arrears?</mat-label>
+                    <div fxFlex="10%"></div>
+                    <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
+                    <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
+
+            </div>
+
+            
+
+          </div>
+
+            
+
+            
+
+          <h3>Other Information</h3>
+          <br>
+          
+          <div>
+            <mat-form-field appearance="outline" fxFlex="60%">
+              <mat-label>Other Details/Instructions(if any)</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+
+          
+          <div>
+            <button mat-raised-button color="primary" fxFlex="20%">Submit</button>
           </div>
           
         </div>
