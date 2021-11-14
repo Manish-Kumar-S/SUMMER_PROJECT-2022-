@@ -58,17 +58,20 @@ export class LoginRegisterComponent implements OnInit {
     form.append('email', this.loginForm.get('email').value);
     form.append('password', this.loginForm.get('password').value);
     form.append('role', this.loginForm.get('role').value);
-    this.http.post(`${this.url}/authenticate`, form).subscribe(
-      (data) => console.log(data),
-      (err) => (this.loginError = err.error)
-    );
+    this.http
+      .post<any>(`${this.url}/authenticate`, form,{observe: 'response'})
+      .subscribe((data) => {
+          console.log(data.headers.get('Tokenstring'))
+          localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
+        }
+      );
   }
 
   onRegister() {
     const form = new FormData();
     form.append('email', this.registerForm.get('email').value);
     form.append('password', this.registerForm.get('password').value);
-    form.append('role', this.registerForm.get('role').value);
+    // form.append('role', this.registerForm.get('role').value);
     this.http.post(`${this.url}/register`, form).subscribe(
       (data) => console.log(data),
       (err) => (this.registerError = err.Error)

@@ -13,11 +13,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./student/student.module').then((mod) => mod.StudentModule),
   },
-  {
-    path: 'company',
-    loadChildren: () =>
-      import('./company/company.module').then((mod) => mod.CompanyModule),
-  },
+  // {
+  //   path: 'company',
+  //   loadChildren: () =>
+  //     import('./company/company.module').then((mod) => mod.CompanyModule),
+  // },
 ];
 
 const routerOptions: ExtraOptions = {
