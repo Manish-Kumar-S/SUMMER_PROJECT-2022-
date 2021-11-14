@@ -6,24 +6,18 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  ip: string;
-  constructor(private http: HttpClient, private router: Router) {}
-  getIP() {
-    return this.http.get('http://api.ipify.org/?format=json', {
-      headers: { Ignore: 'true' }, // Setting a flag to be ignored in interceptor
-    });
-  }
+  constructor(private router: Router) {}
 
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('errorJWT');
   }
 
   isAuthenticated() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('errorJWT');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('errorJWT');
     this.router.navigateByUrl('/');
   }
 }

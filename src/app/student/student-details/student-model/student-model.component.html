@@ -1,1 +1,163 @@
-<p>student-model works!</p>
+<h2>Student Profile</h2>
+<mat-dialog-content class="model-box">
+  <form [formGroup]="studentForm">
+    <h3 class="model-sub-title">Personal Details</h3>
+    <div class="grid-box">
+      <mat-form-field class="form-field">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="first_name" required />
+        <mat-error *ngIf="studentForm.get('first_name').invalid"
+          >First Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="last_name" required />
+        <mat-error *ngIf="studentForm.get('last_name').invalid"
+          >Last Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Register Number</mat-label>
+        <input matInput formControlName="reg_number" required />
+        <mat-error *ngIf="studentForm.get('reg_number').invalid"
+          >Register Number is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option *ngFor="let gender of genders" [value]="gender">{{
+            gender
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('gender').invalid"
+          >Gender is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" required />
+        <mat-error *ngIf="studentForm.get('phone').invalid"
+          >Phone is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Photograph Link</mat-label>
+        <input matInput formControlName="photograph_link" required />
+        <mat-error *ngIf="studentForm.get('photograph_link').invalid"
+          >Photograph Link is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Resume Link</mat-label>
+        <input matInput formControlName="resume_link" required />
+        <mat-error *ngIf="studentForm.get('resume_link').invalid"
+          >Resume Link is required</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <h3 class="model-sub-title">College Information</h3>
+    <div class="grid-box">
+      <mat-form-field class="form-field">
+        <mat-label>campus</mat-label>
+        <input matInput formControlName="campus" required />
+        <mat-error *ngIf="studentForm.get('campus').invalid"
+          >campus is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Course</mat-label>
+        <input matInput formControlName="course_id" required />
+        <mat-error *ngIf="studentForm.get('course_id').invalid"
+          >Course is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Course Type</mat-label>
+        <input matInput formControlName="course_type" required />
+        <mat-error *ngIf="studentForm.get('course_type').invalid"
+          >Course Type is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Course Percentage</mat-label>
+        <input matInput formControlName="course_percentage" required />
+        <mat-error *ngIf="studentForm.get('course_percentage').invalid"
+          >Course Percentage is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>History Of Arrears</mat-label>
+        <mat-select formControlName="history_of_arrears" required>
+          <mat-option *ngFor="let option of options" [value]="option.value">{{
+            option.key
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('history_of_arrears').invalid"
+          >History Of Arrears is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Current Arrears</mat-label>
+        <mat-select formControlName="current_arrears" required>
+          <mat-option *ngFor="let option of options" [value]="option.value">{{
+            option.key
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('current_arrears').invalid"
+          >Current Arrears is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Number Of Arrears</mat-label>
+        <input matInput formControlName="number_of_arrears" required />
+        <mat-error *ngIf="studentForm.get('number_of_arrears').invalid"
+          >Number Of Arrears is required</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <h3 class="model-sub-title">Educational Details</h3>
+    <div class="grid-box">
+      <mat-form-field class="form-field">
+        <mat-label>Grade 10</mat-label>
+        <input matInput formControlName="grade_10" required />
+        <mat-error *ngIf="studentForm.get('grade_10').invalid"
+          >Grade 10 is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Grade 10 Percentage</mat-label>
+        <input matInput formControlName="grade_10_percentage" required />
+        <mat-error *ngIf="studentForm.get('grade_10_percentage').invalid"
+          >Grade 10 Percentage is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Grade 12</mat-label>
+        <input matInput formControlName="grade_12" required />
+        <mat-error *ngIf="studentForm.get('grade_12').invalid"
+          >Grade 12 is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Grade 12 Percentage</mat-label>
+        <input matInput formControlName="grade_12_percentage" required />
+        <mat-error *ngIf="studentForm.get('grade_12_percentage').invalid"
+          >Grade 12 Percentage is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Year Gap</mat-label>
+        <input matInput formControlName="year_gap" required />
+        <mat-error *ngIf="studentForm.get('year_gap').invalid"
+          >Year Gap is required</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="btn-group">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button class="primary" (click)="onSubmit()">Save</button>
+</mat-dialog-actions>
