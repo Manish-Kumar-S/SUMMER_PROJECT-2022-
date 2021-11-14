@@ -6,13 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  ip: string;
-  constructor(private http: HttpClient, private router: Router) {}
-  getIP() {
-    return this.http.get('http://api.ipify.org/?format=json', {
-      headers: { Ignore: 'true' }, // Setting a flag to be ignored in interceptor
-    });
-  }
+  constructor(private router: Router) {}
 
   getToken() {
     return localStorage.getItem('errorJWT');
