@@ -15,10 +15,8 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // const token = localStorage.getItem('token');
-    // If not a request with a header with Flag = "Ignore" handle normally
     if (request.headers.get('Ignore') !== 'true') {
-      const token = 'awodnfsjnf';
+      const token = this.authService.getToken();
       if (token) {
         return next.handle(this.injectToken(request));
       }
@@ -30,13 +28,11 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
   }
 
   injectToken(request: HttpRequest<any>) {
-    // const token = localStorage.getItem('token');
-    const token = 'awodnfsjnf';
+    const token = this.authService.getToken();
     console.log('This is the token', token);
     return request.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
-        Ip: this.authService.ip,
+        Tokenstring: token,
       },
     });
   }

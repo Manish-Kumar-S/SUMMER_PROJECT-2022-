@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../shared/auth/auth.service';
 import { API, IMG_URL } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-register',
@@ -20,7 +21,7 @@ export class LoginRegisterComponent implements OnInit {
   adBlockDetected: boolean;
   logo: string;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private router: Router) {
     this.url = `${API}/user`;
     this.logo = `${IMG_URL}/annauniv-logo.png`;
     this.adBlockDetected = false;
@@ -41,17 +42,7 @@ export class LoginRegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.authService.getIP().subscribe(
-      (data: any) => {
-        this.ip = data.ip;
-        this.authService.ip = this.ip;
-      },
-      (err) => {
-        if (err.message !== '') this.adBlockDetected = true;
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   onLogin() {
     const form = new FormData();
@@ -59,12 +50,12 @@ export class LoginRegisterComponent implements OnInit {
     form.append('password', this.loginForm.get('password').value);
     form.append('role', this.loginForm.get('role').value);
     this.http
-      .post<any>(`${this.url}/authenticate`, form,{observe: 'response'})
+      .post<any>(`${this.url}/authenticate`, form, { observe: 'response' })
       .subscribe((data) => {
-          console.log(data.headers.get('Tokenstring'))
-          localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
-        }
-      );
+        console.log(data.headers.get('Tokenstring'));
+        this.router.navigateByUrl('student');
+        localStorage.setItem('errorJWT', data.headers.get('Tokenstring'));
+      });
   }
 
   onRegister() {
@@ -72,9 +63,13 @@ export class LoginRegisterComponent implements OnInit {
     form.append('email', this.registerForm.get('email').value);
     form.append('password', this.registerForm.get('password').value);
     // form.append('role', this.registerForm.get('role').value);
-    this.http.post(`${this.url}/register`, form).subscribe(
-      (data) => console.log(data),
-      (err) => (this.registerError = err.Error)
-    );
+    this.http
+      .post(`${this.url}/register`, form, { observe: 'response' })
+      .subscribe(
+        (data) => {
+          console.log(data.headers.get('Tokenstring'));
+        },
+        (err) => (this.registerError = err.Error)
+      );
   }
 }

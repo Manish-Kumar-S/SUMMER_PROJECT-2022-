@@ -1,0 +1,42 @@
+@import "/src/app/shared/scss/main.scss";
+
+.model-box {
+  padding-right: 1.25em;
+  .grid-box {
+    .gender {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      padding-bottom: 1em;
+
+      .form-label {
+        margin-bottom: 0.5em;
+        color: gray;
+        font-size: 0.85em;
+      }
+      .gender-button {
+        flex-shrink: 0;
+        margin-right: 1em;
+        @media only screen and (max-width: 500px) {
+          margin-right: 0;
+          margin-top: 0.75em;
+        }
+      }
+      .gender-radio {
+        @media only screen and (max-width: 500px) {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    &.correspond {
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-bottom: 1.5em;
+
+      .check-button {
+        margin-right: 1em;
+      }
+    }
+  }
+}
