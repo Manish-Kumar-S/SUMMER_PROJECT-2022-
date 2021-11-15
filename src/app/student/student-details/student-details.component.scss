@@ -67,7 +67,7 @@
       .details {
         display: flex;
         align-items: center;
-        gap: 2em;
+        // gap: 2em;
         h3 {
           font-size: 1.02em;
           color: darken(#5f56ed, 2%);
@@ -81,7 +81,16 @@
           outline-offset: 0.45em;
         }
         i {
+          width: 3em;
           font-size: 1.1em;
+        }
+        a {
+          color: black;
+          text-decoration: none;
+          &:hover {
+            color: $primary_color;
+            text-decoration: underline;
+          }
         }
         &.col {
           flex-direction: column;

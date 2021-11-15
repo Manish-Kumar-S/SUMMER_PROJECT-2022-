@@ -10,15 +10,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class StudentModelComponent implements OnInit {
   studentForm: FormGroup;
   genders: string[];
+  boards: string[];
   options: any[];
+  courseTypes: any[];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<StudentModelComponent>
   ) {
     this.genders = ['male', 'female', 'others'];
+    this.boards = ['STATE', 'CBSE', 'ICSE', 'OTHERS'];
     this.options = [
       { key: 'Yes', value: true },
       { key: 'No', value: false },
+    ];
+    this.courseTypes = [
+      {
+        key: 'Full Time',
+        value: 1,
+      },
+      { key: 'Part Time', value: 2 },
     ];
     this.studentForm = new FormGroup({
       first_name: new FormControl(data.student.first_name, Validators.required),
@@ -35,7 +45,7 @@ export class StudentModelComponent implements OnInit {
         Validators.required
       ),
       campus: new FormControl(data.student.campus, Validators.required),
-      course_id: new FormControl(data.student.course_id, Validators.required),
+      course_id: new FormControl(data.student.course, Validators.required),
       course_type: new FormControl(
         data.student.course_type,
         Validators.required
@@ -77,6 +87,10 @@ export class StudentModelComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  displayfn(course: any): string | undefined {
+    return course ? course.name + ' ' + course.branch : undefined;
+  }
+
   onSubmit() {
     const form: FormData = new FormData();
     form.append('first_name', this.studentForm.value['first_name']);
@@ -87,7 +101,7 @@ export class StudentModelComponent implements OnInit {
     form.append('photograph_link', this.studentForm.value['photograph_link']);
     form.append('resume_link', this.studentForm.value['resume_link']);
     form.append('campus', this.studentForm.value['campus']);
-    form.append('course_id', this.studentForm.value['course_id']);
+    form.append('course_id', this.studentForm.value['course_id'].id);
     form.append('course_type', this.studentForm.value['course_type']);
     form.append(
       'course_percentage',

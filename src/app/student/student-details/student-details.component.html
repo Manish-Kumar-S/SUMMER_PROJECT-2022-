@@ -24,6 +24,15 @@
           <i class="far fa-building"></i>
           <p>Madras Insitute Of Technology</p>
         </div>
+        <div class="details">
+          <i class="fas fa-venus" *ngIf="student.gender === 'female'"></i>
+          <i class="fas fa-mars" *ngIf="student.gender === 'male'"></i>
+          <p>{{ student.gender | titlecase }}</p>
+        </div>
+        <div class="details">
+          <i class="far fa-address-card"></i>
+          <a [href]="student.resume_link" target="_blank">Resume Link</a>
+        </div>
       </div>
     </div>
     <div class="box">
@@ -32,7 +41,7 @@
         <div class="grid c-2 equal">
           <div class="details col">
             <h3>Programme</h3>
-            <p class="outline">B.E.</p>
+            <p class="outline">{{ student.course.name }}</p>
           </div>
           <div class="details col">
             <h3>Branch</h3>
@@ -40,44 +49,46 @@
           </div>
           <div class="details col">
             <h3>Course Type</h3>
-            <p class="outline">Full Time</p>
+            <p class="outline">{{ filterCourseType(student.course_type) }}</p>
           </div>
           <div class="details col">
             <h3>Current Arrears</h3>
-            <p class="outline">No</p>
+            <p class="outline">{{ filterOptions(student.current_arrears) }}</p>
           </div>
           <div class="details col">
             <h3>History Of Arrears</h3>
-            <p class="outline">No</p>
+            <p class="outline">
+              {{ filterOptions(student.history_of_arrears) }}
+            </p>
           </div>
           <div class="details col">
             <h3>Number of Arrears</h3>
-            <p class="outline">-</p>
+            <p class="outline">{{ student.number_of_arrears }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="grid c-1">
+  <div class="grid c-1" *ngIf="student">
     <div class="box">
       <h3>Educational Information</h3>
       <div class="additional-details">
         <div class="grid c-2 equal">
           <div class="details col">
             <h3>SSLC Board</h3>
-            <p class="outline">State</p>
+            <p class="outline">{{ student.grade_10 }}</p>
           </div>
           <div class="details col">
             <h3>SSLC percentage</h3>
-            <p class="outline">96.8</p>
+            <p class="outline">{{ student.grade_10_percentage }}</p>
           </div>
           <div class="details col">
             <h3>HSC Board</h3>
-            <p class="outline">CBSE</p>
+            <p class="outline">{{ student.grade_12 }}</p>
           </div>
           <div class="details col">
             <h3>HSC Percentage</h3>
-            <p class="outline">92.5</p>
+            <p class="outline">{{ student.grade_12_percentage }}</p>
           </div>
           <div class="details col">
             <h3>UG Percentage</h3>
@@ -85,7 +96,7 @@
           </div>
           <div class="details col">
             <h3>Year Gap</h3>
-            <p class="outline">0</p>
+            <p class="outline">{{ student.year_gap }}</p>
           </div>
         </div>
       </div>
