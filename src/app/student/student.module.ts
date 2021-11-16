@@ -9,9 +9,10 @@ import { NavComponent } from './nav/nav.component';
 import { StudentComponent } from './student.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentModelComponent } from './student-details/student-model/student-model.component';
+import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-companies.component';
 
 @NgModule({
-  declarations: [NavComponent, StudentComponent, StudentDetailsComponent, StudentModelComponent],
+  declarations: [NavComponent, StudentComponent, StudentDetailsComponent, StudentModelComponent, UpcomingCompaniesComponent],
   imports: [
     CommonModule,
     FormsModule,
