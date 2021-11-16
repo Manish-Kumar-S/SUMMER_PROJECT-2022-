@@ -1,1 +1,213 @@
 @import "/src/app/shared/scss/main.scss";
+
+.main {
+  display: flex;
+  width: 100%;
+  background: $nav-gradient;
+  user-select: none;
+  .nav-wrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 5em;
+
+    .icon-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .icon-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        padding: 1em;
+        img {
+          width: 60px;
+          filter: invert(1);
+        }
+        h3 {
+          display: none;
+          color: #fff;
+          letter-spacing: 1px;
+          padding: 0.3em;
+        }
+      }
+
+      .line {
+        opacity: 0;
+        height: 0.15em;
+        width: 60%;
+        background: #fff;
+      }
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2em;
+      z-index: 10;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        color: #ffffff38;
+        text-decoration: none;
+
+        i {
+          font-size: 1.5em;
+        }
+
+        span {
+          font-size: 1.1em;
+          display: none;
+        }
+
+        &.active {
+          padding: 1em;
+          background: #ffffff38;
+          color: #fff;
+          &::before {
+            display: block;
+          }
+        }
+
+        &:hover {
+          background: #ffffff38;
+        }
+
+        &::before {
+          display: none;
+          content: " ";
+          background: #eb8dff;
+          width: 0.3em;
+          height: 100%;
+        }
+      }
+    }
+
+    .dropup-wrap {
+      margin-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      padding: 1em;
+
+      .dropup {
+        display: none;
+        gap: 0.5em;
+        background: #fff;
+        padding: 0.5em;
+        width: 100%;
+        border-radius: 10px;
+
+        button {
+          width: 100%;
+          background: none;
+          border: none;
+          outline: none;
+          font-size: 1em;
+          cursor: pointer;
+          padding: 0.3em;
+          &:hover {
+            background: #f4f4f4;
+          }
+        }
+      }
+
+      .profile-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        padding: 0.2em;
+
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+
+        span,
+        i {
+          font-size: 1.2em;
+          display: none;
+        }
+      }
+    }
+
+    &:hover {
+      width: 17em;
+
+      .icon-container {
+        .icon-wrapper {
+          h3 {
+            display: block;
+          }
+        }
+        .line {
+          opacity: 1;
+        }
+      }
+
+      .nav {
+        width: 100%;
+        align-items: unset;
+        gap: 1em;
+
+        a {
+          padding: 1em;
+
+          span {
+            display: block;
+          }
+
+          &:hover {
+            color: #fff;
+          }
+
+          &:hover::before {
+            display: block;
+          }
+        }
+      }
+
+      .dropup-wrap {
+        width: 100%;
+
+        .dropup {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .profile-wrap {
+          border-radius: 2em;
+          padding: 0.5em 1.2em;
+
+          span,
+          i {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    margin-left: 5em;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .nav-wrapper:hover + .content {
+    margin-left: 17em;
+  }
+}

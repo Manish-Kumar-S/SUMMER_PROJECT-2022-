@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { API } from 'src/environments/environment';
 
 export interface DashboardData {
   position: number;
@@ -22,17 +24,51 @@ const ELEMENT_DATA: DashboardData[] = [
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class CompanyDashboardComponent implements OnInit {
+export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
+  driveResponse: any;
+  dashData: any[];
 
-  constructor() {
+  isLoading: boolean;
+
+  constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
+    this.isLoading = true;
     this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status'];
     this.dataSource = ELEMENT_DATA;
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+
+    console.log('sending req');
+
+    const form = new FormData();
+    form.append('email', 'company@company.com');
+    form.append('password', 'asd');
+    form.append('role', '2');
+    this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
+      (data) => {
+        console.log(data)
+        localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
+        console.log(data.headers.get('Tokenstring'));
+      },
+      (err) => console.log(err)
+    );
+
+    this.http.get(`${API}/company/drive`).subscribe((res) => {
+      this.driveResponse = res;
+      console.log(res);
+      this.isLoading = false;
+      this.changeDetection.markForCheck();
+      this.driveResponse.forEach(e => {
+        console.log(e);
+        this.dashData.push(e);
+      });
+    })
   }
 
 }

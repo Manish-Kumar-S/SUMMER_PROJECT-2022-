@@ -1,12 +1,328 @@
-<div fxLayout="column" fxFlexOffset="40px" fxLayoutGap="30px" fxFlex style="height: 90vh">
+<div fxLayout="column" fxFlexOffset="40px" fxLayoutGap="20px" fxFlex class="container">
 
   <div fxFlex="1%"></div>
 
   <h1>Dashboard</h1>
 
   <div>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-spinner [fxShow]="isLoading" [fxHide]="!isLoading" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
+      <mat-expansion-panel [fxHide]="isLoading">
+        <mat-expansion-panel-header style="height: 100px;">
+          <mat-panel-title fxFlex="100%">
+            <div fxLayout="column" fxLayoutGap="10px" fxFlex>
+              <h3 fxFlex="100%"> Pienzatech Campus Drive Anna University</h3>
+              <div fxLayout="row">
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="30%">
+                    <p> Role: </p>
+                    <p> Applied On: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="70%">
+                    <i>SDE</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Online test Schedule </p>
+                    <p> Interview Schedule: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>19/01/2021</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Eligible Departments </p>
+                    <p> CGPA Criteria </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>CSE, IT, MECH, AUTO...</i>
+                    <i>7.5+</i>
+                  </div>
+                </div>
+              </div>
+              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
+              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div fxFlex="100%">
+          <div fxLayout="column" fxLayoutGap="5px">
+
+            <div fxLayout="column">
+              <div fxLayoutAlign="end">
+                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
+                <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
+              </div>
+              <br>
+              <mat-divider></mat-divider>
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>First name</mat-label>
+              <input matInput>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" min="1">
+            </mat-form-field>
+          </div>
+          
+        </div>
     
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="70%">
+      </mat-expansion-panel>
+    
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="height: 100px;">
+          <mat-panel-title fxFlex="100%">
+            <div fxLayout="column" fxLayoutGap="10px" fxFlex>
+              <h3 fxFlex="100%">  Pienzatech Intern Campus Drive Anna University <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
+              <div fxLayout="row">
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="30%">
+                    <p> Role: </p>
+                    <p> Applied On: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="70%">
+                    <i>SDE</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Online test Schedule </p>
+                    <p> Interview Schedule: </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>19/01/2021</i>
+                    <i>19/01/2021</i>
+                  </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                  <div fxLayout="column" fxFlex="50%">
+                    <p> Eligible Departments </p>
+                    <p> CGPA Criteria </p>
+                  </div>
+                  <div fxLayout="column" fxFlex="50%">
+                    <i>CSE, IT, MECH, AUTO...</i>
+                    <i>7.5+</i>
+                  </div>
+                </div>
+              </div>
+              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
+              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div fxFlex="100%">
+          <div fxLayout="column" fxLayoutGap="5px">
+
+            <div fxLayout="column">
+              <div fxLayoutAlign="end">
+                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
+                <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
+              </div>
+              <br>
+              <mat-divider></mat-divider>
+            </div>
+
+            <div fxLayout="row" fxFlex fxLayoutGap="50px">
+
+              <div fxLayout="column" fxFlex="60%">
+
+                <h3>Change Interview/Shortlist Process</h3>
+                <br>
+
+                <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
+
+                  <div fxLayout="column" fxFlex>
+
+                    <b>Please Select Applicable Rounds:</b>
+                    <mat-checkbox value="1">Aptitude/Physometric Assesment</mat-checkbox>
+                    <mat-checkbox value="2">Coding Assesment</mat-checkbox>
+                    <mat-checkbox value="2">Group Discussion</mat-checkbox>
+                    <mat-checkbox value="3">Technical Interview 1</mat-checkbox>
+                    <mat-checkbox value="4">Technical Interview 2</mat-checkbox>
+                    <mat-checkbox value="5">Technical Interview 3</mat-checkbox>
+                    <mat-checkbox value="6">HR Interview</mat-checkbox>
+      
+                  </div>
+      
+                  <div fxLayout="column" fxFlex>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Pre-Placement Talk Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>First Assesment Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Interview Schedule</mat-label>
+                        <input matInput type="datetime-local" placeholder="start date" required>
+                        <mat-hint>Date for the First Interview Round</mat-hint>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <br>
+
+                <H3>Update Compensation Details</H3>
+                <br>
+
+                <div fxLayout="row" fxFlex fxLayoutGap="5px">
+
+                  <div fxLayout="column" fxFlex>
+                    
+                    <h4>FTE Compensation</h4>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Salary Offered for UG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0" required>
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Salary Offered for PG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0" required>
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                  <div fxLayout="column" fxFlex>
+
+                    <h4>Intern Compensation</h4>
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Stipend Offered for UG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0">
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
+                        <mat-label>Stipend Offered for PG</mat-label>
+                        <input matInput type="number" class="example-right-align" placeholder="0">
+                        <span matPrefix>₹&nbsp;</span>
+                        <span matSuffix>CTC</span>
+                      </mat-form-field>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div fxLayout="column" fxFlex="40%">
+
+                <H3>Update Eligbility Criteria</H3>
+                <br>
+
+                <div>
+                  <mat-form-field appearance="outline" fxFlex="60%">
+                    <mat-label>UG CGPA Criteria</mat-label>
+                    <mat-select required>
+                      <mat-option value="9">9+</mat-option>
+                      <mat-option value="8.5">8.5+</mat-option>
+                      <mat-option value="8">8+</mat-option>
+                      <mat-option value="7.5">7.5+</mat-option>
+                      <mat-option value="7">7+</mat-option>
+                      <mat-option value="6.5">6.5+</mat-option>
+                      <mat-option value="6">6+</mat-option>
+                    </mat-select>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-form-field appearance="outline" fxFlex="60%">
+                    <mat-label>PG CGPA Criteria</mat-label>
+                    <mat-select>
+                      <mat-option value="9">9+</mat-option>
+                      <mat-option value="8.5">8.5+</mat-option>
+                      <mat-option value="8">8+</mat-option>
+                      <mat-option value="7.5">7.5+</mat-option>
+                      <mat-option value="7">7+</mat-option>
+                      <mat-option value="6.5">6.5+</mat-option>
+                      <mat-option value="6">6+</mat-option>
+                    </mat-select>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+
+                <div>
+                  <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="60%" required>
+                    <mat-label>Allow students with History of Arrears?</mat-label>
+                    <div fxFlex="10%"></div>
+                    <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
+                    <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
+
+            </div>
+
+            
+
+          </div>
+
+            
+
+            
+
+          <h3>Other Information</h3>
+          <br>
+          
+          <div>
+            <mat-form-field appearance="outline" fxFlex="60%">
+              <mat-label>Other Details/Instructions(if any)</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+
+          
+          <div>
+            <button mat-raised-button color="primary" fxFlex="20%">Submit</button>
+          </div>
+          
+        </div>
+    
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div>
+    
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="100%">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
