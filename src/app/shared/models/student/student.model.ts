@@ -5,6 +5,14 @@ export interface StudentModel {
   reg_number: number;
   phone: number;
   campus: string;
+  course: {
+    id: number;
+    name: string;
+    programme: string;
+    stream: string;
+    code: string;
+    branch: string;
+  };
   course_id: number;
   course_type: number;
   course_percentage: number;

@@ -132,6 +132,14 @@
           >Number Of Arrears is required</mat-error
         >
       </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>UG Course (Only for PG)</mat-label>
+        <input matInput formControlName="ug_course" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>UG Course Percentage (Only for PG)</mat-label>
+        <input matInput formControlName="ug_course_percentage" />
+      </mat-form-field>
     </div>
     <h3 class="model-sub-title">Educational Details</h3>
     <div class="grid-box">
@@ -183,5 +191,12 @@
 </mat-dialog-content>
 <mat-dialog-actions class="btn-group">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button class="primary" (click)="onSubmit()">Save</button>
+  <button
+    mat-raised-button
+    class="primary"
+    (click)="onSubmit()"
+    [disabled]="studentForm.invalid"
+  >
+    Save
+  </button>
 </mat-dialog-actions>

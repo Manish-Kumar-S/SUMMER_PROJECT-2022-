@@ -15,11 +15,11 @@ const routes: Routes = [
       import('./student/student.module').then((mod) => mod.StudentModule),
     canActivate: [StudentGuard],
   },
-  // {
-  //   path: 'company',
-  //   loadChildren: () =>
-  //     import('./company/company.module').then((mod) => mod.CompanyModule),
-  // },
+  //   {
+  //     path: 'company',
+  //     loadChildren: () =>
+  //       import('./company/company.module').then((mod) => mod.CompanyModule),
+  //   },
 ];
 
 const routerOptions: ExtraOptions = {

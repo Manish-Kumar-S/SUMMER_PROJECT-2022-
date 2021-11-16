@@ -51,6 +51,7 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudent().subscribe((data) => {
+      console.log(data);
       this.student = data;
       this.student.photograph_link !== 'null'
         ? (this.photographLink = this.convertImgURL(data.photograph_link))

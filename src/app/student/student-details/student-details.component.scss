@@ -76,9 +76,9 @@
           font-size: 1em;
         }
         .outline {
-          outline: 1.5px solid gainsboro;
-          border-radius: 0.1em;
-          outline-offset: 0.45em;
+          outline: 1.5px solid #ebeaea;
+          border-radius: 2em;
+          outline-offset: 0.5em;
         }
         i {
           width: 3em;
@@ -106,6 +106,21 @@
   &.c-2 {
     &.equal {
       margin-top: 0.5em;
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,"medium")) {
+  .container {
+    .grid {
+      &.c-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        &.equal {
+          width: 100%;
+        }
+      }
     }
   }
 }

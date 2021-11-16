@@ -7,8 +7,8 @@
       <div class="img-container">
         <img [src]="photographLink" alt="Profile" class="img" />
         <div class="header-content">
-          <h3>{{ student.first_name ? student.first_name : "&nbsp;" }}</h3>
-          <p>{{ student.reg_number ? student.reg_number : "&nbsp;" }}</p>
+          <h3>{{ student.first_name + " " + student.last_name }}</h3>
+          <p>{{ student.reg_number }}</p>
         </div>
       </div>
       <div class="additional-details">
@@ -45,11 +45,17 @@
           </div>
           <div class="details col">
             <h3>Branch</h3>
-            <p class="outline">Computer Science and Engineering</p>
+            <p class="outline">{{ student.course.branch }}</p>
           </div>
           <div class="details col">
             <h3>Course Type</h3>
             <p class="outline">{{ filterCourseType(student.course_type) }}</p>
+          </div>
+          <div class="details col">
+            <h3>Course Percentage</h3>
+            <p class="outline">
+              {{ student.course_percentage }}
+            </p>
           </div>
           <div class="details col">
             <h3>Current Arrears</h3>
@@ -90,9 +96,13 @@
             <h3>HSC Percentage</h3>
             <p class="outline">{{ student.grade_12_percentage }}</p>
           </div>
-          <div class="details col">
-            <h3>UG Percentage</h3>
-            <p class="outline">9.9</p>
+          <div class="details col" *ngIf="student.ug_course !== 'null'">
+            <h3>UG Course</h3>
+            <p class="outline">{{ student.ug_course }}</p>
+          </div>
+          <div class="details col" *ngIf="student.ug_course_percentage">
+            <h3>UG Course Percentage</h3>
+            <p class="outline">{{ student.ug_course_percentage }}</p>
           </div>
           <div class="details col">
             <h3>Year Gap</h3>

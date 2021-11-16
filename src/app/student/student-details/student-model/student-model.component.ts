@@ -54,11 +54,8 @@ export class StudentModelComponent implements OnInit {
         data.student.course_percentage,
         Validators.required
       ),
-      ug_course: new FormControl(data.student.ug_course, Validators.required),
-      ug_course_percentage: new FormControl(
-        data.student.ug_course_percentage,
-        Validators.required
-      ),
+      ug_course: new FormControl(data.student.ug_course),
+      ug_course_percentage: new FormControl(data.student.ug_course_percentage),
       history_of_arrears: new FormControl(
         data.student.history_of_arrears,
         Validators.required
