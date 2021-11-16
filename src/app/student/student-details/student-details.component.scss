@@ -13,7 +13,13 @@
   padding: 2em;
   .btn-container {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: 1.75em;
+      font-weight: 600;
+      padding: 0.35em;
+    }
     button {
       float: right;
       @extend %buttons;

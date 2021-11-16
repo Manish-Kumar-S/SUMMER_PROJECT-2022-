@@ -1,3 +1,5 @@
+@import "/src/app/shared/scss/main.scss";
+
 //Large Screen - 993 to 1170 screen size
 @mixin lg-screen {
   @media only screen and (max-width: 1170px) {
@@ -40,8 +42,8 @@
 }
 
 .title {
-  font-size: 2em;
-  font-weight: 400;
+  font-size: 1.75em;
+  font-weight: 600;
   padding: 0.35em;
 }
 
@@ -76,7 +78,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1em;
-    border-bottom: 1px solid #706bf5;
+    border-bottom: 1px solid $primary-color;
     h3 {
       font-size: 1.25em;
     }

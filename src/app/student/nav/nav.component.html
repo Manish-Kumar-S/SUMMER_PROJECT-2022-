@@ -31,7 +31,7 @@
     <div class="dropup-wrap">
       <div class="dropup" *ngIf="isClicked">
         <button>Change Password</button>
-        <button>Logout</button>
+        <button (click)="authService.logout()">Logout</button>
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
