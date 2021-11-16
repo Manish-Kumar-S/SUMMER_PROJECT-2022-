@@ -1,0 +1,150 @@
+@import "/src/app/shared/scss/main.scss";
+
+//Large Screen - 993 to 1170 screen size
+@mixin lg-screen {
+  @media only screen and (max-width: 1170px) {
+    @content;
+  }
+}
+
+//Medium Screen - 768 to 992 screen size
+@mixin md-screen {
+  @media only screen and (max-width: 992px) {
+    @content;
+  }
+}
+
+//Medium Screen - 575 to 767 screen size
+@mixin sm-screen {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+//Medium Screen - below 575 screen size
+@mixin xs-screen {
+  @media only screen and (max-width: 575px) {
+    @content;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  background-color: #f1f7fc;
+  width: 100%;
+  min-height: 100vh;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
+  padding: 2em;
+}
+
+.title {
+  font-size: 1.75em;
+  font-weight: 600;
+  padding: 0.35em;
+}
+
+.grid {
+  display: grid;
+  gap: 2em;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.company__list {
+  margin-top: 1em;
+  padding: 1em;
+  grid-auto-rows: minmax(240px, auto);
+}
+
+.company__card {
+  background-color: #eee;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1em;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
+  // height: 4em;
+  // height: 240px;
+  // transition: 0.3s ease-in-out;
+
+  // &:hover {
+  //   transform: scale(1.05);
+  // }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid $primary-color;
+    h3 {
+      font-size: 1.25em;
+    }
+  }
+
+  &-logo {
+    width: 20%;
+    height: 100%;
+    object-fit: contain;
+
+    @include sm-screen {
+      width: 25%;
+    }
+
+    img {
+      max-width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  &-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: -1em;
+
+    @include sm-screen {
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 1.25em;
+      margin-bottom: 0.25em;
+    }
+    h3 {
+      font-size: 0.95em;
+    }
+    h2,
+    h3 {
+      font-weight: 400;
+    }
+  }
+
+  &-body {
+    margin-top: 1em;
+  }
+
+  &-details {
+    margin: 1em 0;
+
+    p span:nth-child(2) {
+      font-size: 0.95em;
+
+      @include sm-screen {
+        font-size: 0.85em;
+      }
+    }
+    .details-heading {
+      font-size: 1.1em;
+      font-weight: 600;
+
+      @include sm-screen {
+        font-size: 0.95em;
+      }
+    }
+  }
+}

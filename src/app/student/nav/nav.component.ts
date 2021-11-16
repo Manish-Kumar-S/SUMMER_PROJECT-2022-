@@ -1,7 +1,5 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 import { IMG_URL } from 'src/environments/environment';
 
 @Component({
@@ -13,7 +11,7 @@ export class NavComponent implements OnInit {
   isClicked: boolean;
   imgUrl: string;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(public authService: AuthService) {
     this.isClicked = false;
     this.imgUrl = IMG_URL;
   }

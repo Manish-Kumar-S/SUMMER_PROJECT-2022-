@@ -13,7 +13,13 @@
   padding: 2em;
   .btn-container {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: 1.75em;
+      font-weight: 600;
+      padding: 0.35em;
+    }
     button {
       float: right;
       @extend %buttons;
@@ -67,7 +73,7 @@
       .details {
         display: flex;
         align-items: center;
-        gap: 2em;
+        // gap: 2em;
         h3 {
           font-size: 1.02em;
           color: darken(#5f56ed, 2%);
@@ -76,12 +82,21 @@
           font-size: 1em;
         }
         .outline {
-          outline: 1.5px solid gainsboro;
-          border-radius: 0.1em;
-          outline-offset: 0.45em;
+          outline: 1.5px solid #ebeaea;
+          border-radius: 2em;
+          outline-offset: 0.5em;
         }
         i {
+          width: 3em;
           font-size: 1.1em;
+        }
+        a {
+          color: black;
+          text-decoration: none;
+          &:hover {
+            color: $primary_color;
+            text-decoration: underline;
+          }
         }
         &.col {
           flex-direction: column;
@@ -97,6 +112,21 @@
   &.c-2 {
     &.equal {
       margin-top: 0.5em;
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,"medium")) {
+  .container {
+    .grid {
+      &.c-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        &.equal {
+          width: 100%;
+        }
+      }
     }
   }
 }

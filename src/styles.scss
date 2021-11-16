@@ -1,8 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Lato", "Open Sans", sans-serif;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", "Open Sans", sans-serif;
+  box-sizing: border-box;
 }
-html, body { height: 100%; }
+html {
+  @supports (scrollbar-color: gainsboro #f1f7fc !important) {
+    scrollbar-color: gainsboro #f1f7fc !important;
+  }
+  @supports not (scrollbar-color: gainsboro #f1f7fc !important) {
+    &::-webkit-scrollbar {
+      width: 15px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: gainsboro !important;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f7fc !important;
+    }
+  }
+}
+html,
+body {
+  height: 100%;
+}
