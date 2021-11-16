@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 
 export interface DashboardData {
@@ -28,8 +30,48 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
-  driveResponse: any;
+  driveResponse: any[];
   dashData: any[];
+
+  // form = new FormGroup({
+  //   drive_name: new FormControl(""),
+  //   category: new FormControl(""),
+  //   category_id: new FormControl(""),
+  //   roles: new FormControl(""),
+  //   employment_type: new FormControl(""),
+  //   ctc_for_ug: new FormControl(""),
+  //   ctc_for_pg: new FormControl(""),
+  //   stipend_for_internship_for_ug: new FormControl(""),
+  //   stipend_for_internship_for_pg: new FormControl(""),
+  //   eligibility_10: new FormControl(""),
+  //   eligibility_12: new FormControl(""),
+  //   eligibility_graduation: new FormControl(""),
+  //   eligibility_in_present: new FormControl(""),
+  //   eligible_courses: new FormControl(""),
+  //   year_batch_eligible: new FormControl(""),
+  //   history_of_arrears: new FormControl(""),
+  //   current_arrears: new FormControl(""),
+  //   atmost_number_of_arrears: new FormControl(""),
+  //   date_of_visiting: new FormControl(""),
+  //   ppt_session: new FormControl(""),
+  //   number_of_tests: new FormControl(""),
+  //   date_time_of_test: new FormControl(""),
+  //   duration_of_test: new FormControl(""),
+  //   online_test: new FormControl(""),
+  //   aptitude_test: new FormControl(""),
+  //   coding_test: new FormControl(""),
+  //   group_discussion: new FormControl(""),
+  //   date_time_of_interview: new FormControl(""),
+  //   number_of_interviews: new FormControl(""),
+  //   technical_interview1: new FormControl(""),
+  //   technical_interview2: new FormControl(""),
+  //   technical_interview3: new FormControl(""),
+  //   technical_plus_hr_interview: new FormControl(""),
+  //   hr_interview: new FormControl(""),
+  //   posted_date: new FormControl(""),
+  //   registration_deadline: new FormControl(""),
+  //   other_information: new FormControl("")
+  // })
 
   isLoading: boolean;
 
@@ -59,16 +101,29 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
       (err) => console.log(err)
     );
 
-    this.http.get(`${API}/company/drive`).subscribe((res) => {
-      this.driveResponse = res;
-      console.log(res);
-      this.isLoading = false;
-      this.changeDetection.markForCheck();
-      this.driveResponse.forEach(e => {
-        console.log(e);
-        this.dashData.push(e);
+    this.http
+      .get(`${API}/company/drive`)
+      .pipe(map((res: any) => res.drives))
+      .subscribe((val) =>{
+        this.driveResponse = val;
+        console.log(val);
+        this.isLoading = false;
+        this.changeDetection.markForCheck();
+
+        // console.log(this.driveResponse['ctc_for_pg'])
+        // this.form.get('ctc_for_pg').setValue(this.driveResponse['ctc_for_pg']);
       });
-    })
+
+    // this.http.get(`${API}/company/drive`).subscribe((res) => {
+    //   this.driveResponse = res;
+    //   console.log(res);
+    //   this.isLoading = false;
+    //   this.changeDetection.markForCheck();
+    //   this.driveResponse.forEach(e => {
+    //     console.log(e);
+    //     this.dashData.push(e);
+    //   });
+    // })
   }
 
 }

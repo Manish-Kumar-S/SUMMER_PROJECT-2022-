@@ -2,7 +2,7 @@
 
   <div fxFlex="1%"></div>
 
-  <h1>Enroll Campus Drive</h1>
+  <h1>Create Campus Drive</h1>
 
   <form fxLayout="column" [formGroup]="form">
 
@@ -12,7 +12,7 @@
     <div>
       <mat-form-field appearance="outline" fxFlex="60%">
         <mat-label>Drive Name</mat-label>
-        <input matInput placeholder="Campus Drive Name" required formControlName="driveName">
+        <input matInput placeholder="Campus Drive Name" required formControlName="drive_name">
         <!-- <mat-hint>Eg. SDE</mat-hint> -->
       </mat-form-field>
     </div>
@@ -119,8 +119,8 @@
 
     <div>
       <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex="60%">
-        <mat-label>Maximum number of backlogs</mat-label>
-        <input type="number" matInput placeholder="Maximum number of backlogs" disabled formControlName="atmost_number_of_arrears">
+        <mat-label>Maximum Number of backlogs allowed</mat-label>
+        <input type="number" matInput placeholder="Number of backlogs" formControlName="current_arrears">
         <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
@@ -158,14 +158,24 @@
     <div>
       <mat-form-field appearance="outline" fxFlex="60%">
         <mat-label>Eligible Departments</mat-label>
-        <mat-select multiple>
+        <mat-select multiple formControlName="eligible_courses_id">
           <mat-select-trigger>
             <!-- {{dept.value ? dept.value[0] : ''}} -->
-            <span *ngIf="dept.value?.length > 1" class="example-additional-selection">
-              {{dept.value.length}} {{dept.value?.length === 1 ? 'department selected' : 'departments selected'}}
+            <span *ngIf="form.get('eligible_courses_id').value?.length > 0">
+              {{form.get('eligible_courses_id').value.length}} {{form.get('eligible_courses_id').value?.length === 1 ? 'department selected' : 'departments selected'}}
             </span>
           </mat-select-trigger>
           <mat-option *ngFor="let department of courses" [value]="department.id"> {{department.name + ' ' + department.branch}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Years Eligible</mat-label>
+        <mat-select required formControlName="year_batch_eligible">
+          <mat-option [value]="year-1">Pre-Final Years (3rd Year)</mat-option>
+          <mat-option [value]="year">Final Years (4th Year)</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -182,7 +192,7 @@
       <div>
         <mat-form-field appearance="outline" fxFlex="30%">
           <mat-label>Date of Visiting</mat-label>
-          <input matInput type="datetime-local" placeholder="start date" required formControlName="date_of_visiting">
+          <input matInput type="date" placeholder="start date" required formControlName="date_of_visiting">
           <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
         </mat-form-field>
       </div>
@@ -220,6 +230,16 @@
         <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_interview">
         <mat-hint>Date for the First Interview Round</mat-hint>
       </mat-form-field>
+    </div>
+
+    <div>
+
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Duration of Test</mat-label>
+        <input type="number" matInput placeholder="Duration of Test" formControlName="duration_of_test">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
     </div>
 
     <br>

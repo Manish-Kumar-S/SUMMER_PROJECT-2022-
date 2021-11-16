@@ -28,7 +28,7 @@ export class LoginRegisterComponent implements OnInit {
     this.roles = [
       { id: 1, name: 'Student' },
       { id: 2, name: 'Company' },
-      { id: 3, name: 'Admin' },
+      // { id: 3, name: 'Admin' },
     ];
     this.loginForm = new FormGroup({
       email: new FormControl(null, Validators.required),
@@ -53,7 +53,12 @@ export class LoginRegisterComponent implements OnInit {
       .post<any>(`${this.url}/authenticate`, form, { observe: 'response' })
       .subscribe((data) => {
         console.log(data.headers.get('Tokenstring'));
-        this.router.navigateByUrl('student');
+        if(this.loginForm.get('role').value == 1)
+          this.router.navigateByUrl('student');
+        else if(this.loginForm.get('role').value == 2)
+          this.router.navigateByUrl('company');
+        else if(this.loginForm.get('role').value == 3)
+          this.router.navigateByUrl('admin');
         localStorage.setItem('errorJWT', data.headers.get('Tokenstring'));
       });
   }

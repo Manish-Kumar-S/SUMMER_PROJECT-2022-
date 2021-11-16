@@ -13,10 +13,10 @@ import { API } from 'src/environments/environment';
 })
 export class CampusDriveComponent implements OnInit {
 
-  dept = new FormControl();
   historyOfArrears: Boolean;
   bond: Boolean;
   courses: any;
+  year = new Date().getFullYear();
   categories: any = [
     {
       id:1,
@@ -48,7 +48,7 @@ export class CampusDriveComponent implements OnInit {
   }
 
   form = new FormGroup({
-    driveName: new FormControl(""),
+    drive_name: new FormControl(""),
     category: new FormControl(""),
     category_id: new FormControl(""),
     roles: new FormControl(""),
@@ -61,7 +61,7 @@ export class CampusDriveComponent implements OnInit {
     eligibility_12: new FormControl(""),
     eligibility_graduation: new FormControl(""),
     eligibility_in_present: new FormControl(""),
-    eligible_courses: new FormControl(""),
+    eligible_courses_id: new FormControl(""),
     year_batch_eligible: new FormControl(""),
     history_of_arrears: new FormControl(""),
     current_arrears: new FormControl(""),
@@ -113,10 +113,10 @@ export class CampusDriveComponent implements OnInit {
 
   OnSubmit(){
     const req = new FormData();
-    req.append('compa', '1')
-    req.append('driveName', this.form.get('driveName').value)
-    req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
-    req.append('category_id', this.form.get('category_id').value)
+    // req.append('compa', '1')
+    req.append('drive_name', this.form.get('drive_name').value)
+    // req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
+    req.append('category', this.form.get('category').value)
     req.append('roles', this.form.get('roles').value.split(','))
     req.append('employment_type', this.form.get('employment_type').value)
     req.append('ctc_for_ug', this.form.get('ctc_for_ug').value)
@@ -127,29 +127,31 @@ export class CampusDriveComponent implements OnInit {
     req.append('eligibility_12', this.form.get('eligibility_12').value)
     req.append('eligibility_graduation', this.form.get('eligibility_graduation').value)
     req.append('eligibility_in_present', this.form.get('eligibility_in_present').value)
-    req.append('eligible_courses', this.form.get('eligible_courses').value)
+    req.append('eligible_courses_id', this.form.get('eligible_courses_id').value)
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
-    req.append('current_arrears', this.form.get('current_arrears').value)
-    req.append('atmost_number_of_arrears', this.form.get('atmost_number_of_arrears').value)
-    req.append('date_of_visiting', this.form.get('history_of_arrears').value)
-    req.append('ppt_session',this.form.get('ppt_session').value)
+    req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
+    req.append('atmost_number_of_arrears', "10")
+    req.append('date_of_visiting', this.form.get('date_of_visiting').value)
+    req.append('ppt_session',this.form.get('ppt_session').value + ':00')
     req.append('number_of_tests', '2')
-    req.append('date_time_of_test',this.form.get('date_time_of_test').value)
+    req.append('date_time_of_test',this.form.get('date_time_of_test').value + ':00')
     req.append('duration_of_test',this.form.get('duration_of_test').value)
-    req.append('aptitude_test',this.form.get('aptitude_test').value)
-    req.append('coding_test',this.form.get('coding_test').value)
+    req.append('online_test', 'false')
+    req.append('aptitude_test',this.form.get('aptitude_test').value ? 'true' : 'false')
+    req.append('coding_test',this.form.get('coding_test').value ? 'true' : 'false')
     req.append('group_discussion',this.form.get('group_discussion').value ? 'true' : 'false')
-    req.append('date_time_of_interview',this.form.get('date_time_of_interview').value)
+    req.append('date_time_of_interview',this.form.get('date_time_of_interview').value + ':00')
     req.append('number_of_interviews', '1')
     req.append('technical_interview1',this.form.get('technical_interview1').value ? 'true' : 'false')
     req.append('technical_interview2',this.form.get('technical_interview2').value ? 'true' : 'false')
     req.append('technical_interview3',this.form.get('technical_interview3').value ? 'true' : 'false')
     req.append('technical_plus_hr_interview',this.form.get('technical_plus_hr_interview').value ? 'true' : 'false')
-    req.append('hr_interview',this.form.get('hr_interview').value)
-    req.append('posted_date',this.form.get('posted_date').value)
-    req.append('registration_deadline',this.form.get('registration_deadline').value)
+    req.append('hr_interview',this.form.get('hr_interview').value ? 'true' : 'false')
+    // req.append('posted_date',this.form.get('posted_date').value)
+    req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
     req.append('other_information',this.form.get('other_information').value)
+
     this.http.post(`${API}/company/drive`, req).subscribe(
       (data) => console.log(data),
       (err) => console.log(err));

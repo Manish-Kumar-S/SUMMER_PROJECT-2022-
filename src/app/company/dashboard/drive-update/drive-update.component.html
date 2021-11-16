@@ -1,0 +1,240 @@
+<form [formGroup]="form" fxLayout="row" fxFlex fxLayoutGap="50px">
+
+  <div fxLayout="column" fxFlex="60%">
+
+    <h3>Change Drive Details</h3>
+    <br>
+
+    <div fxLayoutGap="5px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Category</mat-label>
+        <mat-select required formControlName="category">
+          <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Employment Type</mat-label>
+        <mat-select required formControlName="employment_type">
+          <mat-option *ngFor="let e of employment_t" [value]="e.id">{{e.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Years Eligible</mat-label>
+        <mat-select required formControlName="year_batch_eligible">
+          <mat-option [value]="year-1">Pre-Final Years (3rd Year)</mat-option>
+          <mat-option [value]="year">Final Years (4th Year)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <h3>Change Interview/Shortlist Process</h3>
+    <br>
+
+    <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
+
+      <div fxLayout="column" fxFlex>
+
+        <b>Please Select Applicable Rounds:</b>
+        <mat-checkbox value="1" formControlName="aptitude_test">Aptitude/Physometric Assesment</mat-checkbox>
+        <mat-checkbox value="2" formControlName="coding_test">Coding Assesment</mat-checkbox>
+        <mat-checkbox value="2" formControlName="group_discussion">Group Discussion</mat-checkbox>
+        <mat-checkbox value="3" formControlName="technical_interview1">Technical Interview 1</mat-checkbox>
+        <mat-checkbox value="4" formControlName="technical_interview2">Technical Interview 2</mat-checkbox>
+        <mat-checkbox value="5" formControlName="technical_interview3">Technical Interview 3</mat-checkbox>
+        <mat-checkbox value="6" formControlName="technical_plus_hr_interview">Technical Interview with HR</mat-checkbox>
+        <mat-checkbox value="7" formControlName="hr_interview">HR Interview</mat-checkbox>
+
+        <div>
+
+          <mat-form-field appearance="outline" fxFlex="50%">
+            <mat-label>Duration of Test</mat-label>
+            <input type="number" matInput placeholder="Duration of Test" formControlName="duration_of_test">
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+    
+        </div>
+
+      </div>
+
+      <div fxLayout="column" fxFlex>
+        <div>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Pre-Placement Talk Schedule</mat-label>
+            <input matInput type="datetime-local" placeholder="start date" required formControlName="ppt_session">
+            <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>First Assesment Schedule</mat-label>
+            <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_test">
+            <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Interview Schedule</mat-label>
+            <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_interview">
+            <mat-hint>Date for the First Interview Round</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+    <br>
+
+    <H3>Update Compensation Details</H3>
+    <br>
+
+    <div fxLayout="row" fxFlex fxLayoutGap="5px">
+
+      <div fxLayout="column" fxFlex>
+        
+        <h4>FTE Compensation</h4>
+        <div>
+          <mat-form-field appearance="outline" fxFlex floatLabel="always">
+            <mat-label>Salary Offered for UG</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" required formControlName="ctc_for_ug">
+            <span matPrefix>₹&nbsp;</span>
+            <span matSuffix>CTC</span>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" fxFlex floatLabel="always">
+            <mat-label>Salary Offered for PG</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" required formControlName="ctc_for_pg">
+            <span matPrefix>₹&nbsp;</span>
+            <span matSuffix>CTC</span>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div fxLayout="column" fxFlex>
+
+        <h4>Intern Compensation</h4>
+        <div>
+          <mat-form-field appearance="outline" fxFlex floatLabel="always">
+            <mat-label>Stipend Offered for UG</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" formControlName="stipend_for_internship_for_ug">
+            <span matPrefix>₹&nbsp;</span>
+            <span matSuffix>CTC</span>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" fxFlex floatLabel="always">
+            <mat-label>Stipend Offered for PG</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" formControlName="stipend_for_internship_for_pg">
+            <span matPrefix>₹&nbsp;</span>
+            <span matSuffix>CTC</span>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div fxLayout="column" fxFlex="40%">
+
+    <H3>Update Eligbility Criteria</H3>
+    <br>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Eligible Departments</mat-label>
+        <mat-select multiple [compareWith]="compare" formControlName="eligible_courses_id">
+          <mat-select-trigger>
+            <!-- {{dept.value ? dept.value[0] : ''}} -->
+            <span *ngIf="form.get('eligible_courses_id').value?.length > 0">
+              {{form.get('eligible_courses_id').value.length}} {{form.get('eligible_courses_id').value?.length === 1 ? 'department selected' : 'departments selected'}}
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let department of courses" [value]="department.id"> {{department.name + ' ' + department.branch}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>UG CGPA Criteria</mat-label>
+        <mat-select required formControlName="eligibility_in_present">
+          <mat-option value="9">9+</mat-option>
+          <mat-option value="8.5">8.5+</mat-option>
+          <mat-option value="8">8+</mat-option>
+          <mat-option value="7.5">7.5+</mat-option>
+          <mat-option value="7">7+</mat-option>
+          <mat-option value="6.5">6.5+</mat-option>
+          <mat-option value="6">6+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>PG CGPA Criteria</mat-label>
+        <mat-select formControlName="eligibility_graduation">
+          <mat-option value="9">9+</mat-option>
+          <mat-option value="8.5">8.5+</mat-option>
+          <mat-option value="8">8+</mat-option>
+          <mat-option value="7.5">7.5+</mat-option>
+          <mat-option value="7">7+</mat-option>
+          <mat-option value="6.5">6.5+</mat-option>
+          <mat-option value="6">6+</mat-option>
+        </mat-select>
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <mat-label>Allow students with History of Arrears?</mat-label>
+    <div>
+      <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="100%" required (change)="showBacklogsDetails($event)" formControlName="history_of_arrears">
+        <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
+        <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <br>
+
+    <div>
+      <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex="60%">
+        <mat-label>Maximum Number of backlogs allowed</mat-label>
+        <input type="number" matInput placeholder="Number of backlogs" formControlName="current_arrears">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Registration Deadline</mat-label>
+        <input matInput type="datetime-local" placeholder="start date" required formControlName="registration_deadline">
+        <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+      </mat-form-field>
+    </div>
+      
+
+    <h3>Other Information</h3>
+    <br>
+    
+    <div>
+      <mat-form-field appearance="outline" fxFlex="60%">
+        <mat-label>Other Details/Instructions(if any)</mat-label>
+        <textarea matInput formControlName="other_information"></textarea>
+      </mat-form-field>
+    </div>
+
+    
+    <div>
+      <button mat-raised-button color="primary" fxFlex="20%" (click)="OnSubmit()">Submit</button>
+    </div>
+
+  </div>
+
+</form>
