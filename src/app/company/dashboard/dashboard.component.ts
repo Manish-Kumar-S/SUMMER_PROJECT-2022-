@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 

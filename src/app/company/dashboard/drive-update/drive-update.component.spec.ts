@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DriveUpdateComponent } from './drive-update.component';
 
-describe('Companydrive-updateComponent', () => {
+describe('DriveUpdateComponent', () => {
   let component: DriveUpdateComponent;
   let fixture: ComponentFixture<DriveUpdateComponent>;
 
