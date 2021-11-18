@@ -29,7 +29,6 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
 
   injectToken(request: HttpRequest<any>) {
     const token = this.authService.getToken();
-    console.log('This is the token', token);
     return request.clone({
       setHeaders: {
         Tokenstring: token,

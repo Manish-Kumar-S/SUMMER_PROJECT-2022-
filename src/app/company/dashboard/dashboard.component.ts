@@ -13,28 +13,31 @@ export interface DashboardData {
   grade_xii: number;
   history_of_arrears: string;
   backlogs: number;
-  cgpa: string;
+  course_percentage: number;
   resume: string;
 }
 
-const ELEMENT_DATA: DashboardData[] = [
-  {reg_no: 1, name: 'GenC Elite', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-  {reg_no: 2, name: 'GenC SDE', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 99, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-  {reg_no: 3, name: 'GenC Elevate', gender: 'Female', email: "vijayvinayak23@gmail.com", grade_x: 100, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-  {reg_no: 4, name: 'GenC', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-];
+// const ELEMENT_DATA: DashboardData[] = [
+//   {reg_no: 1, name: 'GenC Elite', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+//   {reg_no: 2, name: 'GenC SDE', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 99, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+//   {reg_no: 3, name: 'GenC Elevate', gender: 'Female', email: "vijayvinayak23@gmail.com", grade_x: 100, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+//   {reg_no: 4, name: 'GenC', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+// ];
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
+
 export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
   driveResponse: any[];
   dashData: any[];
+  show: boolean = false;
 
   // form = new FormGroup({
   //   drive_name: new FormControl(""),
@@ -81,37 +84,33 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
     this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
-    this.dataSource = ELEMENT_DATA;
+    // this.dataSource = ELEMENT_DATA;
   }
 
   getStudentDetails(driveID: number){
-    this.http
-      .get(`${API}/company/studentapplied`)
-      .pipe(
-        map((res: any) => res.drive),
-        // tap((val) => {console.log(val)}),
-        // filter(drive => {console.log(drive); if(drive.drive_id === driveID) return drive;})
-      )
-      .subscribe((val) =>{
-        // this.dashData = val;
-        val = val.map(drive => {if(drive.drive_id === driveID) return drive;});
-        console.log(val);
-        // this.isLoading = false;
-        // this.changeDetection.markForCheck();
-      });
+    this.show = true;
+    this.dataSource = this.dashData.filter(x => x.drive_id == driveID)[0].student_list;
+    console.log(this.dataSource);
+  }
+
+  openNewTab(url: string){
+    window.open(url, "_blank");
   }
 
   ngOnInit(): void {
+    this.http
+      .get(`${API}/company/studentapplied`).subscribe(
+        (res: any) => {
+          this.dashData = res.drive;
+          console.log(this.dashData);
+        }
+      )
   }
 
   ngAfterViewInit(): void {
-
-    console.log('sending req');
-    this.getStudentDetails(1);
-
     // const form = new FormData();
-    // form.append('email', 'company@company.com');
-    // form.append('password', 'asd');
+    // form.append('email', 'company@s.com');
+    // form.append('password', 'hello');
     // form.append('role', '2');
     // this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
     //   (data) => {
@@ -127,7 +126,8 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
       .pipe(map((res: any) => res.drives))
       .subscribe((val) =>{
         this.driveResponse = val;
-        console.log(val);
+        console.log(this.driveResponse);
+        
         this.isLoading = false;
         this.changeDetection.markForCheck();
       });
