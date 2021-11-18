@@ -163,6 +163,9 @@ h2 {
   .primary {
     background: $primary_color;
     color: #fff;
+    &:disabled {
+      background: gainsboro;
+    }
   }
 
   @media only screen and (max-width: 500px) {

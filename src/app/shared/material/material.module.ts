@@ -18,6 +18,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -34,6 +36,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTabsModule,
     MatTableModule,
     MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatAutocompleteModule,
     MatPaginatorModule,
     MatSortModule,
     MatSidenavModule,
@@ -54,6 +58,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTabsModule,
     MatTableModule,
     MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatAutocompleteModule,
     MatPaginatorModule,
     MatSortModule,
     MatSidenavModule,

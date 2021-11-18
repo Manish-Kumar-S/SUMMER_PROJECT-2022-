@@ -1,5 +1,5 @@
 <h2>Student Profile</h2>
-<mat-dialog-content class="model-box">
+<mat-dialog-content class="model-box" *ngIf="data.student !== null">
   <form [formGroup]="studentForm">
     <h3 class="model-sub-title">Personal Details</h3>
     <div class="grid-box">
@@ -66,22 +66,38 @@
           >campus is required</mat-error
         >
       </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Course</mat-label>
-        <input matInput formControlName="course_id" required />
+      <mat-form-field class="form-field" *ngIf="data.courses.length > 0">
+        <mat-label> Current Course</mat-label>
+        <input
+          matInput
+          aria-label="Course"
+          formControlName="course_id"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayfn">
+          <mat-option *ngFor="let course of data.courses" [value]="course">{{
+            course.name + " " + course.branch
+          }}</mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="studentForm.get('course_id').invalid"
           >Course is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
-        <mat-label>Course Type</mat-label>
-        <input matInput formControlName="course_type" required />
+        <mat-label> Current Course Type</mat-label>
+        <mat-select formControlName="course_type" required>
+          <mat-option
+            *ngFor="let course of courseTypes"
+            [value]="course.value"
+            >{{ course.key }}</mat-option
+          >
+        </mat-select>
         <mat-error *ngIf="studentForm.get('course_type').invalid"
           >Course Type is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
-        <mat-label>Course Percentage</mat-label>
+        <mat-label>Current Course Percentage</mat-label>
         <input matInput formControlName="course_percentage" required />
         <mat-error *ngIf="studentForm.get('course_percentage').invalid"
           >Course Percentage is required</mat-error
@@ -116,12 +132,24 @@
           >Number Of Arrears is required</mat-error
         >
       </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>UG Course (Only for PG)</mat-label>
+        <input matInput formControlName="ug_course" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>UG Course Percentage (Only for PG)</mat-label>
+        <input matInput formControlName="ug_course_percentage" />
+      </mat-form-field>
     </div>
     <h3 class="model-sub-title">Educational Details</h3>
     <div class="grid-box">
       <mat-form-field class="form-field">
         <mat-label>Grade 10</mat-label>
-        <input matInput formControlName="grade_10" required />
+        <mat-select formControlName="grade_10" required>
+          <mat-option *ngFor="let board of boards" [value]="board">
+            {{ board }}</mat-option
+          >
+        </mat-select>
         <mat-error *ngIf="studentForm.get('grade_10').invalid"
           >Grade 10 is required</mat-error
         >
@@ -135,7 +163,11 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Grade 12</mat-label>
-        <input matInput formControlName="grade_12" required />
+        <mat-select formControlName="grade_12" required>
+          <mat-option *ngFor="let board of boards" [value]="board">
+            {{ board }}</mat-option
+          >
+        </mat-select>
         <mat-error *ngIf="studentForm.get('grade_12').invalid"
           >Grade 12 is required</mat-error
         >
@@ -159,5 +191,12 @@
 </mat-dialog-content>
 <mat-dialog-actions class="btn-group">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button class="primary" (click)="onSubmit()">Save</button>
+  <button
+    mat-raised-button
+    class="primary"
+    (click)="onSubmit()"
+    [disabled]="studentForm.invalid"
+  >
+    Save
+  </button>
 </mat-dialog-actions>
