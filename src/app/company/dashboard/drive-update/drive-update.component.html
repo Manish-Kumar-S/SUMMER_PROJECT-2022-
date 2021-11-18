@@ -46,31 +46,31 @@
         <mat-checkbox value="6" formControlName="technical_plus_hr_interview">Technical Interview with HR</mat-checkbox>
         <mat-checkbox value="7" formControlName="hr_interview">HR Interview</mat-checkbox>
 
-        <div>
-
-          <mat-form-field appearance="outline" fxFlex="50%">
-            <mat-label>Duration of Test</mat-label>
-            <input type="number" matInput placeholder="Duration of Test" formControlName="duration_of_test">
-            <!-- <mat-hint>Hint</mat-hint> -->
-          </mat-form-field>
-    
-        </div>
-
       </div>
 
-      <div fxLayout="column" fxFlex>
-        <div>
+      <div fxLayout="column" fxFlex="60%">
+        <div fxLayoutGap="2px">
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Date of Visiting</mat-label>
+            <input matInput type="date" placeholder="start date" required formControlName="date_of_visiting">
+            <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+          </mat-form-field>
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>Pre-Placement Talk Schedule</mat-label>
             <input matInput type="datetime-local" placeholder="start date" required formControlName="ppt_session">
             <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
           </mat-form-field>
         </div>
-        <div>
+        <div fxLayoutGap="2px">
           <mat-form-field appearance="outline" fxFlex>
             <mat-label>First Assesment Schedule</mat-label>
             <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_test">
-            <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
+            <mat-hint>Date for the First Assement Round</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Duration of Test</mat-label>
+            <input type="number" matInput placeholder="Hours" formControlName="duration_of_test">
+            <!-- <mat-hint>Hint</mat-hint> -->
           </mat-form-field>
         </div>
         <div>

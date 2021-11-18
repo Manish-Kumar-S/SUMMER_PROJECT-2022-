@@ -126,9 +126,10 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('eligibility_graduation').setValue(this.driveResponse['eligibility_graduation'].toString());
     this.form.get('eligibility_in_present').setValue(this.driveResponse['eligibility_in_present'].toString());
     this.form.get('eligible_courses_id').setValue(this.driveResponse['eligible_courses_id'][0].replace(/\s/g, "").split(','));
+    this.form.get('year_batch_eligible').setValue(Number(this.driveResponse['year_batch_eligible'][0]));
     this.form.get('history_of_arrears').setValue(this.driveResponse['history_of_arrears'] === true ? '1' : '2');
-    // this.form.get('current_arrears').setValue(this.driveResponse['current_arrears']);
     this.form.get('current_arrears').setValue(this.driveResponse['atmost_number_of_arrears']);
+    this.form.get('date_of_visiting').setValue(this.driveResponse['date_of_visiting'].substring(0, (this.driveResponse['date_of_visiting'] as String).length-1).split('T')[0]);
     this.form.get('ppt_session').setValue(this.driveResponse['ppt_session'].substring(0, (this.driveResponse['ppt_session'] as String).length-1));
     this.form.get('number_of_tests').setValue(this.driveResponse['number_of_tests']);
     this.form.get('date_time_of_test').setValue(this.driveResponse['date_time_of_test'].substring(0, (this.driveResponse['date_time_of_test'] as String).length-1));
@@ -152,42 +153,6 @@ export class DriveUpdateComponent implements OnInit {
     if(this.form.get('history_of_arrears').value == true)
       this.historyOfArrears = true;
 
-    // const form = new FormData();
-    // form.append('email', 'company@company.com');
-    // form.append('password', 'asd');
-    // form.append('role', '2');
-    // this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
-    //   (data) => {
-    //     console.log(data)
-    //     localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
-    //     console.log(data.headers.get('Tokenstring'));
-    //   },
-    //   (err) => console.log(err)
-    // );
-
-    // this.http
-    //   .get(`${API}/company/drive`)
-    //   .pipe(map((res: any) => res.drives))
-    //   .subscribe((val) =>{
-    //     this.driveResponse = val;
-    //     console.log(val);
-    //     this.isLoading = false;
-    //     this.changeDetection.markForCheck();
-
-    //     console.log(this.driveResponse['ctc_for_pg'])
-        
-    //   });
-
-    // this.http.get(`${API}/company/drive`).subscribe((res) => {
-    //   this.driveResponse = res;
-    //   console.log(res);
-    //   this.isLoading = false;
-    //   this.changeDetection.markForCheck();
-    //   this.driveResponse.forEach(e => {
-    //     console.log(e);
-    //     this.dashData.push(e);
-    //   });
-    // })
   }
 
   OnSubmit(){
@@ -197,6 +162,7 @@ export class DriveUpdateComponent implements OnInit {
     // req.append('drive_name', this.form.get('drive_name').value)
     // req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
     req.append('id', this.driveResponse['id'])
+    req.append('drive_id', this.driveResponse['id'])
     req.append('category', this.form.get('category').value)
     req.append('roles', this.form.get('roles').value.split(','))
     req.append('employment_type', this.form.get('employment_type').value)
@@ -214,9 +180,9 @@ export class DriveUpdateComponent implements OnInit {
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
     req.append('atmost_number_of_arrears', this.form.get('current_arrears').value)
     req.append('date_of_visiting', this.form.get('date_of_visiting').value)
-    req.append('ppt_session',this.form.get('ppt_session').value + ':00')
+    req.append('ppt_session',this.form.get('ppt_session').value)
     req.append('number_of_tests', '2')
-    req.append('date_time_of_test',this.form.get('date_time_of_test').value + ':00')
+    req.append('date_time_of_test',this.form.get('date_time_of_test').value)
     req.append('duration_of_test',this.form.get('duration_of_test').value)
     req.append('online_test', 'false')
     req.append('aptitude_test',this.form.get('aptitude_test').value ? 'true' : 'false')

@@ -131,7 +131,7 @@ export class CampusDriveComponent implements OnInit {
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
-    req.append('atmost_number_of_arrears', "10")
+    req.append('atmost_number_of_arrears', this.form.get('current_arrears').value)
     req.append('date_of_visiting', this.form.get('date_of_visiting').value)
     req.append('ppt_session',this.form.get('ppt_session').value + ':00')
     req.append('number_of_tests', '2')

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
+import { filter } from 'rxjs/operators';
 
 export interface DashboardData {
   position: number;
@@ -79,25 +80,43 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
     this.dataSource = ELEMENT_DATA;
   }
 
+  getStudentDetails(driveID: number){
+    this.http
+      .get(`${API}/company/studentapplied`)
+      .pipe(
+        map((res: any) => res.drive),
+        // tap((val) => {console.log(val)}),
+        // filter(drive => {console.log(drive); if(drive.drive_id === driveID) return drive;})
+      )
+      .subscribe((val) =>{
+        // this.dashData = val;
+        val = val.map(drive => {if(drive.drive_id === driveID) return drive;});
+        console.log(val);
+        // this.isLoading = false;
+        // this.changeDetection.markForCheck();
+      });
+  }
+
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
 
     console.log('sending req');
+    this.getStudentDetails(1);
 
-    const form = new FormData();
-    form.append('email', 'company@company.com');
-    form.append('password', 'asd');
-    form.append('role', '2');
-    this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
-      (data) => {
-        console.log(data)
-        localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
-        console.log(data.headers.get('Tokenstring'));
-      },
-      (err) => console.log(err)
-    );
+    // const form = new FormData();
+    // form.append('email', 'company@company.com');
+    // form.append('password', 'asd');
+    // form.append('role', '2');
+    // this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
+    //   (data) => {
+    //     console.log(data)
+    //     localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
+    //     console.log(data.headers.get('Tokenstring'));
+    //   },
+    //   (err) => console.log(err)
+    // );
 
     this.http
       .get(`${API}/company/drive`)
@@ -107,21 +126,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
         console.log(val);
         this.isLoading = false;
         this.changeDetection.markForCheck();
-
-        // console.log(this.driveResponse['ctc_for_pg'])
-        // this.form.get('ctc_for_pg').setValue(this.driveResponse['ctc_for_pg']);
       });
-
-    // this.http.get(`${API}/company/drive`).subscribe((res) => {
-    //   this.driveResponse = res;
-    //   console.log(res);
-    //   this.isLoading = false;
-    //   this.changeDetection.markForCheck();
-    //   this.driveResponse.forEach(e => {
-    //     console.log(e);
-    //     this.dashData.push(e);
-    //   });
-    // })
   }
 
 }
