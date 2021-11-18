@@ -232,7 +232,9 @@
 
     
     <div>
-      <button mat-raised-button color="primary" fxFlex="20%" (click)="OnSubmit()">Submit</button>
+      <button mat-raised-button color="warn" fxFlex="30%" (click)="OnSubmit()">Update Details</button>
+      <div fxFlex="10%"></div>
+      <mat-spinner *ngIf="updateLoading" [diameter]="40"></mat-spinner>
     </div>
 
   </div>

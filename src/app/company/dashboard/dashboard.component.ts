@@ -5,19 +5,23 @@ import { API } from 'src/environments/environment';
 import { filter } from 'rxjs/operators';
 
 export interface DashboardData {
-  position: number;
-  role: string;
-  date: string;
-  criteria: number;
-  registered: number;
-  status: string;
+  reg_no: number;
+  name: string;
+  gender: string;
+  email: string;
+  grade_x: number;
+  grade_xii: number;
+  history_of_arrears: string;
+  backlogs: number;
+  cgpa: string;
+  resume: string;
 }
 
 const ELEMENT_DATA: DashboardData[] = [
-  {position: 1, role: 'GenC Elite', date: '11-11-2021', criteria: 8, registered: 506, status: 'Completed'},
-  {position: 2, role: 'GenC SDE', date: '12-11-2021', criteria: 7.5, registered: 0, status: 'Upcoming'},
-  {position: 3, role: 'GenC Elevate', date: '13-11-2021', criteria: 7, registered: 0, status: 'Upcoming'},
-  {position: 4, role: 'GenC', date: '14-11-2021', criteria: 7, registered: 0, status: 'Upcoming'},
+  {reg_no: 1, name: 'GenC Elite', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+  {reg_no: 2, name: 'GenC SDE', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 99, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+  {reg_no: 3, name: 'GenC Elevate', gender: 'Female', email: "vijayvinayak23@gmail.com", grade_x: 100, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
+  {reg_no: 4, name: 'GenC', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
 ];
 
 @Component({
@@ -76,7 +80,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
-    this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status'];
+    this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
     this.dataSource = ELEMENT_DATA;
   }
 

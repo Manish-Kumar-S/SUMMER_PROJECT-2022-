@@ -156,33 +156,53 @@
             The actual rendered columns are set as a property on the row definition" -->
     
       <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Reg No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 2018503068 </mat-cell>
       </ng-container>
     
       <ng-container matColumnDef="role">
-        <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> Vinayaka Murthy Vijay </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef> Scheduled Date </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+        <mat-cell *matCellDef="let element"> Male </mat-cell>
       </ng-container>
     
       <ng-container matColumnDef="criteria">
-        <mat-header-cell *matHeaderCellDef> Eligibility Criteria </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.criteria}}+ </mat-cell>
+        <mat-header-cell *matHeaderCellDef> E-Mail </mat-header-cell>
+        <mat-cell *matCellDef="let element"> vijayvinayak23@gmail.com </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="registered">
-        <mat-header-cell *matHeaderCellDef> Registered Students </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.registered}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Grade X </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 95 </mat-cell>
       </ng-container>
     
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Grade XII </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 92 </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="history_of_arrears">
+        <mat-header-cell *matHeaderCellDef> History of Arrears </mat-header-cell>
+        <mat-cell *matCellDef="let element"> NIL </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="backlogs">
+        <mat-header-cell *matHeaderCellDef> Backlogs </mat-header-cell>
+        <mat-cell *matCellDef="let element"> NIL </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cgpa">
+        <mat-header-cell *matHeaderCellDef> CGPA </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 8.01 </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="resume">
+        <mat-header-cell *matHeaderCellDef> Resume Link </mat-header-cell>
+        <mat-cell *matCellDef="let element"> www.google.com/asdhasjdkhaskjdjaskdjkasdnjkasndjkasndjkasndjkasndjkasndjkasnjdknasjkdnasjkdnsajdnasjkdnasndasndajnadsjk </mat-cell>
       </ng-container>
     
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

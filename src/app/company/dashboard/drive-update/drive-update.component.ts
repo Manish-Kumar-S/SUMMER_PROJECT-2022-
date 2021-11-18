@@ -14,6 +14,8 @@ import { API } from 'src/environments/environment';
 export class DriveUpdateComponent implements OnInit {
   
   @Input() driveResponse: any[] = [];
+  driveID: any;
+  updateLoading: boolean;
 
   displayedColumns: string[];
   dashData: any[];
@@ -90,6 +92,7 @@ export class DriveUpdateComponent implements OnInit {
 
   constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
+    this.updateLoading = false;
   }
 
   getCourses() {
@@ -156,7 +159,7 @@ export class DriveUpdateComponent implements OnInit {
   }
 
   OnSubmit(){
-    console.log(this.driveResponse['id']);
+    this.driveID = this.driveResponse['id'];
     const req = new FormData();
     // req.append('compa', '1')
     // req.append('drive_name', this.form.get('drive_name').value)
@@ -198,8 +201,18 @@ export class DriveUpdateComponent implements OnInit {
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
     req.append('other_information',this.form.get('other_information').value)
   
-    this.http.put(`${API}/company/drive`, req).subscribe(
-      (data) => console.log(data),
+    console.log(this.driveID);
+
+    this.http.put(`${API}/company/drive?drive_id=${this.driveID}`, req).subscribe(
+      (data: any) => {
+        if (data.response.status === 200){
+          this.updateLoading = true;
+          console.log(data);
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        }
+      },
       (err) => console.log(err));
   }
 
