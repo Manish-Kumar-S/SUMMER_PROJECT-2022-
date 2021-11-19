@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CompanyDetailsComponent } from './company-details/company-details.compo
     CompanyDashboardComponent,
     CampusDriveComponent,
     CompanyDetailsComponent,
-    NavComponent,
+    DriveUpdateComponent,
+    NavComponent
   ],
   imports: [
     CommonModule,

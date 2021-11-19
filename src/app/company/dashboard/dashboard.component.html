@@ -7,7 +7,7 @@
   <div>
     <mat-accordion class="example-headers-align" multi>
       <mat-spinner [fxShow]="isLoading" [fxHide]="!isLoading" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
-      <mat-expansion-panel [fxHide]="isLoading">
+      <!-- <mat-expansion-panel [fxHide]="isLoading">
         <mat-expansion-panel-header style="height: 100px;">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>
@@ -44,8 +44,8 @@
                   </div>
                 </div>
               </div>
-              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
-              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
+              <p fxFlex> Role: <i> SDE </i>  </p>
+              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -75,22 +75,24 @@
           
         </div>
     
-      </mat-expansion-panel>
+      </mat-expansion-panel> -->
+
+      <p *ngIf="driveResponse?.length === 0">Seems like you haven't Created a Drive. Please Create one <a routerLink="../campus-drive">here</a></p>
     
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let drive of driveResponse">
         <mat-expansion-panel-header style="height: 100px;">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>
-              <h3 fxFlex="100%">  Pienzatech Intern Campus Drive Anna University <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
+              <h3 fxFlex="100%">  {{drive.drive_name}} <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
               <div fxLayout="row">
                 <div fxLayout="row" fxFlex>
                   <div fxLayout="column" fxFlex="30%">
                     <p> Role: </p>
-                    <p> Applied On: </p>
+                    <p> Posted On: </p>
                   </div>
                   <div fxLayout="column" fxFlex="70%">
-                    <i>SDE</i>
-                    <i>19/01/2021</i>
+                    <i>{{drive.roles}}</i>
+                    <i>{{drive.posted_date.split('T')[0]}}</i>
                   </div>
                 </div>
                 <div fxLayout="row" fxFlex>
@@ -99,8 +101,8 @@
                     <p> Interview Schedule: </p>
                   </div>
                   <div fxLayout="column" fxFlex="50%">
-                    <i>19/01/2021</i>
-                    <i>19/01/2021</i>
+                    <i>{{drive.date_time_of_test.split('T')[0]}} {{drive.date_time_of_test.split('T')[1].split(':')[0]}}:{{drive.date_time_of_test.split('T')[1].split(':')[1]}}</i>
+                    <i>{{drive.date_time_of_interview[0].split('T')[0]}} {{drive.date_time_of_interview[0].split('T')[1].split(':')[0]}}:{{drive.date_time_of_interview[0].split('T')[1].split(':')[1]}}</i>
                   </div>
                 </div>
                 <div fxLayout="row" fxFlex>
@@ -109,8 +111,10 @@
                     <p> CGPA Criteria </p>
                   </div>
                   <div fxLayout="column" fxFlex="50%">
-                    <i>CSE, IT, MECH, AUTO...</i>
-                    <i>7.5+</i>
+                    <div style="overflow:hidden;white-space:nowrap;text-overflow: ellipsis;" fxFlex="99%">
+                      <i *ngFor="let course of drive.eligible_courses">{{course.code}} </i>
+                    </div>
+                    <i>{{drive.eligibility_in_present}}</i>
                   </div>
                 </div>
               </div>
@@ -125,190 +129,15 @@
 
             <div fxLayout="column">
               <div fxLayoutAlign="end">
-                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
+                <button mat-raised-button color="primary" style="margin: 2px" (click)="getStudentDetails(drive.id, tableView)">View Registered Students</button>
                 <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
               </div>
               <br>
               <mat-divider></mat-divider>
             </div>
 
-            <div fxLayout="row" fxFlex fxLayoutGap="50px">
+            <app-drive-update [driveResponse]="drive"></app-drive-update>
 
-              <div fxLayout="column" fxFlex="60%">
-
-                <h3>Change Interview/Shortlist Process</h3>
-                <br>
-
-                <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
-
-                  <div fxLayout="column" fxFlex>
-
-                    <b>Please Select Applicable Rounds:</b>
-                    <mat-checkbox value="1">Aptitude/Physometric Assesment</mat-checkbox>
-                    <mat-checkbox value="2">Coding Assesment</mat-checkbox>
-                    <mat-checkbox value="2">Group Discussion</mat-checkbox>
-                    <mat-checkbox value="3">Technical Interview 1</mat-checkbox>
-                    <mat-checkbox value="4">Technical Interview 2</mat-checkbox>
-                    <mat-checkbox value="5">Technical Interview 3</mat-checkbox>
-                    <mat-checkbox value="6">HR Interview</mat-checkbox>
-      
-                  </div>
-      
-                  <div fxLayout="column" fxFlex>
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Pre-Placement Talk Schedule</mat-label>
-                        <input matInput type="datetime-local" placeholder="start date" required>
-                        <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>First Assesment Schedule</mat-label>
-                        <input matInput type="datetime-local" placeholder="start date" required>
-                        <mat-hint>Date for the First Coding/Aptitude Round</mat-hint>
-                      </mat-form-field>
-                    </div>
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Interview Schedule</mat-label>
-                        <input matInput type="datetime-local" placeholder="start date" required>
-                        <mat-hint>Date for the First Interview Round</mat-hint>
-                      </mat-form-field>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <br>
-
-                <H3>Update Compensation Details</H3>
-                <br>
-
-                <div fxLayout="row" fxFlex fxLayoutGap="5px">
-
-                  <div fxLayout="column" fxFlex>
-                    
-                    <h4>FTE Compensation</h4>
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
-                        <mat-label>Salary Offered for UG</mat-label>
-                        <input matInput type="number" class="example-right-align" placeholder="0" required>
-                        <span matPrefix>₹&nbsp;</span>
-                        <span matSuffix>CTC</span>
-                      </mat-form-field>
-                    </div>
-
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
-                        <mat-label>Salary Offered for PG</mat-label>
-                        <input matInput type="number" class="example-right-align" placeholder="0" required>
-                        <span matPrefix>₹&nbsp;</span>
-                        <span matSuffix>CTC</span>
-                      </mat-form-field>
-                    </div>
-
-                  </div>
-
-                  <div fxLayout="column" fxFlex>
-
-                    <h4>Intern Compensation</h4>
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
-                        <mat-label>Stipend Offered for UG</mat-label>
-                        <input matInput type="number" class="example-right-align" placeholder="0">
-                        <span matPrefix>₹&nbsp;</span>
-                        <span matSuffix>CTC</span>
-                      </mat-form-field>
-                    </div>
-
-                    <div>
-                      <mat-form-field appearance="outline" fxFlex floatLabel="always">
-                        <mat-label>Stipend Offered for PG</mat-label>
-                        <input matInput type="number" class="example-right-align" placeholder="0">
-                        <span matPrefix>₹&nbsp;</span>
-                        <span matSuffix>CTC</span>
-                      </mat-form-field>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div fxLayout="column" fxFlex="40%">
-
-                <H3>Update Eligbility Criteria</H3>
-                <br>
-
-                <div>
-                  <mat-form-field appearance="outline" fxFlex="60%">
-                    <mat-label>UG CGPA Criteria</mat-label>
-                    <mat-select required>
-                      <mat-option value="9">9+</mat-option>
-                      <mat-option value="8.5">8.5+</mat-option>
-                      <mat-option value="8">8+</mat-option>
-                      <mat-option value="7.5">7.5+</mat-option>
-                      <mat-option value="7">7+</mat-option>
-                      <mat-option value="6.5">6.5+</mat-option>
-                      <mat-option value="6">6+</mat-option>
-                    </mat-select>
-                    <!-- <mat-hint>Hint</mat-hint> -->
-                  </mat-form-field>
-                </div>
-
-                <div>
-                  <mat-form-field appearance="outline" fxFlex="60%">
-                    <mat-label>PG CGPA Criteria</mat-label>
-                    <mat-select>
-                      <mat-option value="9">9+</mat-option>
-                      <mat-option value="8.5">8.5+</mat-option>
-                      <mat-option value="8">8+</mat-option>
-                      <mat-option value="7.5">7.5+</mat-option>
-                      <mat-option value="7">7+</mat-option>
-                      <mat-option value="6.5">6.5+</mat-option>
-                      <mat-option value="6">6+</mat-option>
-                    </mat-select>
-                    <!-- <mat-hint>Hint</mat-hint> -->
-                  </mat-form-field>
-                </div>
-
-                <div>
-                  <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="60%" required>
-                    <mat-label>Allow students with History of Arrears?</mat-label>
-                    <div fxFlex="10%"></div>
-                    <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
-                    <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
-                  </mat-radio-group>
-                </div>
-
-              </div>
-
-            </div>
-
-            
-
-          </div>
-
-            
-
-            
-
-          <h3>Other Information</h3>
-          <br>
-          
-          <div>
-            <mat-form-field appearance="outline" fxFlex="60%">
-              <mat-label>Other Details/Instructions(if any)</mat-label>
-              <textarea matInput></textarea>
-            </mat-form-field>
-          </div>
-
-          
-          <div>
-            <button mat-raised-button color="primary" fxFlex="20%">Submit</button>
           </div>
           
         </div>
@@ -320,40 +149,69 @@
 
   <mat-divider></mat-divider>
 
-  <div>
+  <div #tableView [fxHide]="!show">
     
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="100%">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <ng-container matColumnDef="reg_no">
+        <mat-header-cell *matHeaderCellDef> Reg No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.reg_number}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="role">
-        <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.first_name + " " + element.last_name}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef> Scheduled Date </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="criteria">
-        <mat-header-cell *matHeaderCellDef> Eligibility Criteria </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.criteria}}+ </mat-cell>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> E-Mail </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="registered">
-        <mat-header-cell *matHeaderCellDef> Registered Students </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.registered}} </mat-cell>
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef> Mobile </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="grade_x">
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> Grade X </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.grade_10_percentage}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+      <ng-container matColumnDef="grade_xii">
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> Grade XII </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.grade_12_percentage}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="history_of_arrears">
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> History of Arrears </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.history_of_arrears ? "Yes":"No"}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="backlogs">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Backlogs </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> {{element.number_of_arrears}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cgpa">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> CGPA </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> {{element.ug_course_percentage}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="resume">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Resume Link </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> 
+          <button mat-icon-button color="primary" (click)="openNewTab(element.resume_link)">
+            <mat-icon class="mat-18">insert_link</mat-icon>
+          </button> 
+        </mat-cell>
       </ng-container>
     
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
