@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
@@ -16,6 +15,7 @@ export class DriveUpdateComponent implements OnInit {
   @Input() driveResponse: any[] = [];
   driveID: any;
   updateLoading: boolean;
+  updateSuccess: boolean;
 
   displayedColumns: string[];
   dashData: any[];
@@ -93,6 +93,7 @@ export class DriveUpdateComponent implements OnInit {
   constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
     this.updateLoading = false;
+    this.updateSuccess = false;
   }
 
   getCourses() {
@@ -148,7 +149,7 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('technical_interview3').setValue(this.driveResponse['technical_interview3']);
     this.form.get('technical_plus_hr_interview').setValue(this.driveResponse['technical_plus_hr_interview']);
     this.form.get('hr_interview').setValue(this.driveResponse['hr_interview']);
-    this.form.get('posted_date').setValue(this.driveResponse['posted_date'].substring(0, (this.driveResponse['posted_date'] as String).length-1));
+    this.form.get('posted_date').setValue(this.driveResponse['posted_date'].split('T')[0]);
     this.form.get('registration_deadline').setValue(this.driveResponse['registration_deadline'].substring(0, (this.driveResponse['registration_deadline'] as String).length-1));
     this.form.get('other_information').setValue(this.driveResponse['other_information']);
     this.changeDetection.markForCheck();
@@ -159,11 +160,9 @@ export class DriveUpdateComponent implements OnInit {
   }
 
   OnSubmit(){
-    this.driveID = this.driveResponse['id'];
+    this.updateLoading = true;
     const req = new FormData();
-    // req.append('compa', '1')
-    // req.append('drive_name', this.form.get('drive_name').value)
-    // req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
+    this.driveID = this.driveResponse['id'];
     req.append('id', this.driveResponse['id'])
     req.append('drive_id', this.driveResponse['id'])
     req.append('category', this.form.get('category').value)
@@ -200,17 +199,16 @@ export class DriveUpdateComponent implements OnInit {
     req.append('hr_interview',this.form.get('hr_interview').value ? 'true' : 'false')
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
     req.append('other_information',this.form.get('other_information').value)
-  
-    console.log(this.driveID);
 
     this.http.put(`${API}/company/drive?drive_id=${this.driveID}`, req).subscribe(
       (data: any) => {
-        if (data.response.status === 200){
-          this.updateLoading = true;
+        if (data.response.status === 200 && this.driveID != null){
           console.log(data);
+          this.updateLoading = false;
+          this.updateSuccess = true;
           setTimeout(() => {
             location.reload();
-          }, 2000);
+          }, 1000);
         }
       },
       (err) => console.log(err));

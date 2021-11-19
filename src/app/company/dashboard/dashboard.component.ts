@@ -2,27 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
-import { filter } from 'rxjs/operators';
 
 export interface DashboardData {
-  reg_no: number;
+  reg_number: number;
   name: string;
   gender: string;
   email: string;
-  grade_x: number;
-  grade_xii: number;
+  phone: number;
+  grade_10_percentage: number;
+  grade_12_percentage: number;
   history_of_arrears: string;
-  backlogs: number;
-  course_percentage: number;
-  resume: string;
+  number_of_arrears: number;
+  ug_course_percentage: number;
+  resume_link: string;
 }
-
-// const ELEMENT_DATA: DashboardData[] = [
-//   {reg_no: 1, name: 'GenC Elite', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-//   {reg_no: 2, name: 'GenC SDE', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 99, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-//   {reg_no: 3, name: 'GenC Elevate', gender: 'Female', email: "vijayvinayak23@gmail.com", grade_x: 100, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-//   {reg_no: 4, name: 'GenC', gender: 'Male', email: "vijayvinayak23@gmail.com", grade_x: 90, grade_xii: 90, history_of_arrears: "NIL", backlogs: 0, cgpa: "9.00", resume: "www.google.com/askjdhajksjkhjkfjkansjkfnasjkfasjkfjaskfjkasfjkasbfjkasfjkasbfkjasf"},
-// ];
 
 @Component({
   selector: 'app-dashboard',
@@ -37,60 +30,24 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   dataSource: DashboardData[];
   driveResponse: any[];
   dashData: any[];
-  show: boolean = false;
-
-  // form = new FormGroup({
-  //   drive_name: new FormControl(""),
-  //   category: new FormControl(""),
-  //   category_id: new FormControl(""),
-  //   roles: new FormControl(""),
-  //   employment_type: new FormControl(""),
-  //   ctc_for_ug: new FormControl(""),
-  //   ctc_for_pg: new FormControl(""),
-  //   stipend_for_internship_for_ug: new FormControl(""),
-  //   stipend_for_internship_for_pg: new FormControl(""),
-  //   eligibility_10: new FormControl(""),
-  //   eligibility_12: new FormControl(""),
-  //   eligibility_graduation: new FormControl(""),
-  //   eligibility_in_present: new FormControl(""),
-  //   eligible_courses: new FormControl(""),
-  //   year_batch_eligible: new FormControl(""),
-  //   history_of_arrears: new FormControl(""),
-  //   current_arrears: new FormControl(""),
-  //   atmost_number_of_arrears: new FormControl(""),
-  //   date_of_visiting: new FormControl(""),
-  //   ppt_session: new FormControl(""),
-  //   number_of_tests: new FormControl(""),
-  //   date_time_of_test: new FormControl(""),
-  //   duration_of_test: new FormControl(""),
-  //   online_test: new FormControl(""),
-  //   aptitude_test: new FormControl(""),
-  //   coding_test: new FormControl(""),
-  //   group_discussion: new FormControl(""),
-  //   date_time_of_interview: new FormControl(""),
-  //   number_of_interviews: new FormControl(""),
-  //   technical_interview1: new FormControl(""),
-  //   technical_interview2: new FormControl(""),
-  //   technical_interview3: new FormControl(""),
-  //   technical_plus_hr_interview: new FormControl(""),
-  //   hr_interview: new FormControl(""),
-  //   posted_date: new FormControl(""),
-  //   registration_deadline: new FormControl(""),
-  //   other_information: new FormControl("")
-  // })
-
+  show: boolean;
   isLoading: boolean;
 
   constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
-    this.displayedColumns = ['position', 'role', 'date', 'criteria', 'registered', 'status', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
+    this.show = false;
+    this.displayedColumns = ['reg_no', 'name', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
     // this.dataSource = ELEMENT_DATA;
   }
 
-  getStudentDetails(driveID: number){
+  getStudentDetails(driveID: number, $element: any) {
     this.show = true;
     this.dataSource = this.dashData.filter(x => x.drive_id == driveID)[0].student_list;
     console.log(this.dataSource);
+    console.log($element);
+    setTimeout(() => {
+      $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }, 500);
   }
 
   openNewTab(url: string){
@@ -109,8 +66,8 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // const form = new FormData();
-    // form.append('email', 'company@s.com');
-    // form.append('password', 'hello');
+    // form.append('email', 'company@company.com');
+    // form.append('password', 'asd');
     // form.append('role', '2');
     // this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
     //   (data) => {

@@ -234,7 +234,10 @@
     <div>
       <button mat-raised-button color="warn" fxFlex="30%" (click)="OnSubmit()">Update Details</button>
       <div fxFlex="10%"></div>
-      <mat-spinner *ngIf="updateLoading" [diameter]="40"></mat-spinner>
+      <mat-spinner *ngIf="updateLoading" [diameter]="30"></mat-spinner>
+      <div *ngIf="updateSuccess" style="color: green;" fxLayoutAlign="none center">
+        <b>Updated Succesfully! Refreshing Page...</b>
+      </div>
     </div>
 
   </div>

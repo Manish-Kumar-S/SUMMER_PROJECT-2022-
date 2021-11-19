@@ -129,7 +129,7 @@
 
             <div fxLayout="column">
               <div fxLayoutAlign="end">
-                <button mat-raised-button color="primary" style="margin: 2px" (click)="getStudentDetails(drive.id)">View Registered Students</button>
+                <button mat-raised-button color="primary" style="margin: 2px" (click)="getStudentDetails(drive.id, tableView)">View Registered Students</button>
                 <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
               </div>
               <br>
@@ -149,60 +149,65 @@
 
   <mat-divider></mat-divider>
 
-  <div *ngIf="show">
+  <div #tableView [fxHide]="!show">
     
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="100%">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
     
-      <ng-container matColumnDef="position">
+      <ng-container matColumnDef="reg_no">
         <mat-header-cell *matHeaderCellDef> Reg No </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.reg_number}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="role">
+      <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.first_name + " " + element.last_name}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="date">
+      <ng-container matColumnDef="gender">
         <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="criteria">
+      <ng-container matColumnDef="email">
         <mat-header-cell *matHeaderCellDef> E-Mail </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="registered">
-        <mat-header-cell *matHeaderCellDef> Grade X </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.grade_10_percentage}} </mat-cell>
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef> Mobile </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="grade_x">
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> Grade X </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.grade_10_percentage}} </mat-cell>
       </ng-container>
     
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Grade XII </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.grade_12_percentage}} </mat-cell>
+      <ng-container matColumnDef="grade_xii">
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> Grade XII </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.grade_12_percentage}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="history_of_arrears">
-        <mat-header-cell *matHeaderCellDef> History of Arrears </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.history_of_arrears ? "Yes":"No"}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="8%"> History of Arrears </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="8%"> {{element.history_of_arrears ? "Yes":"No"}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="backlogs">
-        <mat-header-cell *matHeaderCellDef> Backlogs </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.number_of_arrears}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Backlogs </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> {{element.number_of_arrears}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="cgpa">
-        <mat-header-cell *matHeaderCellDef> CGPA </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 8.01 </mat-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> CGPA </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> {{element.ug_course_percentage}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="resume">
-        <mat-header-cell *matHeaderCellDef> Resume Link </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Resume Link </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%"> 
           <button mat-icon-button color="primary" (click)="openNewTab(element.resume_link)">
             <mat-icon class="mat-18">insert_link</mat-icon>
           </button> 
