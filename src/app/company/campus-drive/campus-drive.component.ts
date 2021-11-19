@@ -1,9 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
+
+@Component({
+  selector: 'dialog-confirmation-dialog',
+  templateUrl: 'confirmation-dialog.html',
+})
+export class ConfirmationDialog {}
 
 @Component({
   selector: 'app-campus-drive',
@@ -12,8 +20,10 @@ import { API } from 'src/environments/environment';
 })
 export class CampusDriveComponent implements OnInit {
 
-  historyOfArrears: Boolean;
-  bond: Boolean;
+  historyOfArrears: boolean;
+  bond: boolean;
+  valid: boolean;
+  updateLoading: boolean;
   courses: any;
   year = new Date().getFullYear();
   categories: any = [
@@ -86,13 +96,18 @@ export class CampusDriveComponent implements OnInit {
     other_information: new FormControl("")
   })
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router: Router, public dialog: MatDialog) {
     this.bond = false;
+    this.valid = false;
+    this.updateLoading = false;
   }
 
-  ngOnInit(): void {
-    this.getCourses().subscribe((res) => {
-      this.courses = res;
+  openDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.router.navigateByUrl('company/dashboard');
     });
   }
 
@@ -106,7 +121,26 @@ export class CampusDriveComponent implements OnInit {
     else this.historyOfArrears = true;
   }
 
+  compare(c1: {name: string}, c2: {name: string}) {
+    return c1 && c2 && c1.name === c2.name;
+  }
+
+  ngOnInit(): void {
+    this.getCourses().subscribe((res) => {
+      this.courses = res;
+    });
+  }
+
   OnSubmit() {
+
+    if(this.form.invalid || this.form.pristine){
+      this.valid = true;
+      return;
+    }
+
+    this.valid = false;
+
+    this.updateLoading = true;
     const req = new FormData();
     // req.append('compa', '1')
     req.append('drive_name', this.form.get('drive_name').value)
@@ -148,7 +182,13 @@ export class CampusDriveComponent implements OnInit {
     req.append('other_information',this.form.get('other_information').value)
 
     this.http.post(`${API}/company/drive`, req).subscribe(
-      (data) => console.log(data),
+      (data:any) => {
+        if(data.response.status === 200){
+          console.log(data);
+          this.updateLoading = false;
+          this.openDialog();
+        }
+      },
       (err) => console.log(err)
     );
   }

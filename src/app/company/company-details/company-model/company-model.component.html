@@ -1,0 +1,63 @@
+<!-- <h2>Company Profile</h2> -->
+<mat-dialog-content style="width: 50vw;">
+  <form [formGroup]="form" fxLayout="column" fxFlex="100%">
+
+    <h2>Company Profile</h2>
+    <br>
+    <div fxLayoutGap="10px" fxFlex>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Ambasaddor Name</mat-label>
+            <input matInput formControlName="ambassador_name" required />
+        </mat-form-field>
+
+    </div>
+
+    <div fxLayoutGap="10px" fxFlex>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Designation</mat-label>
+            <input matInput formControlName="designation" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" required />
+        </mat-form-field>
+
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="10px" fxFlex>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Details of Office</mat-label>
+            <textarea matInput formControlName="details_of_office"></textarea>
+        </mat-form-field>
+
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="btn-group">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    (click)="OnSubmit()"
+    class="primary"
+  >
+    Save
+  </button>
+  <div fxFlex="5%"></div>
+  <mat-spinner [fxShow]="updateLoading" [diameter]="30"></mat-spinner>
+  <b style="color: green" [fxShow]="successMsg">Updated Succesfully! Refreshing Page...</b>
+</mat-dialog-actions>
