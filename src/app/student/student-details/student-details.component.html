@@ -1,15 +1,15 @@
-<div class="container">
+<div class="student-container">
   <div class="btn-container">
     <h3 class="title">Personal Details</h3>
     <button (click)="onEdit()">Edit Personal Details</button>
   </div>
-  <div class="grid c-2" *ngIf="student">
+  <div class="grid c-2">
     <div class="box">
       <div class="img-container">
         <img [src]="photographLink" alt="Profile" class="img" />
         <div class="header-content">
-          <h3>{{ student.first_name + " " + student.last_name }}</h3>
-          <p>{{ student.reg_number }}</p>
+          <!-- <h3>{{ student.first_name + " " + student.last_name }}</h3>
+          <p>{{ student.reg_number }}</p> -->
         </div>
       </div>
       <div class="additional-details">
@@ -26,9 +26,9 @@
           <p>Madras Insitute Of Technology</p>
         </div>
         <div class="details">
-          <i class="fas fa-venus" *ngIf="student.gender === 'female'"></i>
+          <!-- <i class="fas fa-venus" *ngIf="student.gender === 'female'"></i>
           <i class="fas fa-mars" *ngIf="student.gender === 'male'"></i>
-          <p>{{ student.gender | titlecase }}</p>
+          <p>{{ student.gender | titlecase }}</p> -->
         </div>
         <div class="details">
           <i class="far fa-address-card"></i>
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-  <div class="grid c-1" *ngIf="student">
+  <div class="grid c-1">
     <div class="box">
       <h3>Educational Information</h3>
       <div class="additional-details">
@@ -101,9 +101,9 @@
             <h3>UG Course</h3>
             <p class="outline">{{ student.ug_course }}</p>
           </div>
-          <div class="details col" *ngIf="student.ug_course_percentage">
+          <div class="details col">
             <h3>UG Course Percentage</h3>
-            <p class="outline">{{ student.ug_course_percentage }}</p>
+            <!-- <p class="outline">{{ student.ug_course_percentage }}</p> -->
           </div>
           <div class="details col">
             <h3>Year Gap</h3>

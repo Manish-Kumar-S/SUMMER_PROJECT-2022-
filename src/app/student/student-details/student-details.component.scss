@@ -1,24 +1,19 @@
 @import "/src/app/shared/scss/main.scss";
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  background-color: #f1f7fc;
-  width: 100%;
-  min-height: 100vh;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
-  padding: 2em;
+.student-container {
   .btn-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 2em 0;
     .title {
       font-size: 1.75em;
       font-weight: 600;
       padding: 0.35em;
+
+      @include md-screen {
+        font-size: 1.25em;
+      }
     }
     button {
       float: right;
@@ -33,6 +28,11 @@
         // transform: none;
         background: darken(#5f56ed, 3%);
       }
+
+      @include md-screen {
+        font-size: 1em;
+        padding: 0.5em;
+      }
     }
   }
   .box {
@@ -41,6 +41,7 @@
     border-radius: 10px;
     box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
     padding: 2em;
+    margin-bottom: 1em;
     h3 {
       font-size: 1.25em;
     }
@@ -116,17 +117,17 @@
   }
 }
 
-@media (max-width: map-get($breakpoints,"medium")) {
-  .container {
-    .grid {
-      &.c-2 {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        &.equal {
-          width: 100%;
-        }
-      }
-    }
-  }
-}
+// @media (max-width: map-get($breakpoints,"medium")) {
+//   .container {
+//     .grid {
+//       &.c-2 {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 1em;
+//         &.equal {
+//           width: 100%;
+//         }
+//       }
+//     }
+//   }
+// }
