@@ -5,11 +5,10 @@ import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 
-
 @Component({
   selector: 'app-campus-drive',
   templateUrl: './campus-drive.component.html',
-  styleUrls: ['./campus-drive.component.scss']
+  styleUrls: ['./campus-drive.component.scss'],
 })
 export class CampusDriveComponent implements OnInit {
 
@@ -19,28 +18,28 @@ export class CampusDriveComponent implements OnInit {
   year = new Date().getFullYear();
   categories: any = [
     {
-      id:1,
-      name: "PRODUCT"
+      id: 1,
+      name: 'PRODUCT',
     },
     {
-      id:2,
-      name: "SERVICE"
-    }
-  ]
+      id: 2,
+      name: 'SERVICE',
+    },
+  ];
   employment_t: any = [
     {
-      id:1,
-      name: "FULL TIME"
+      id: 1,
+      name: 'FULL TIME',
     },
     {
-      id:2,
-      name: "INTERNSHIP"
+      id: 2,
+      name: 'INTERNSHIP',
     },
     {
-      id:3,
-      name: "INTERNSHIP + FULLTIME"
-    }
-  ]
+      id: 3,
+      name: 'INTERNSHIP + FULLTIME',
+    },
+  ];
   getCourses() {
     return this.http
       .get(`${API}/get/courses`)
@@ -94,24 +93,20 @@ export class CampusDriveComponent implements OnInit {
   ngOnInit(): void {
     this.getCourses().subscribe((res) => {
       this.courses = res;
-    })
+    });
   }
 
-  showBondDetails(e: MatRadioChange){
-    if(e.value == 2)
-      this.bond = false;
-    else
-      this.bond = true;
+  showBondDetails(e: MatRadioChange) {
+    if (e.value == 2) this.bond = false;
+    else this.bond = true;
   }
 
-  showBacklogsDetails(e: MatRadioChange){
-    if(e.value == 2)
-      this.historyOfArrears = false;
-    else
-      this.historyOfArrears = true;
+  showBacklogsDetails(e: MatRadioChange) {
+    if (e.value == 2) this.historyOfArrears = false;
+    else this.historyOfArrears = true;
   }
 
-  OnSubmit(){
+  OnSubmit() {
     const req = new FormData();
     // req.append('compa', '1')
     req.append('drive_name', this.form.get('drive_name').value)
@@ -154,7 +149,7 @@ export class CampusDriveComponent implements OnInit {
 
     this.http.post(`${API}/company/drive`, req).subscribe(
       (data) => console.log(data),
-      (err) => console.log(err));
+      (err) => console.log(err)
+    );
   }
-
 }

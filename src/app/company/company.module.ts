@@ -19,7 +19,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.component';
 
-
 @NgModule({
   declarations: [
     CompanyComponent,
@@ -43,7 +42,7 @@ import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.comp
     MatProgressSpinnerModule,
     MatBadgeModule,
     RouterModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class CompanyModule { }
+export class CompanyModule {}

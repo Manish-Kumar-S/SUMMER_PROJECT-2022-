@@ -18,13 +18,11 @@ export class LoginRegisterComponent implements OnInit {
   ip: string;
   loginError: string;
   registerError: string;
-  adBlockDetected: boolean;
   logo: string;
 
   constructor(private http: HttpClient, private router: Router) {
     this.url = `${API}/user`;
     this.logo = `${IMG_URL}/annauniv-logo.png`;
-    this.adBlockDetected = false;
     this.roles = [
       { id: 1, name: 'Student' },
       { id: 2, name: 'Company' },
@@ -38,13 +36,13 @@ export class LoginRegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      role: new FormControl(1),
     });
   }
 
   ngOnInit(): void {}
 
   onLogin() {
+    const role = this.loginForm.get('role').value;
     const form = new FormData();
     form.append('email', this.loginForm.get('email').value);
     form.append('password', this.loginForm.get('password').value);
@@ -67,9 +65,8 @@ export class LoginRegisterComponent implements OnInit {
     const form = new FormData();
     form.append('email', this.registerForm.get('email').value);
     form.append('password', this.registerForm.get('password').value);
-    // form.append('role', this.registerForm.get('role').value);
     this.http
-      .post(`${this.url}/register`, form, { observe: 'response' })
+      .post<any>(`${this.url}/register`, form, { observe: 'response' })
       .subscribe(
         (data) => {
           console.log(data.headers.get('Tokenstring'));
