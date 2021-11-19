@@ -11,3 +11,15 @@
     grid-template-columns: 1fr;
   }
 }
+@include sm-screen {
+  .grid {
+    gap: 1em;
+    &.c-2 {
+      grid-template-columns: 1fr;
+
+      &.equal {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

@@ -4,6 +4,11 @@
   font-size: 1.75em;
   font-weight: 600;
   padding: 0.35em;
+
+  @include sm-screen {
+    font-size: 1.5em;
+    text-align: center;
+  }
 }
 
 .grid {
