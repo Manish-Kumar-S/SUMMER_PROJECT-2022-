@@ -1,85 +1,64 @@
 <div class="student-container">
   <h1 class="title">Upcoming Companies</h1>
-  <section class="company__list grid">
-    <div class="company__card">
+  <section class="company__list grid" *ngIf="companies">
+    <div class="company__card" *ngFor="let company of companies">
       <div class="company__card-header">
         <div class="company__card-logo">
           <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
         </div>
         <div class="company__card-title">
-          <h2>Company Name</h2>
-          <h3>Company Location</h3>
+          <h2>{{ company.drive_name }}</h2>
+          <h3>{{ company.company.address }}</h3>
         </div>
       </div>
       <div class="company__card-body">
         <div class="company__card-details">
           <p>
             <span class="details-heading">Eligible Branches : </span
-            ><span>CS, IT, ECE</span>
+            ><span
+              class="details"
+              *ngFor="let course_id of company.eligible_courses_id"
+              >{{ filterCourses(course_id) }}</span
+            >
           </p>
         </div>
         <div class="company__card-details">
           <p>
-            <span class="details-heading">Eligibility Criteria : </span
-            ><span>7.0 above & No Current Arrear</span>
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Package : </span
-            ><span>Rs. 10LPA</span>
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p><span class="details-heading">Role : </span><span>SDE</span></p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Test Date : </span
-            ><span>15-Nov-2021</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="company__card">
-      <div class="company__card-header">
-        <div class="company__card-logo">
-          <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-        </div>
-        <div class="company__card-title">
-          <h2>Company Name</h2>
-          <h3>Company Location</h3>
-        </div>
-      </div>
-      <div class="company__card-body">
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Eligible Branches : </span
-            ><span>CS, IT</span>
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Eligibility Criteria : </span
-            ><span>6.0 above & No History of Arrear</span>
+            <span class="details-heading">Eligibility Criteria : </span>
+            <span class="details" *ngIf="company.eligibility_in_present"
+              >{{ company.eligibility_in_present }} above</span
+            >
+            <span class="details" *ngIf="company.eligibility_10"
+              >{{ company.eligibility_10 }} %(10th)</span
+            >
+            <span class="details" *ngIf="company.eligibility_12"
+              >{{ company.eligibility_12 }} %(12th)</span
+            >
           </p>
         </div>
         <div class="company__card-details">
           <p>
             <span class="details-heading">Package : </span
-            ><span>Rs. 8.5LPA</span>
+            ><span *ngIf="company.ctc_for_ug"
+              >{{ company.ctc_for_ug }} (UG)</span
+            >,
+            <span *ngIf="company.ctc_for_pg"
+              >{{ company.ctc_for_pg }} (PG)</span
+            >
           </p>
         </div>
         <div class="company__card-details">
           <p>
             <span class="details-heading">Role : </span
-            ><span>Sofware Engineer</span>
+            ><span class="details" *ngFor="let role of company.roles">{{
+              role
+            }}</span>
           </p>
         </div>
         <div class="company__card-details">
           <p>
             <span class="details-heading">Test Date : </span
-            ><span>19-Nov-2021</span>
+            ><span>{{ company.date_of_visiting | date }}</span>
           </p>
         </div>
       </div>

@@ -18,14 +18,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 
-
 @NgModule({
   declarations: [
     CompanyComponent,
     CompanyDashboardComponent,
     CampusDriveComponent,
     CompanyDetailsComponent,
-    NavComponent
+    NavComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +40,7 @@ import { CompanyDetailsComponent } from './company-details/company-details.compo
     MatProgressSpinnerModule,
     MatBadgeModule,
     RouterModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class CompanyModule { }
+export class CompanyModule {}

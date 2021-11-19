@@ -11,7 +11,7 @@ export class StudentService {
 
   getCourses() {
     return this.http
-      .get(`${API}/get/courses`)
-      .pipe(map((res: any) => res.courses));
+      .get<any>(`${API}/get/courses`)
+      .pipe(map((res) => res.courses));
   }
 }
