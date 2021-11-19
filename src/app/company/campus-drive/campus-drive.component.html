@@ -9,7 +9,277 @@
 
   <h1>Create Campus Drive</h1>
 
-  <form fxLayout="column" [formGroup]="form">
+  <form [formGroup]="form" fxLayout="row" fxFlex fxLayoutGap="50px">
+
+    <div fxLayout="column" fxFlex="60%">
+
+      
+      <h3>Drive Details</h3>
+      <br [fxShow]="valid">
+      <mat-error [fxShow]="valid"> Please Fill in all the Required fields </mat-error>
+      <br>
+  
+      <div fxLayoutGap="5px">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Drive Name</mat-label>
+          <input matInput placeholder="Campus Drive Name" required formControlName="drive_name">
+          <!-- <mat-hint>Eg. SDE</mat-hint> -->
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Roles</mat-label>
+          <input
+            matInput
+            placeholder="Role Offered"
+            required
+            formControlName="roles"
+          />
+          <mat-hint>Eg. SDE</mat-hint>
+        </mat-form-field>
+      </div>
+  
+      <div fxLayoutGap="5px">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Category</mat-label>
+          <mat-select required formControlName="category">
+            <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Employment Type</mat-label>
+          <mat-select required formControlName="employment_type">
+            <mat-option *ngFor="let e of employment_t" [value]="e.id">{{e.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Years Eligible</mat-label>
+          <mat-select required formControlName="year_batch_eligible">
+            <mat-option [value]="year-1">Pre-Final Years (3rd Year)</mat-option>
+            <mat-option [value]="year">Final Years (4th Year)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <h3>Interview/Shortlist Process</h3>
+      <br>
+  
+      <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
+  
+        <div fxLayout="column" fxFlex>
+  
+          <b>Please Select Applicable Rounds:</b>
+          <mat-checkbox value="1" formControlName="aptitude_test">Aptitude/Physometric Assesment</mat-checkbox>
+          <mat-checkbox value="2" formControlName="coding_test">Coding Assesment</mat-checkbox>
+          <mat-checkbox value="2" formControlName="group_discussion">Group Discussion</mat-checkbox>
+          <mat-checkbox value="3" formControlName="technical_interview1">Technical Interview 1</mat-checkbox>
+          <mat-checkbox value="4" formControlName="technical_interview2">Technical Interview 2</mat-checkbox>
+          <mat-checkbox value="5" formControlName="technical_interview3">Technical Interview 3</mat-checkbox>
+          <mat-checkbox value="6" formControlName="technical_plus_hr_interview">Technical Interview with HR</mat-checkbox>
+          <mat-checkbox value="7" formControlName="hr_interview">HR Interview</mat-checkbox>
+  
+        </div>
+  
+        <div fxLayout="column" fxFlex="60%">
+          <div fxLayoutGap="2px">
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Date of Visiting</mat-label>
+              <input matInput type="date" placeholder="start date" required formControlName="date_of_visiting">
+              <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Pre-Placement Talk Schedule</mat-label>
+              <input matInput type="datetime-local" placeholder="start date" required formControlName="ppt_session">
+              <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="2px">
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>First Assesment Schedule</mat-label>
+              <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_test">
+              <mat-hint>Date for the First Assement Round</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Duration of Test</mat-label>
+              <input type="number" matInput placeholder="Hours" formControlName="duration_of_test">
+              <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Interview Schedule</mat-label>
+              <input matInput type="datetime-local" placeholder="start date" required formControlName="date_time_of_interview">
+              <mat-hint>Date for the First Interview Round</mat-hint>
+            </mat-form-field>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <br>
+  
+      <H3>Compensation Details</H3>
+      <br>
+  
+      <div fxLayout="row" fxFlex fxLayoutGap="5px">
+  
+        <div fxLayout="column" fxFlex>
+          
+          <h4>FTE Compensation</h4>
+          <div>
+            <mat-form-field appearance="outline" fxFlex floatLabel="always">
+              <mat-label>Salary Offered for UG</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0" required formControlName="ctc_for_ug">
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>CTC</span>
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field appearance="outline" fxFlex floatLabel="always">
+              <mat-label>Salary Offered for PG</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0" required formControlName="ctc_for_pg">
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>CTC</span>
+            </mat-form-field>
+          </div>
+  
+        </div>
+  
+        <div fxLayout="column" fxFlex>
+  
+          <h4>Intern Compensation</h4>
+          <div>
+            <mat-form-field appearance="outline" fxFlex floatLabel="always">
+              <mat-label>Stipend Offered for UG</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0" formControlName="stipend_for_internship_for_ug">
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>CTC</span>
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field appearance="outline" fxFlex floatLabel="always">
+              <mat-label>Stipend Offered for PG</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0" formControlName="stipend_for_internship_for_pg">
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>CTC</span>
+            </mat-form-field>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div fxLayout="column" fxFlex="40%">
+  
+      <H3>Eligbility Criteria</H3>
+      <br>
+  
+      <div>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Eligible Departments</mat-label>
+          <mat-select multiple [compareWith]="compare" formControlName="eligible_courses_id">
+            <mat-select-trigger>
+              <!-- {{dept.value ? dept.value[0] : ''}} -->
+              <span *ngIf="form.get('eligible_courses_id').value?.length > 0">
+                {{form.get('eligible_courses_id').value.length}} {{form.get('eligible_courses_id').value?.length === 1 ? 'department selected' : 'departments selected'}}
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let department of courses" [value]="department.id"> {{department.name + ' ' + department.branch}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>UG CGPA Criteria</mat-label>
+          <mat-select required formControlName="eligibility_in_present">
+            <mat-option value="9">9+</mat-option>
+            <mat-option value="8.5">8.5+</mat-option>
+            <mat-option value="8">8+</mat-option>
+            <mat-option value="7.5">7.5+</mat-option>
+            <mat-option value="7">7+</mat-option>
+            <mat-option value="6.5">6.5+</mat-option>
+            <mat-option value="6">6+</mat-option>
+          </mat-select>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>PG CGPA Criteria</mat-label>
+          <mat-select formControlName="eligibility_graduation">
+            <mat-option value="9">9+</mat-option>
+            <mat-option value="8.5">8.5+</mat-option>
+            <mat-option value="8">8+</mat-option>
+            <mat-option value="7.5">7.5+</mat-option>
+            <mat-option value="7">7+</mat-option>
+            <mat-option value="6.5">6.5+</mat-option>
+            <mat-option value="6">6+</mat-option>
+          </mat-select>
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </div>
+  
+      <mat-label>Allow students with History of Arrears?</mat-label>
+      <br>
+      <div>
+        <mat-radio-group aria-label="Allow students with History of Arrears?" fxFlex="100%" required (change)="showBacklogsDetails($event)" formControlName="history_of_arrears">
+          <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
+          <mat-radio-button value="2" fxFlex="20%">Not Allowed</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br>
+  
+      <div>
+        <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex>
+          <mat-label>Maximum Number of backlogs allowed</mat-label>
+          <input type="number" matInput placeholder="Number of backlogs" formControlName="current_arrears">
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Registration Deadline</mat-label>
+          <input matInput type="datetime-local" placeholder="start date" required formControlName="registration_deadline">
+          <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+        </mat-form-field>
+      </div>
+        
+  
+      <h3>Job Description & Other Information</h3>
+      <br>
+      
+      <div>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Job Description/Instructions(if any)</mat-label>
+          <textarea matInput rows="6" formControlName="other_information"></textarea>
+        </mat-form-field>
+      </div>
+  
+      <br>
+      
+      <div>
+        <button mat-raised-button color="warn" fxFlex="30%" (click)="OnSubmit()">Create Drive</button>
+        <div fxFlex="10%"></div>
+        <mat-spinner *ngIf="updateLoading" [diameter]="30"></mat-spinner>
+        <!-- <div *ngIf="updateSuccess" style="color: green;" fxLayoutAlign="none center">
+          <b>Updated Succesfully! Refreshing Page...</b>
+        </div> -->
+      </div>
+  
+    </div>
+  
+  </form>
+
+  <!-- <form fxLayout="column" [formGroup]="form">
     <H3>Company Details</H3>
     <br />
 
@@ -17,7 +287,6 @@
       <mat-form-field appearance="outline" fxFlex="60%">
         <mat-label>Drive Name</mat-label>
         <input matInput placeholder="Campus Drive Name" required formControlName="drive_name">
-        <!-- <mat-hint>Eg. SDE</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -30,20 +299,8 @@
           required
           formControlName="roles"
         />
-        <mat-hint>Eg. SDE</mat-hint>
       </mat-form-field>
     </div>
-
-    <!-- <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
-        <mat-label>Employment type</mat-label>
-        <mat-select required formControlName="employment_type">
-          <mat-option value="fte">Full Time Employment</mat-option>
-          <mat-option value="fte+intern">Internship + Full Time Employment</mat-option>
-          <mat-option value="intern">Internship Only</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div> -->
 
     <div>
       <mat-form-field appearance="outline" fxFlex="60%">
@@ -67,21 +324,6 @@
       </mat-form-field>
     </div>
 
-    <!-- <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
-        <mat-label>About the Company</mat-label>
-        <textarea matInput formControlName="about_company"></textarea>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
-        <mat-label>Job Description Link</mat-label>
-        <input matInput placeholder="Job Description PDF Link" formControlName="jd_link">
-        <mat-hint>Hint</mat-hint>
-      </mat-form-field>
-    </div> -->
-
     <br />
 
     <H3>Eligbility Criteria</H3>
@@ -99,7 +341,6 @@
           <mat-option value="6.5">6.5 +</mat-option>
           <mat-option value="6">6 +</mat-option>
         </mat-select>
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -115,7 +356,6 @@
           <mat-option value="6.5">6.5 +</mat-option>
           <mat-option value="6">6 +</mat-option>
         </mat-select>
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -140,7 +380,6 @@
       <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex="60%">
         <mat-label>Maximum Number of backlogs allowed</mat-label>
         <input type="number" matInput placeholder="Number of backlogs" formControlName="current_arrears">
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -156,7 +395,6 @@
           <mat-option value="70">70% +</mat-option>
           <mat-option value="60">60% +</mat-option>
         </mat-select>
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -170,7 +408,6 @@
           <mat-option value="70">70% +</mat-option>
           <mat-option value="60">60% +</mat-option>
         </mat-select>
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -179,7 +416,6 @@
         <mat-label>Eligible Departments</mat-label>
         <mat-select multiple formControlName="eligible_courses_id">
           <mat-select-trigger>
-            <!-- {{dept.value ? dept.value[0] : ''}} -->
             <span *ngIf="form.get('eligible_courses_id').value?.length > 0">
               {{form.get('eligible_courses_id').value.length}} {{form.get('eligible_courses_id').value?.length === 1 ? 'department selected' : 'departments selected'}}
             </span>
@@ -214,7 +450,6 @@
         <mat-form-field appearance="outline" fxFlex="30%">
           <mat-label>Date of Visiting</mat-label>
           <input matInput type="date" placeholder="start date" required formControlName="date_of_visiting">
-          <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
         </mat-form-field>
       </div>
 
@@ -228,7 +463,6 @@
             required
             formControlName="ppt_session"
           />
-          <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
         </mat-form-field>
       </div>
 
@@ -292,7 +526,6 @@
       <mat-form-field appearance="outline" fxFlex="60%">
         <mat-label>Duration of Test</mat-label>
         <input type="number" matInput placeholder="Duration of Test" formControlName="duration_of_test">
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
 
     </div>
@@ -397,7 +630,6 @@
           <mat-option value="3">3 Years</mat-option>
           <mat-option value="4">4 Years</mat-option>
         </mat-select>
-        <!-- <mat-hint>Hint</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -426,7 +658,6 @@
           required
           formControlName="registration_deadline"
         />
-        <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
       </mat-form-field>
     </div>
 
@@ -452,6 +683,6 @@
     </div>
 
     <div style="height: 40vh"></div>
-  </form>
+  </form> -->
 </div>
 <div fxLayout="column" fxFlexOffSet="40px"></div>

@@ -119,7 +119,9 @@ export class DriveUpdateComponent implements OnInit {
       this.courses = res;
     })
 
+    this.form.get('drive_name').setValue(this.driveResponse['drive_name']);
     this.form.get('category').setValue(this.driveResponse['category']['id']);
+    this.form.get('roles').setValue(this.driveResponse['roles']);
     this.form.get('employment_type').setValue(this.driveResponse['employment_type']['id']);
     this.form.get('ctc_for_ug').setValue(this.driveResponse['ctc_for_ug']);
     this.form.get('ctc_for_pg').setValue(this.driveResponse['ctc_for_pg']);
@@ -165,8 +167,9 @@ export class DriveUpdateComponent implements OnInit {
     this.driveID = this.driveResponse['id'];
     req.append('id', this.driveResponse['id'])
     req.append('drive_id', this.driveResponse['id'])
+    req.append('drive_name', this.form.get('drive_name').value)
     req.append('category', this.form.get('category').value)
-    req.append('roles', this.form.get('roles').value.split(','))
+    req.append('roles', this.form.get('roles').value)
     req.append('employment_type', this.form.get('employment_type').value)
     req.append('ctc_for_ug', this.form.get('ctc_for_ug').value)
     req.append('ctc_for_pg', this.form.get('ctc_for_pg').value)
@@ -190,7 +193,7 @@ export class DriveUpdateComponent implements OnInit {
     req.append('aptitude_test',this.form.get('aptitude_test').value ? 'true' : 'false')
     req.append('coding_test',this.form.get('coding_test').value ? 'true' : 'false')
     req.append('group_discussion',this.form.get('group_discussion').value ? 'true' : 'false')
-    req.append('date_time_of_interview',this.form.get('date_time_of_interview').value + ':00')
+    req.append('date_time_of_interview',this.form.get('date_time_of_interview').value)
     req.append('number_of_interviews', '1')
     req.append('technical_interview1',this.form.get('technical_interview1').value ? 'true' : 'false')
     req.append('technical_interview2',this.form.get('technical_interview2').value ? 'true' : 'false')

@@ -7,6 +7,25 @@
 
     <div fxLayoutGap="5px">
       <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Drive Name</mat-label>
+        <input matInput placeholder="Campus Drive Name" required formControlName="drive_name">
+        <!-- <mat-hint>Eg. SDE</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Roles</mat-label>
+        <input
+          matInput
+          placeholder="Role Offered"
+          required
+          formControlName="roles"
+        />
+        <mat-hint>Eg. SDE</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div fxLayoutGap="5px">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>Category</mat-label>
         <mat-select required formControlName="category">
           <mat-option *ngFor="let c of categories" [value]="c.id">{{c.name}}</mat-option>
@@ -148,7 +167,7 @@
     <br>
 
     <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>Eligible Departments</mat-label>
         <mat-select multiple [compareWith]="compare" formControlName="eligible_courses_id">
           <mat-select-trigger>
@@ -163,7 +182,7 @@
     </div>
 
     <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>UG CGPA Criteria</mat-label>
         <mat-select required formControlName="eligibility_in_present">
           <mat-option value="9">9+</mat-option>
@@ -179,7 +198,7 @@
     </div>
 
     <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>PG CGPA Criteria</mat-label>
         <mat-select formControlName="eligibility_graduation">
           <mat-option value="9">9+</mat-option>
@@ -204,7 +223,7 @@
     <br>
 
     <div>
-      <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex="60%">
+      <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex>
         <mat-label>Maximum Number of backlogs allowed</mat-label>
         <input type="number" matInput placeholder="Number of backlogs" formControlName="current_arrears">
         <!-- <mat-hint>Hint</mat-hint> -->
@@ -212,7 +231,7 @@
     </div>
 
     <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>Registration Deadline</mat-label>
         <input matInput type="datetime-local" placeholder="start date" required formControlName="registration_deadline">
         <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
@@ -224,12 +243,13 @@
     <br>
     
     <div>
-      <mat-form-field appearance="outline" fxFlex="60%">
+      <mat-form-field appearance="outline" fxFlex>
         <mat-label>Other Details/Instructions(if any)</mat-label>
         <textarea matInput formControlName="other_information"></textarea>
       </mat-form-field>
     </div>
 
+    <br>
     
     <div>
       <button mat-raised-button color="warn" fxFlex="30%" (click)="OnSubmit()">Update Details</button>
