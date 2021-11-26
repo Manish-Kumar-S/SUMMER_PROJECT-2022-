@@ -18,6 +18,7 @@ export class AuthService {
   }
 
   logout() {
+    console.log('This is Logout')
     this.http.get(`${API}/user/logout`).subscribe((data: any) => {
       if (data.response.status === 200) {
         localStorage.removeItem('errorJWT');

@@ -1,21 +1,21 @@
 @import "/src/app/shared/scss/main.scss";
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  background-color: #f1f7fc;
-  width: 100%;
-  min-height: 100vh;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
-  padding: 2em;
+.company-container {
   .btn-container {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2em 0;
+    .title {
+      font-size: 1.75em;
+      font-weight: 600;
+      padding: 0.35em;
+
+      @include md-screen {
+        font-size: 1.3em;
+      }
+    }
     button {
-      float: right;
       @extend %buttons;
       padding: 0.5em 1em;
       color: #fff;
@@ -24,8 +24,21 @@
       background: #5f56ed;
       border-radius: 0.1em;
       &:hover {
-        // transform: none;
+        transform: none;
         background: darken(#5f56ed, 3%);
+      }
+
+      @include md-screen {
+        display: none;
+      }
+    }
+    .edit {
+      display: none;
+      border-radius: 50%;
+      padding: 0.5em;
+
+      @include md-screen {
+        display: block;
       }
     }
   }
@@ -35,6 +48,7 @@
     border-radius: 10px;
     box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
     padding: 2em;
+    margin-bottom: 1em;
     h3 {
       font-size: 1.25em;
     }
@@ -67,7 +81,7 @@
       .details {
         display: flex;
         align-items: center;
-        gap: 2em;
+        // gap: 2em;
         h3 {
           font-size: 1.02em;
           color: darken(#5f56ed, 2%);
@@ -76,12 +90,21 @@
           font-size: 1em;
         }
         .outline {
-          outline: 1.5px solid gainsboro;
-          border-radius: 0.1em;
-          outline-offset: 0.45em;
+          outline: 1.5px solid #ebeaea;
+          border-radius: 2em;
+          outline-offset: 0.5em;
         }
         i {
+          width: 3em;
           font-size: 1.1em;
+        }
+        a {
+          color: black;
+          text-decoration: none;
+          &:hover {
+            color: $primary_color;
+            text-decoration: underline;
+          }
         }
         &.col {
           flex-direction: column;
@@ -97,6 +120,24 @@
   &.c-2 {
     &.equal {
       margin-top: 0.5em;
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,"medium")) {
+  .student-container {
+    .grid {
+      &.c-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        &.equal {
+          width: 100%;
+        }
+      }
+      &.c-1 {
+        margin-top: 1em;
+      }
     }
   }
 }

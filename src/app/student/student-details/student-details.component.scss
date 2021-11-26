@@ -12,11 +12,10 @@
       padding: 0.35em;
 
       @include md-screen {
-        font-size: 1.25em;
+        font-size: 1.3em;
       }
     }
     button {
-      float: right;
       @extend %buttons;
       padding: 0.5em 1em;
       color: #fff;
@@ -25,13 +24,21 @@
       background: #5f56ed;
       border-radius: 0.1em;
       &:hover {
-        // transform: none;
+        transform: none;
         background: darken(#5f56ed, 3%);
       }
 
       @include md-screen {
-        font-size: 1em;
-        padding: 0.5em;
+        display: none;
+      }
+    }
+    .edit {
+      display: none;
+      border-radius: 50%;
+      padding: 0.5em;
+
+      @include md-screen {
+        display: block;
       }
     }
   }
@@ -117,17 +124,20 @@
   }
 }
 
-// @media (max-width: map-get($breakpoints,"medium")) {
-//   .container {
-//     .grid {
-//       &.c-2 {
-//         display: flex;
-//         flex-direction: column;
-//         gap: 1em;
-//         &.equal {
-//           width: 100%;
-//         }
-//       }
-//     }
-//   }
-// }
+@media (max-width: map-get($breakpoints,"medium")) {
+  .student-container {
+    .grid {
+      &.c-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        &.equal {
+          width: 100%;
+        }
+      }
+      &.c-1 {
+        margin-top: 1em;
+      }
+    }
+  }
+}
