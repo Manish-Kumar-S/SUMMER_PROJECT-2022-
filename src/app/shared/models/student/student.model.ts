@@ -5,6 +5,7 @@ export interface StudentModel {
   reg_number: number;
   phone: number;
   campus: string;
+  gender: string;
   course: {
     id: number;
     name: string;
@@ -17,7 +18,7 @@ export interface StudentModel {
   course_type: number;
   course_percentage: number;
   ug_course: string;
-  ug_coursePercentage: number;
+  ug_course_percentage: number;
   grade_10: string;
   grade_10_percentage: number;
   grade_12: string;

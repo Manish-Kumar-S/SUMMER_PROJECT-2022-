@@ -1,6 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { IMG_URL } from 'src/environments/environment';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
   isClicked: boolean;
   imgUrl: string;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(public authService:AuthService) {
     this.isClicked = false;
     this.imgUrl = IMG_URL;
   }

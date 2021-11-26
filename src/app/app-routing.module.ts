@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { StudentGuard } from './auth/student.guard';
+import { CompanyGuard } from './auth/company.guard';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     path: 'company',
     loadChildren: () =>
       import('./company/company.module').then((mod) => mod.CompanyModule),
+      canActivate: [CompanyGuard],
   },
 ];
 

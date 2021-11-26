@@ -1,5 +1,7 @@
-<div class="container">
+<div class="company-container">
   <div class="btn-container">
+    <h3 class="title">Company Details</h3>
+    <button class="edit" (click)="onEdit()"><i class="fas fa-edit"></i></button>
     <button (click)="onEdit()">Edit Company Details</button>
   </div>
   <div class="grid c-2">
@@ -7,22 +9,22 @@
       <div class="img-container">
         <!-- <img [src]="photographLink" alt="Profile" class="img" /> -->
         <div class="header-content">
-          <h3>{{company.name}}</h3>
+          <h3>{{ company.name }}</h3>
           <p></p>
         </div>
       </div>
       <div class="additional-details">
         <div class="details">
           <i class="far fa-envelope"></i>
-          <p>{{company.email}}</p>
+          <p>{{ company.email }}</p>
         </div>
         <div class="details">
           <i class="fas fa-mobile-alt"></i>
-          <p>+91 {{company.phone}}</p>
+          <p>+91 {{ company.phone }}</p>
         </div>
         <div class="details">
           <i class="far fa-building"></i>
-          <p>{{company.address}}</p>
+          <p>{{ company.address }}</p>
         </div>
       </div>
     </div>
@@ -32,15 +34,15 @@
         <div class="grid c-2 equal">
           <div class="details col">
             <h3>Ambassador Name</h3>
-            <p class="outline">{{company.ambassador_name}}</p>
+            <p class="outline">{{ company.ambassador_name }}</p>
           </div>
           <div class="details col">
             <h3>Designation</h3>
-            <p class="outline">{{company.designation}}</p>
+            <p class="outline">{{ company.designation }}</p>
           </div>
           <div class="details col">
             <h3>About Company</h3>
-            <p class="outline">{{company.details_of_office}}</p>
+            <p class="outline">{{ company.details_of_office }}</p>
           </div>
         </div>
       </div>

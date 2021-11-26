@@ -1,3 +1,56 @@
+<div class="hamburger-menu">
+  <input id="menu__toggle" type="checkbox" />
+  <label class="menu__btn" for="menu__toggle">
+    <span></span>
+  </label>
+  <ul class="menu__box">
+    <div class="menu__box-nav">
+      <li>
+        <a
+          routerLink="./dashboard"
+          routerLinkActive="active"
+          class="menu__item"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="./campus-drive"
+          class="menu__item"
+          routerLinkActive="active"
+        >
+          <i class="fas fa-user-edit"></i>
+          <span>Create Campus Drive</span>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="./company-details"
+          class="menu__item"
+          routerLinkActive="active"
+        >
+          <i class="fas fa-user"></i>
+          <span>Company Details</span>
+        </a>
+      </li>
+    </div>
+    <div class="dropup-wrap">
+      <div class="dropup" *ngIf="isClicked">
+        <button>Change Password</button>
+        <button (click)="authService.logout()">Logout</button>
+      </div>
+      <div class="profile-wrap" (click)="onToggle()">
+        <img [src]="imgUrl + '/back.jpg'" alt="user" />
+        <span>Jitiendran</span>
+        <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
+        <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
+      </div>
+    </div>
+  </ul>
+</div>
 <div class="main">
   <div class="nav-wrapper">
     <div class="icon-container">
@@ -31,7 +84,7 @@
     <div class="dropup-wrap">
       <div class="dropup" *ngIf="isClicked">
         <button>Change Password</button>
-        <button>Logout</button>
+        <button (click)="authService.logout()">Logout</button>
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
