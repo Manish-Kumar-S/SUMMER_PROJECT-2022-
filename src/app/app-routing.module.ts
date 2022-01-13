@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ExtraOptions } from '@angular/router';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { StudentGuard } from './auth/student.guard';
 import { CompanyGuard } from './auth/company.guard';
 import { LoginRegisterComponent } from './login-register/login-register.component';
@@ -22,6 +23,19 @@ const routes: Routes = [
       import('./company/company.module').then((mod) => mod.CompanyModule),
       canActivate: [CompanyGuard],
   },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((mod) => mod.AdminModule),
+  },
+  {
+    path: 'aLogin',
+    component: AdminLoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 const routerOptions: ExtraOptions = {
