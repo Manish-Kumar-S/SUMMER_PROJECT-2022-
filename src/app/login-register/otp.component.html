@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="web-title">
+    <img [src]="logo" alt="annauniv-logo" />
+    <div class="web-title-content">
+      <h3>Centre for University - Industry Collaboration</h3>
+      <p>Anna University, Chennai</p>
+    </div>
+  </div>
+</div>
+
+<div class="center-wrap">
+  <div class="auth-wrap">
+    <div class="img"></div>
+    <div fxLayout="column" style="margin: 5px;">
+      <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="center-wrap">Please Check your E-Mail</h1>
+        <br>
+        <h5 class="center-wrap">Please Enter the OTP below received via E-Mail.</h5>
+        <br>
+        <input [formControl]="otp" style="margin: auto;" autofocus maxlength='6' value=''/>
+        <br>
+        <br>
+        <h3 class="center-wrap">OTP Expires in <pre style="color: rgb(230, 65, 65);"> {{countdown}} </pre> </h3>
+        <br>
+        <h5 class="center-wrap">This is done to verify your E-Mail address and takes only few seconds.</h5>
+        <h5 class="center-wrap">Click here to &nbsp;<u style="cursor: pointer;" (click)="regenerateOTP()">regenerate</u>&nbsp; the OTP</h5>
+
+        <br>
+        <div class="center-wrap" *ngIf="success" style="color: green;">E-Mail Verified Successfully. Redirecting to Login Page</div>
+        <div class="center-wrap" *ngIf="error1" style="color: red;"><b>Something went wrong at our end. Please try again after sometime</b></div>
+        <div class="center-wrap" *ngIf="error2" style="color: red;"><b>OTP Expired. Please regenerate OTP</b></div>
+        <div class="center-wrap" *ngIf="error3" style="color: red;"><b>Incorrect OTP entered</b></div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>

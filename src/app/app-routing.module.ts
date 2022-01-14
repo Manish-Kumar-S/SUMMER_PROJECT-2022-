@@ -3,12 +3,17 @@ import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { StudentGuard } from './auth/student.guard';
 import { CompanyGuard } from './auth/company.guard';
-import { LoginRegisterComponent } from './login-register/login-register.component';
+import { LoginRegisterComponent, OTPComponent } from './login-register/login-register.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginRegisterComponent,
+    data: { title: 'CUIC | Anna University' },
+  },
+  {
+    path: 'otp',
+    component: OTPComponent,
     data: { title: 'CUIC | Anna University' },
   },
   {
