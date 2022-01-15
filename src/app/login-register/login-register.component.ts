@@ -46,11 +46,13 @@ export class OTPComponent {
           form.append('email', this.email);
           form.append('otp', data);
 
+          console.log(form.has('email'));
+
           let headers = new HttpHeaders({
             'Tokenstring': this.token,
           })
 
-          this.http.post<any>(`${this.url}/verify`, data, { headers: headers, observe: 'response' })
+          this.http.post<any>(`${this.url}/verify`, form, { headers: headers, observe: 'response' })
             .subscribe(
               (data) => {
                 this.success = true;
