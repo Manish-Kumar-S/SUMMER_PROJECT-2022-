@@ -2,7 +2,7 @@
 
 $num-of-char: 6;
 $char-width: 1ch;
-$gap: .4 * $char-width;
+$gap: 0.4 * $char-width;
 $in-w: $num-of-char * ($char-width + ($gap));
 
 .msg {
@@ -46,59 +46,61 @@ $in-w: $num-of-char * ($char-width + ($gap));
     width: 55vw;
     min-width: max(55vw, 60%);
     border-radius: 15px;
+    font-family: $secondary_font;
+
     .img {
       background-image: url("#{$img_url}/regi-img.png");
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
     }
-    form {
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2em;
-      button {
-        margin-top: 2em;
-        @extend %buttons;
+
+      input {
+        color: $primary-color;
+      }
+
+      h1,
+      h3,
+      h5 {
+        font-family: $secondary_font;
+        margin-bottom: 1em;
+      }
+
+      h1,
+      h3 {
+        font-weight: 600;
+      }
+
+      h1 {
+        font-size: 1.65em;
+      }
+
+      h5 {
+        font-weight: 500;
+        font-size: 0.85em;
+      }
+
+      .sub-head {
+        font-size: 1em;
+      }
+
+      .row {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 1em;
-        background: $primary-color;
-        padding: 0.5em 1.5em;
-        color: white;
-        border-radius: 0.3em;
-        font-size: 1.1em;
-        width: 100%;
-        span {
-          opacity: 0;
-          margin-left: -10%;
-        }
+        padding: 1em;
+      }
+
+      .link {
+        cursor: pointer;
+        font-weight: 600;
         &:hover {
-          outline: 2px solid $primary-color;
-          outline-offset: 0.3em;
-          span {
-            animation: btn_slide 0.4s ease-in-out;
-            animation-fill-mode: forwards;
-          }
-        }
-        &:disabled {
-          transform: scale(1);
-          outline: none;
-          span {
-            animation: none;
-          }
-        }
-        @keyframes btn_slide {
-          from {
-            opacity: 0;
-            margin-left: -10%;
-          }
-          to {
-            opacity: 1;
-            margin-left: 0%;
-          }
+          color: $primary-color;
         }
       }
     }
@@ -143,17 +145,21 @@ $in-w: $num-of-char * ($char-width + ($gap));
 }
 
 input {
-	display: block;
-	border: none;
-	width: $in-w;
-	background: repeating-linear-gradient(90deg, 
-		#000 0, #000 $char-width, 
-		transparent 0, transparent $char-width + $gap) 
-		0 100%/ #{$in-w - $gap} 2px no-repeat;
-	font: 5ch droid sans mono, consolas, monospace;
-	letter-spacing: $gap;
-	
-	&:focus {
-		outline: none;
-	}
+  display: block;
+  border: none;
+  width: $in-w;
+  background: repeating-linear-gradient(
+      90deg,
+      #000 0,
+      #000 $char-width,
+      transparent 0,
+      transparent $char-width + $gap
+    )
+    0 100% / #{$in-w - $gap} 2px no-repeat;
+  font: 5ch droid sans mono, consolas, monospace;
+  letter-spacing: $gap;
+
+  &:focus {
+    outline: none;
+  }
 }

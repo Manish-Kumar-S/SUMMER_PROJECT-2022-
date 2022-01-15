@@ -26,7 +26,7 @@ const routes: Routes = [
     path: 'company',
     loadChildren: () =>
       import('./company/company.module').then((mod) => mod.CompanyModule),
-      canActivate: [CompanyGuard],
+    canActivate: [CompanyGuard],
   },
   {
     path: 'admin',
