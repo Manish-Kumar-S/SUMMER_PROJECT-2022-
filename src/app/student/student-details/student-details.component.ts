@@ -69,7 +69,7 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   filterCourseType(value: number) {
-    return this.courseTypes.filter((d) => d.value === value)[0].key;
+    return this.courseTypes.filter((d) => d.value === value)[0]?.key;
   }
 
   filterOptions(value: boolean) {

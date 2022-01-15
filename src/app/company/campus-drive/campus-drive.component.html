@@ -1,6 +1,6 @@
 <div class="company-container">
   <h1>Create Campus Drive</h1>
-  <form [formGroup]="form" fxLayout="row" fxFlex fxLayoutGap="50px">
+  <form [formGroup]="form" [fxLayout]="isMobileView ? 'column' : 'row'" fxFlex fxLayoutGap="50px">
     <div fxLayout="column" fxFlex="60%">
       <h3>Drive Details</h3>
       <br [fxShow]="valid" />
@@ -8,7 +8,7 @@
         Please Fill in all the Required fields
       </mat-error>
       <br />
-      <div fxLayoutGap="5px">
+      <div fxFlex fxLayout="row wrap" fxLayoutGap="5px">
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>Drive Name</mat-label>
           <input
@@ -31,7 +31,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayoutGap="5px">
+      <div fxFlex fxLayout="row wrap" fxLayoutGap="5px">
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>Category</mat-label>
           <mat-select required formControlName="category">
@@ -64,11 +64,11 @@
       <h3>Interview/Shortlist Process</h3>
       <br />
 
-      <div fxLayout="row" fxFlex="100%" fxLayoutGap="5px">
-        <div fxLayout="column" fxFlex>
+      <div [fxLayout]="isMobileView ? 'column' : 'row'" fxFlex="100%" fxLayoutGap="5px">
+        <div fxLayout="column" [fxFlex]="isTabView ? '50%' : '40%'">
           <b>Please Select Applicable Rounds:</b>
           <mat-checkbox value="1" formControlName="aptitude_test"
-            >Aptitude/Physometric Assesment</mat-checkbox
+            ><span style="width: 50px;">Aptitude/Physometric <br *ngIf="isTabView"> Assesment</span></mat-checkbox
           >
           <mat-checkbox value="2" formControlName="coding_test"
             >Coding Assesment</mat-checkbox
@@ -86,15 +86,15 @@
             >Technical Interview 3</mat-checkbox
           >
           <mat-checkbox value="6" formControlName="technical_plus_hr_interview"
-            >Technical Interview with HR</mat-checkbox
+            >Technical Interview with <br *ngIf="isTabView"> HR</mat-checkbox
           >
           <mat-checkbox value="7" formControlName="hr_interview"
             >HR Interview</mat-checkbox
           >
         </div>
 
-        <div fxLayout="column" fxFlex="60%">
-          <div fxLayoutGap="2px">
+        <div fxLayout="column" [fxFlex]="isTabView ? '50%' : '60%'">
+          <div [fxLayout]="isTabView ? 'row wrap' : isMobileView ? 'column' : 'row'" fxLayoutGap="2px">
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Date of Visiting</mat-label>
               <input
@@ -118,7 +118,7 @@
               <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
             </mat-form-field>
           </div>
-          <div fxLayoutGap="2px">
+          <div [fxLayout]="isTabView ? 'row wrap' : isMobileView ? 'column' : 'row'" fxLayoutGap="2px">
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>First Assesment Schedule</mat-label>
               <input
@@ -128,7 +128,7 @@
                 required
                 formControlName="date_time_of_test"
               />
-              <mat-hint>Date for the First Assement Round</mat-hint>
+              <mat-hint>Date of the 1st Assesment</mat-hint>
             </mat-form-field>
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Duration of Test</mat-label>
@@ -141,7 +141,7 @@
               <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
           </div>
-          <div>
+          <div fxLayout="row" fxFlex>
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Interview Schedule</mat-label>
               <input
@@ -159,10 +159,15 @@
 
       <br />
 
+      <br *ngIf="isMobileView">
+      <br *ngIf="isMobileView">
+      <br *ngIf="isMobileView">
+      <br *ngIf="isMobileView">
+
       <H3>Compensation Details</H3>
       <br />
 
-      <div fxLayout="row" fxFlex fxLayoutGap="5px">
+      <div fxLayout="row wrap" fxFlex fxLayoutGap="5px">
         <div fxLayout="column" fxFlex>
           <h4>FTE Compensation</h4>
           <div>
@@ -234,6 +239,9 @@
     </div>
 
     <div fxLayout="column" fxFlex="40%">
+
+      <br *ngIf="isMobileView">
+
       <H3>Eligbility Criteria</H3>
       <br />
 
@@ -308,8 +316,8 @@
           (change)="showBacklogsDetails($event)"
           formControlName="history_of_arrears"
         >
-          <mat-radio-button value="1" fxFlex="20%">Allowed</mat-radio-button>
-          <mat-radio-button value="2" fxFlex="20%"
+          <mat-radio-button value="1" [fxFlex]="isTabView || isMobileView ? '50%' : '20%'">Allowed</mat-radio-button>
+          <mat-radio-button value="2" [fxFlex]="isTabView || isMobileView ? '50%' : '20%'"
             >Not Allowed</mat-radio-button
           >
         </mat-radio-group>
@@ -351,7 +359,7 @@
           <mat-label>Job Description/Instructions(if any)</mat-label>
           <textarea
             matInput
-            rows="6"
+            [rows]="isTabView || isMobileView ? '15' : '6'"
             formControlName="other_information"
           ></textarea>
         </mat-form-field>
@@ -359,14 +367,17 @@
 
       <br />
 
-      <div>
+      <div fxFlex *ngIf="isTabView"></div>
+
+      <div style="height: 100px;">
         <button
           mat-raised-button
           color="warn"
-          fxFlex="30%"
+          [fxFlex]="isTabView ? '60%' : '60%'"
           (click)="OnSubmit()"
+          style="margin: auto;"
         >
-          Create Drive
+          <h3>Create Drive</h3>
         </button>
         <div fxFlex="10%"></div>
         <mat-spinner *ngIf="updateLoading" [diameter]="30"></mat-spinner>

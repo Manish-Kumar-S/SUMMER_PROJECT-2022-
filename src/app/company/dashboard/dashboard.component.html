@@ -3,6 +3,7 @@
   <!-- <div fxFlex="1%"></div> -->
 
   <h1>Dashboard</h1>
+  <br *ngIf="isTabView || isMobileView">
 
   <div>
     <mat-accordion class="example-headers-align" multi>
@@ -80,17 +81,17 @@
       <p *ngIf="driveResponse?.length === 0">Seems like you haven't Created a Drive. Please Create one <a routerLink="../campus-drive">here</a></p>
     
       <mat-expansion-panel *ngFor="let drive of driveResponse">
-        <mat-expansion-panel-header style="height: 100px;">
+        <mat-expansion-panel-header [style]="isTabView ? 'height:150px' : isMobileView ? 'height: 250px' : 'height: 100px;'">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>
               <h3 fxFlex="100%">  {{drive.drive_name}} <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
-              <div fxLayout="row">
+              <div [fxLayout]="isTabView || isMobileView ? 'column' : 'row'">
                 <div fxLayout="row" fxFlex>
-                  <div fxLayout="column" fxFlex="30%">
+                  <div fxLayout="column" fxFlex="50%">
                     <p> Role: </p>
                     <p> Posted On: </p>
                   </div>
-                  <div fxLayout="column" fxFlex="70%">
+                  <div fxLayout="column" fxFlex="50%">
                     <i>{{drive.roles}}</i>
                     <i>{{drive.posted_date.split('T')[0]}}</i>
                   </div>
@@ -125,6 +126,7 @@
         </mat-expansion-panel-header>
 
         <div fxFlex="100%">
+          <br>
           <div fxLayout="column" fxLayoutGap="5px">
 
             <div fxLayout="column">

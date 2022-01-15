@@ -20,6 +20,7 @@ import { CompanyDetailsComponent } from './company-details/company-details.compo
 import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CompanyDetailsDialog } from './company-details/company-model/company-model.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CompanyDetailsDialog } from './company-details/company-model/company-mo
     MatProgressSpinnerModule,
     MatDialogModule,
     MatBadgeModule,
+    LayoutModule,
     RouterModule,
     SharedModule,
   ],

@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -12,6 +13,8 @@ export class CompanyDetailsDialog implements OnInit {
 
   updateLoading: boolean;
   successMsg: boolean;
+  isTabView: boolean = false;
+  isMobileView: boolean = false;
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -23,12 +26,33 @@ export class CompanyDetailsDialog implements OnInit {
     address: new FormControl('')
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver) {
     this.updateLoading = true;
     this.successMsg = false;
   }
 
   ngOnInit(): void {
+
+    //Breakpoint Observer for Screen Size
+    this.breakpointObserver.observe(['(min-width: 1000px)','(min-width: 620px)']).subscribe(
+      (state: BreakpointState) => {
+        if(state.breakpoints['(min-width: 1000px)']){
+          console.log('Desktop View');
+          this.isTabView = false;
+          this.isMobileView = false;
+        }
+        else if(state.breakpoints['(min-width: 620px)']){
+          console.log('Tab View');
+          this.isTabView = true;
+          this.isMobileView = false;
+        }
+        else{
+          this.isMobileView = true;
+          this.isTabView = false;
+          console.log('Mobile View');
+        }
+      }
+    );
 
     this.http.get(`${API}/company/profile`).subscribe(
       (data: any) => {

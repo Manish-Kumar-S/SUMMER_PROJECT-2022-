@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -16,6 +17,8 @@ export class DriveUpdateComponent implements OnInit {
   driveID: any;
   updateLoading: boolean;
   updateSuccess: boolean;
+  isTabView: boolean = false;
+  isMobileView: boolean = false;
 
   displayedColumns: string[];
   dashData: any[];
@@ -90,7 +93,7 @@ export class DriveUpdateComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
     this.updateLoading = false;
     this.updateSuccess = false;
@@ -115,9 +118,30 @@ export class DriveUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //Breakpoint Observer for Screen Size
+    this.breakpointObserver.observe(['(min-width: 1000px)','(min-width: 620px)']).subscribe(
+      (state: BreakpointState) => {
+        if(state.breakpoints['(min-width: 1000px)']){
+          console.log('Desktop View');
+          this.isTabView = false;
+          this.isMobileView = false;
+        }
+        else if(state.breakpoints['(min-width: 620px)']){
+          console.log('Tab View');
+          this.isTabView = true;
+          this.isMobileView = false;
+        }
+        else{
+          this.isMobileView = true;
+          this.isTabView = false;
+          console.log('Mobile View');
+        }
+      }
+    );
+
     this.getCourses().subscribe((res) => {
       this.courses = res;
-    })
+    });
 
     this.form.get('drive_name').setValue(this.driveResponse['drive_name']);
     this.form.get('category').setValue(this.driveResponse['category']['id']);

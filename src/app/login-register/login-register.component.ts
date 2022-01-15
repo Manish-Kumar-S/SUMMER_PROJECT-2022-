@@ -21,6 +21,7 @@ export class OTPComponent {
   error1: boolean;
   error2: boolean;
   error3: boolean;
+  otp_resend: boolean;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute){
 
@@ -28,6 +29,7 @@ export class OTPComponent {
     this.error1 = false;
     this.error2 = false;
     this.error3 = false;
+    this.otp_resend = false;
     this.timer(5);
 
     this.logo = `${IMG_URL}/annauniv-logo.png`;
@@ -75,6 +77,7 @@ export class OTPComponent {
         this.error1 = false;
         this.error2 = false;
         this.error3 = false;
+        this.otp_resend = false;
       }
     )
   }
@@ -93,7 +96,8 @@ export class OTPComponent {
 
     this.http.post<any>(`${this.url}/regenerateOTP?email=${this.email}`,{}, { headers: headers, observe: 'response' })
     .subscribe((data) => {
-      console.log('new otp');
+      // console.log('new otp');
+      this.otp_resend = true;
       this.timer(5);
     })
   }
@@ -182,7 +186,7 @@ export class LoginRegisterComponent implements OnInit {
           localStorage.setItem('errorJWT', data.headers.get('Tokenstring'));
         },
         (err) => {
-          // console.log(err);
+          console.log(err);
 
           ///////////////////////////////
           // Error Handling 'error_type'
@@ -198,7 +202,7 @@ export class LoginRegisterComponent implements OnInit {
           if(err.error.error_type === 4)
             this.router.navigate(['otp'], {queryParams: {email: this.loginForm.get('email').value, token: tokenString}});
           else{
-            this.loginError = err.error;
+            this.loginError = err.error.response.message['message'];
           }
         }
       );
@@ -214,9 +218,9 @@ export class LoginRegisterComponent implements OnInit {
         (data) => {
           console.log(data.headers.get('Tokenstring'));
           let tokenString = data.headers.get('Tokenstring');
-          this.router.navigate(['otp'], {queryParams: {email: this.loginForm.get('email').value, token: tokenString}});
+          this.router.navigate(['otp'], {queryParams: {email: this.registerForm.get('email').value, token: tokenString}});
         },
-        (err) => (this.registerError = err.error)
+        (err) => (this.registerError = err.error.response.message['message'])
       );
   }
 }

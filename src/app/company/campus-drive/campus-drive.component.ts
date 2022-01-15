@@ -1,5 +1,6 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
@@ -16,7 +17,7 @@ export class ConfirmationDialog {}
 @Component({
   selector: 'app-campus-drive',
   templateUrl: './campus-drive.component.html',
-  styleUrls: ['./campus-drive.component.scss'],
+  styleUrls: ['./campus-drive.component.scss']
 })
 export class CampusDriveComponent implements OnInit {
 
@@ -26,6 +27,9 @@ export class CampusDriveComponent implements OnInit {
   updateLoading: boolean;
   courses: any;
   year = new Date().getFullYear();
+  isTabView: boolean = false;
+  isMobileView: boolean = false;
+
   categories: any = [
     {
       id: 1,
@@ -36,6 +40,7 @@ export class CampusDriveComponent implements OnInit {
       name: 'SERVICE',
     },
   ];
+
   employment_t: any = [
     {
       id: 1,
@@ -50,11 +55,6 @@ export class CampusDriveComponent implements OnInit {
       name: 'INTERNSHIP + FULLTIME',
     },
   ];
-  getCourses() {
-    return this.http
-      .get(`${API}/get/courses`)
-      .pipe(map((res: any) => res.courses));
-  }
 
   form = new FormGroup({
     drive_name: new FormControl(""),
@@ -96,7 +96,7 @@ export class CampusDriveComponent implements OnInit {
     other_information: new FormControl("")
   })
 
-  constructor(private http: HttpClient,private router: Router, public dialog: MatDialog) {
+  constructor(private http: HttpClient,private router: Router,public dialog: MatDialog,public breakpointObserver: BreakpointObserver,private changeDetectionRef: ChangeDetectorRef) {
     this.bond = false;
     this.valid = false;
     this.updateLoading = false;
@@ -126,9 +126,38 @@ export class CampusDriveComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getCourses().subscribe((res) => {
       this.courses = res;
     });
+
+    //Breakpoint Observer for Screen Size
+    this.breakpointObserver.observe(['(min-width: 1000px)','(min-width: 620px)']).subscribe(
+      (state: BreakpointState) => {
+        if(state.breakpoints['(min-width: 1000px)']){
+          console.log('Desktop View');
+          this.isTabView = false;
+          this.isMobileView = false;
+        }
+        else if(state.breakpoints['(min-width: 620px)']){
+          console.log('Tab View');
+          this.isTabView = true;
+          this.isMobileView = false;
+        }
+        else{
+          this.isMobileView = true;
+          this.isTabView = false;
+          console.log('Mobile View');
+        }
+      }
+    );
+
+  }
+
+  getCourses() {
+    return this.http
+      .get(`${API}/get/courses`)
+      .pipe(map((res: any) => res.courses));
   }
 
   OnSubmit() {
@@ -192,4 +221,5 @@ export class CampusDriveComponent implements OnInit {
       (err) => console.log(err)
     );
   }
+
 }

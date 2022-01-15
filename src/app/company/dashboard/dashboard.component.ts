@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
@@ -32,8 +33,10 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   dashData: any[];
   show: boolean;
   isLoading: boolean;
+  isTabView: boolean = false;
+  isMobileView: boolean = false;
 
-  constructor(private http: HttpClient,private changeDetection: ChangeDetectorRef) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef) {
     this.isLoading = true;
     this.show = false;
     this.displayedColumns = ['reg_no', 'name', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
@@ -55,6 +58,28 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    //Breakpoint Observer for Screen Size
+    this.breakpointObserver.observe(['(min-width: 1000px)','(min-width: 620px)']).subscribe(
+      (state: BreakpointState) => {
+        if(state.breakpoints['(min-width: 1000px)']){
+          console.log('Desktop View');
+          this.isTabView = false;
+          this.isMobileView = false;
+        }
+        else if(state.breakpoints['(min-width: 620px)']){
+          console.log('Tab View');
+          this.isTabView = true;
+          this.isMobileView = false;
+        }
+        else{
+          this.isMobileView = true;
+          this.isTabView = false;
+          console.log('Mobile View');
+        }
+      }
+    );
+
     this.http
       .get(`${API}/company/studentapplied`).subscribe(
         (res: any) => {
