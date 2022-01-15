@@ -17,7 +17,7 @@
             <span class="details-heading">Eligible Branches : </span
             ><span
               class="details"
-              *ngFor="let course_id of company.eligible_courses_id"
+              *ngFor="let course_id of company.eligible_courses_id[0].split(',')"
               >{{ filterCourses(course_id) }}</span
             >
           </p>
