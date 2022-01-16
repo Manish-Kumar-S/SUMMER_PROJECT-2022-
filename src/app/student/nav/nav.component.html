@@ -44,7 +44,7 @@
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
-        <span>Jitiendran</span>
+        <span>{{name}} <small>{{reg_no}}</small></span>
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
         <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
       </div>
@@ -88,7 +88,7 @@
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
-        <span>Jitiendran</span>
+        <span>{{name}} <small>{{reg_no}}</small></span>
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
         <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
       </div>

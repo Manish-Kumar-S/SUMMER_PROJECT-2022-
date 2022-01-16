@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { IMG_URL } from 'src/environments/environment';
 
@@ -10,6 +10,8 @@ import { IMG_URL } from 'src/environments/environment';
 export class NavComponent implements OnInit {
   isClicked: boolean;
   imgUrl: string;
+  @Input() name: string;
+  @Input() reg_no: string;
 
   constructor(public authService: AuthService) {
     this.isClicked = false;
