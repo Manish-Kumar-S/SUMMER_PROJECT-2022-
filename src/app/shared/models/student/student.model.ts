@@ -29,4 +29,5 @@ export interface StudentModel {
   year_gap: number;
   resume_link: string;
   photograph_link: string;
+  pending_approval: boolean;
 }

@@ -25,6 +25,8 @@ export class OTPComponent {
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute){
 
+    localStorage.removeItem('errorJWT');
+
     this.success = false;
     this.error1 = false;
     this.error2 = false;

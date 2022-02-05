@@ -45,10 +45,11 @@
               >Please enter the role</mat-error
             >
           </mat-form-field>
-          <button [disabled]="loginForm.invalid" (click)="onLogin()">
+          <button style="width: 100%;" [disabled]="loginForm.invalid" (click)="onLogin()">
             Login
             <span class="material-icons"> east </span>
           </button>
+          <!-- <mat-spinner style="width:10%;display: inline;margin-left: 5%;height: auto;" [diameter]="15"></mat-spinner> -->
         </form>
       </mat-tab>
       <mat-tab label="Register">

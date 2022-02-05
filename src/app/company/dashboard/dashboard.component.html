@@ -1,4 +1,4 @@
-<div class="company-container">
+<div class="company-container" [style]="isMobileView ? 'padding-top: 60px;padding: 20px' : ''">
 
   <!-- <div fxFlex="1%"></div> -->
 
@@ -81,7 +81,7 @@
       <p *ngIf="driveResponse?.length === 0">Seems like you haven't Created a Drive. Please Create one <a routerLink="../campus-drive">here</a></p>
     
       <mat-expansion-panel *ngFor="let drive of driveResponse">
-        <mat-expansion-panel-header [style]="isTabView ? 'height:150px' : isMobileView ? 'height: 250px' : 'height: 100px;'">
+        <mat-expansion-panel-header [style]="isTabView ? 'height:150px' : isMobileView ? 'height: 300px' : 'height: 150px;'">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>
               <h3 fxFlex="100%">  {{drive.drive_name}} <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
@@ -92,7 +92,7 @@
                     <p> Posted On: </p>
                   </div>
                   <div fxLayout="column" fxFlex="50%">
-                    <i>{{drive.roles}}</i>
+                    <i style="overflow: hidden;text-overflow: ellipsis;white-space:nowrap">{{drive.roles}}</i>
                     <i>{{drive.posted_date.split('T')[0]}}</i>
                   </div>
                 </div>

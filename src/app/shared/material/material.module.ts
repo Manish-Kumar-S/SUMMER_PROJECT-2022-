@@ -19,6 +19,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -43,6 +49,16 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
   exports: [
     MatCommonModule,
@@ -64,6 +80,15 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatRadioModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule {}

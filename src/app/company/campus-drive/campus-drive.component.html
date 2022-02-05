@@ -311,10 +311,11 @@
       <div>
         <mat-radio-group
           aria-label="Allow students with History of Arrears?"
+          formControlName="history_of_arrears"
           fxFlex="100%"
           required
           (change)="showBacklogsDetails($event)"
-          formControlName="history_of_arrears"
+          ngDefaultControl
         >
           <mat-radio-button value="1" [fxFlex]="isTabView || isMobileView ? '50%' : '20%'">Allowed</mat-radio-button>
           <mat-radio-button value="2" [fxFlex]="isTabView || isMobileView ? '50%' : '20%'"

@@ -1,9 +1,17 @@
 <div class="student-container">
   <h1 class="title">Upcoming Companies</h1>
+  <mat-card *ngIf="companies?.length === 0" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;height: 50px;padding: 15px;">
+    <span>Oops! No upcoming companies found. Please check back later. Click <a href="">here</a> to learn more </span>
+    <!-- <mat-icon style="vertical-align: middle;">timer</mat-icon> -->
+    <div class="button-row" style="float:right; padding-bottom: 5px;">
+      <!-- <button mat-button><mat-icon>cancel</mat-icon></button> -->
+      <mat-icon style="vertical-align: middle;font-size: 27px;">error</mat-icon>
+    </div>
+  </mat-card>
   <section class="company__list grid" *ngIf="companies">
     <div
       class="company__card"
-      *ngFor="let company of companies | async; trackyBy: company.id"
+      *ngFor="let company of companies"
     >
       <div class="company__card-header">
         <div class="company__card-logo">
@@ -66,5 +74,54 @@
         </div>
       </div>
     </div>
+
+    
   </section>
+
+  <mat-card *ngFor="let company of companies" (click)="redirect(company)" class="box" style="width: 50%;height: 220px;transition: box-shadow .3s;cursor: pointer;">
+    <mat-card-title style="width: 100%;">
+      <div style="display: inline;" fxFlexLayout="row" fxLayoutAlign="end center">
+        <h5 fxFlayoutAlign="column" fxFlex>
+          {{company?.company?.name}} <br>
+          <span style="font-size: 15px;color: rgb(97, 97, 97);">{{company?.roles}}</span>
+        </h5>
+        <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/363_Visa_Credit_Card_logo-512.png" style="vertical-align: middle;" width="60px">
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <div fxLayoutAlign="row wrap" fxLayoutGap="10px">
+        <div matTooltip="Minimum CGPA Criteria" fxFlex="10%">
+          <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
+          <span style="color: rgb(97, 97, 97);"><small></small> {{company?.eligibility_in_present}}+</span>
+        </div>
+        <div fxFlex="30%">
+          <mat-icon style="vertical-align: middle;font-size: 20px;">currency_rupee</mat-icon>
+          <span style="color: rgb(97, 97, 97);">{{company.ctc_for_ug}} LPA</span>
+        </div>
+        <div fxFlex="30%">
+          <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
+          <span style="color: rgb(97, 97, 97);">Deadline: {{company?.registration_deadline.split('T')[0]}}</span>
+        </div>
+        <div matTooltip="Assessment date" fxFlex="30%">
+          <mat-icon style="vertical-align: middle;font-size: 20px;">quiz</mat-icon>
+          <span style="color: rgb(97, 97, 97);">Assesment: {{company?.date_time_of_test.split('T')[0]}}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div style="overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;margin-top: 10px;">
+        {{companies[0]?.other_information}}
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end end">
+        <div matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
+        <div matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
+        <div matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
+        <div matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
 </div>

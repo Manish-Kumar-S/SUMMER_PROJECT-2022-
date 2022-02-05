@@ -4,6 +4,14 @@
     <button class="edit" (click)="onEdit()"><i class="fas fa-edit"></i></button>
     <button (click)="onEdit()">Edit Personal Details</button>
   </div>
+  <mat-card *ngIf="student.pending_approval === true" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;height: 50px;padding: 15px;">
+    <span>Changes to your details are awaiting approval from a Student Placement Representative. Click <a href="">here</a> to learn more </span>
+    <!-- <mat-icon style="vertical-align: middle;">timer</mat-icon> -->
+    <div class="button-row" style="float:right; padding-bottom: 5px;">
+      <!-- <button mat-button><mat-icon>cancel</mat-icon></button> -->
+      <mat-icon style="vertical-align: middle;font-size: 27px;">timer</mat-icon>
+    </div>
+  </mat-card>
   <div class="grid c-2" *ngIf="student">
     <div class="box">
       <div class="img-container">

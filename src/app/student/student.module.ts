@@ -10,15 +10,27 @@ import { StudentComponent } from './student.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentModelComponent } from './student-details/student-model/student-model.component';
 import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-companies.component';
+import { FlexModule } from '@angular/flex-layout';
+import { PlacementRepresentativeComponent } from './placement-representative/placement-representative.component';
+import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
 
 @NgModule({
-  declarations: [NavComponent, StudentComponent, StudentDetailsComponent, StudentModelComponent, UpcomingCompaniesComponent],
+  declarations: [
+    NavComponent,
+    StudentComponent,
+    StudentDetailsComponent,
+    StudentModelComponent,
+    UpcomingCompaniesComponent,
+    PlacementRepresentativeComponent,
+    ApplyDriveComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
+    FlexModule,
     StudentRoutingModule,
   ],
 })
