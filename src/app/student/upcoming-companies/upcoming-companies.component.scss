@@ -1,5 +1,10 @@
 @import "/src/app/shared/scss/main.scss";
 
+mat-card {
+
+  margin: unset !important;
+}
+
 .title {
   font-size: 1.75em;
   font-weight: 600;

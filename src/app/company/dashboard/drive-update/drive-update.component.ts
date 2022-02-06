@@ -136,6 +136,8 @@ export class DriveUpdateComponent implements OnInit {
           this.isTabView = false;
           console.log('Mobile View');
         }
+
+        this.changeDetection.markForCheck();
       }
     );
 
@@ -153,8 +155,8 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('stipend_for_internship_for_pg').setValue(this.driveResponse['stipend_for_internship_for_pg']);
     this.form.get('eligibility_10').setValue(this.driveResponse['eligibility_10']);
     this.form.get('eligibility_12').setValue(this.driveResponse['eligibility_12']);
-    this.form.get('eligibility_graduation').setValue(this.driveResponse['eligibility_graduation'].toString());
-    this.form.get('eligibility_in_present').setValue(this.driveResponse['eligibility_in_present'].toString());
+    this.form.get('eligibility_graduation').setValue((this.driveResponse['eligibility_graduation']/10).toString());
+    this.form.get('eligibility_in_present').setValue((this.driveResponse['eligibility_in_present']/10).toString());
     this.form.get('eligible_courses_id').setValue(this.driveResponse['eligible_courses_id'][0].replace(/\s/g, "").split(','));
     this.form.get('year_batch_eligible').setValue(Number(this.driveResponse['year_batch_eligible'][0]));
     this.form.get('history_of_arrears').setValue(this.driveResponse['history_of_arrears'] === true ? '1' : '2');
@@ -178,7 +180,6 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('posted_date').setValue(this.driveResponse['posted_date'].split('T')[0]);
     this.form.get('registration_deadline').setValue(this.driveResponse['registration_deadline'].substring(0, (this.driveResponse['registration_deadline'] as String).length-1));
     this.form.get('other_information').setValue(this.driveResponse['other_information']);
-    this.changeDetection.markForCheck();
 
     if(this.form.get('history_of_arrears').value == true)
       this.historyOfArrears = true;
@@ -201,8 +202,8 @@ export class DriveUpdateComponent implements OnInit {
     req.append('stipend_for_internship_for_pg', this.form.get('stipend_for_internship_for_pg').value)
     req.append('eligibility_10', this.form.get('eligibility_10').value)
     req.append('eligibility_12', this.form.get('eligibility_12').value)
-    req.append('eligibility_graduation', this.form.get('eligibility_graduation').value)
-    req.append('eligibility_in_present', this.form.get('eligibility_in_present').value)
+    req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value + 0)*10).toString())
+    req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value + 0)*10).toString())
     req.append('eligible_courses_id', this.form.get('eligible_courses_id').value)
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)

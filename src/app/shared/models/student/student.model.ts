@@ -14,7 +14,7 @@ export interface StudentModel {
     code: string;
     branch: string;
   };
-  course_id: number;
+  // course_id: number; NOT IN RESPONSE SCHEMA
   course_type: number;
   course_percentage: number;
   ug_course: string;

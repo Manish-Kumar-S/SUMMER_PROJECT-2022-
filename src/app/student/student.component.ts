@@ -13,7 +13,7 @@ import { StudentService } from './student.service';
 export class StudentComponent implements OnInit {
 
   name: string;
-  reg_no: string;
+  reg_no: number;
 
   constructor(
     private studentService: StudentService,
@@ -29,13 +29,26 @@ export class StudentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getStudent().subscribe(
-      (data) => {
-        this.name = data.first_name + ' ' + data.last_name;
-        this.reg_no = data.reg_number;
-      }
-    )
+    // this.getStudent().subscribe(
+    //   (data) => {
+    //     this.name = data.first_name + ' ' + data.last_name;
+    //     this.reg_no = data.reg_number;
+    //   }
+    // )
 
-    this.studentService.student = jwtDecode(this.authSerivce.getToken());
+    this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
+    this.getStudent().subscribe(student => {
+      // console.log(student);
+      this.studentService.currentStudent = student;
+    });
+
+    this.studentService.currentStudentChange$.subscribe(data => {
+
+      this.name = data?.first_name + ' ' + data?.last_name;
+      this.reg_no = data?.reg_number;
+
+    })
+
+    console.log(this.studentService.studentToken);
   }
 }
