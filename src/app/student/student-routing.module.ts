@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
 import { PlacementRepresentativeComponent } from './placement-representative/placement-representative.component';
+import { PlacementRepresentativeGuard } from './placement-representative/placement-representative.guard';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentComponent } from './student.component';
 import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-companies.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
         path: 'placement-representative',
         component: PlacementRepresentativeComponent,
         data: { title: 'CUIC | Placement Representative' },
+        canActivate: [PlacementRepresentativeGuard],
       },
     ],
   },

@@ -4,12 +4,14 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { StudentGuard } from './auth/student.guard';
 import { CompanyGuard } from './auth/company.guard';
 import { LoginRegisterComponent, OTPComponent } from './login-register/login-register.component';
+import { LogoutGuard } from './auth/logout.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginRegisterComponent,
     data: { title: 'CUIC | Anna University' },
+    canActivate: [LogoutGuard],
   },
   {
     path: 'otp',

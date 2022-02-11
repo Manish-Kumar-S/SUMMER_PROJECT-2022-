@@ -12,6 +12,7 @@ export class NavComponent implements OnInit {
   imgUrl: string;
   @Input() name: string;
   @Input() reg_no: string;
+  @Input() isPlacementRep: boolean;
 
   constructor(public authService: AuthService) {
     this.isClicked = false;

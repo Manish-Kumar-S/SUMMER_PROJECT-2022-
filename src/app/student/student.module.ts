@@ -13,6 +13,7 @@ import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-compan
 import { FlexModule } from '@angular/flex-layout';
 import { PlacementRepresentativeComponent } from './placement-representative/placement-representative.component';
 import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
+import { PlacementRepresentativeApproval } from './placement-representative/profile-approval/profile-approval.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
     StudentModelComponent,
     UpcomingCompaniesComponent,
     PlacementRepresentativeComponent,
+    PlacementRepresentativeApproval,
     ApplyDriveComponent
   ],
   imports: [

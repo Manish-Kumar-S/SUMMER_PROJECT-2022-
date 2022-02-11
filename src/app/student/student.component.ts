@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 import { AuthService } from '../shared/auth/auth.service';
+import { StudentModel } from '../shared/models/student/student.model';
 import { StudentService } from './student.service';
 @Component({
   selector: 'app-student',
@@ -14,6 +15,7 @@ export class StudentComponent implements OnInit {
 
   name: string;
   reg_no: number;
+  isPlacementRep: boolean;
 
   constructor(
     private studentService: StudentService,
@@ -37,8 +39,9 @@ export class StudentComponent implements OnInit {
     // )
 
     this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
-    this.getStudent().subscribe(student => {
-      // console.log(student);
+    this.getStudent().subscribe((student: StudentModel) => {
+      console.log(student)
+      // student.is_placement_representative = false;
       this.studentService.currentStudent = student;
     });
 
@@ -46,8 +49,8 @@ export class StudentComponent implements OnInit {
 
       this.name = data?.first_name + ' ' + data?.last_name;
       this.reg_no = data?.reg_number;
-
-    })
+      this.isPlacementRep = data?.is_placement_representative;
+    });
 
     console.log(this.studentService.studentToken);
   }

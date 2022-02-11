@@ -24,6 +24,7 @@ export class AppComponent {
         });
       });
   }
+  
   getChild(activatedRoute: ActivatedRoute) {
     if (activatedRoute.firstChild) {
       return this.getChild(activatedRoute.firstChild);

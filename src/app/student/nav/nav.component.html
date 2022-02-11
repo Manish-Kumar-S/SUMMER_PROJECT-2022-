@@ -7,7 +7,6 @@
     <div class="menu__box-nav">
       <li>
         <a
-          routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="menu__item"
@@ -36,7 +35,7 @@
           <span>Upcoming Companies</span>
         </a>
       </li>
-      <li>
+      <li *ngIf="isPlacementRep">
         <a
           routerLink="./placement-representative"
           routerLinkActive="active"
@@ -75,7 +74,6 @@
     </div>
     <div class="nav">
       <a
-        routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
       >
@@ -90,7 +88,7 @@
         <i class="fas fa-building"></i>
         <span>Upcoming Companies</span>
       </a>
-      <a routerLink="./placement-representative" routerLinkActive="active">
+      <a *ngIf="isPlacementRep" routerLink="./placement-representative" routerLinkActive="active">
         <i class="fas fa-user"></i>
         <span>Placement Representative</span>
       </a>
