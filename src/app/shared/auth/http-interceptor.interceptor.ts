@@ -4,12 +4,11 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpSentEvent,
   HttpResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { map, share, take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { LoadingService } from '../loading/loading.service';
 
 @Injectable()
