@@ -25,7 +25,6 @@ export class UpcomingCompaniesComponent implements OnInit {
       this.courses = data;
       this.http.get<any>(`${API}/student/drives/upcoming`).subscribe((data) => {
         this.companies = data.companies;
-        console.log(this.companies);
       });
     });
   }

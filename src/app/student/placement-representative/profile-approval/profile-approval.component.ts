@@ -13,52 +13,61 @@ import { StudentModel } from '../../../shared/models/student/student.model';
  @Component({
     selector: 'app-pr-approval',
     templateUrl: './profile-approval.component.html',
-    styles: [`table {
-        width: 100%;
-      }
-      `]
+    styleUrls: ['./profile-approval.component.scss']
 })
 export class PlacementRepresentativeApproval implements AfterViewInit {
   displayedColumns: string[] = ['serial_number', 'name', 'reg_no', 'approve'];
 
-  dataSource: MatTableDataSource<StudentApprove>;
+  dataSource = new MatTableDataSource<StudentApprove>();
 
   selection = new SelectionModel<StudentApprove>(true, []);
 
   studentList: StudentModel[];
 
+  approving = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
   constructor(private http: HttpClient) {
       
-    this.getStudentApprovalList().pipe(
-        map((response: any): StudentModel[] => response.students)
-    ).subscribe(list => {
-
-        this.studentList = list;
-
-        const approveList = list.map((student, index): StudentApprove => {
-
-            return {
-
-                serial_number: index + 1,
-                name: student.first_name + ' ' + student.last_name,
-                reg_no: student.reg_number
-            }
-        });
-
-        this.dataSource = new MatTableDataSource<StudentApprove>(approveList);
-    })
+    this.setDatasource();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
+  setDatasource() {
+
+    this.getStudentApprovalList().pipe(
+
+      map((response: any): StudentApprove[] => {
+
+        this.studentList = response.students;
+
+        return response.students.map((student, index): StudentApprove => {
+
+            return {
+    
+                serial_number: index + 1,
+                name: student.first_name + ' ' + student.last_name,
+                reg_no: student.reg_number
+            }
+        });
+      }) 
+
+    ).subscribe(list => this.dataSource = new MatTableDataSource<StudentApprove>(list));
+  }
+
+  get selectedNumber(): number {
+
+    return this.selection.selected.length;
+  }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.data?.length;
     return numSelected === numRows;
   }
 
@@ -82,12 +91,33 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
 
   getStudentApprovalList() {
 
+    //return only id, name, reg
     return this.http.get(`${API}/pr/studentlist`);
   }
 
   approveStudents() {
 
-    const approvedStudents = this.selection.selected;
+    const approvedStudents = this.studentList.filter((student) => this.selection.selected.some((std) => std.reg_no === student.reg_number)).map((student) => student.id);
+
+    if(approvedStudents.length === 0) return;
+
+    const studentList = JSON.stringify(approvedStudents).replace('[', '').replace(']', '');
+
+    const form = new FormData();
+
+    form.set('student_list', studentList);
+
+    this.approving = true;
+
+    this.http.post(`${API}/pr/approvestudentprofile`, form).subscribe((response: any) => {
+
+      this.approving = false;
+
+      if(response.response.status === 200) {
+
+        this.setDatasource();
+      }
+    });
   }
 }
 

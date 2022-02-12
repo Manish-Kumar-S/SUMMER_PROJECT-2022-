@@ -40,8 +40,6 @@ export class StudentComponent implements OnInit {
 
     this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
     this.getStudent().subscribe((student: StudentModel) => {
-      console.log(student)
-      // student.is_placement_representative = false;
       this.studentService.currentStudent = student;
     });
 

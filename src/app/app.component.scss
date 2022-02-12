@@ -1,0 +1,8 @@
+@import "/src/app/shared/scss/main.scss";
+
+mat-progress-bar {
+
+    background-color: $nav-gradient;
+    position: absolute;
+    height: 6px;
+}

@@ -51,7 +51,6 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudent().subscribe((data) => {
-      console.log(data);
       this.student = data;
       this.student.photograph_link !== 'null'
         ? (this.photographLink = this.convertImgURL(data.photograph_link))
@@ -91,13 +90,11 @@ export class StudentDetailsComponent implements OnInit {
         this.http
           .put(`${API}/student/profile`, result)
           .subscribe((data: any) => {
-            console.log(data);
             if (data.response.status === 200) {
               this.event$.next(true);
               this.myData$.subscribe((data: any) => {
                 this.student = data;
                 this.studentService.currentStudent = data;
-                console.log(data);
                 this.student.photograph_link !== 'null'
                   ? (this.photographLink = this.convertImgURL(
                       data.photograph_link
@@ -113,3 +110,5 @@ export class StudentDetailsComponent implements OnInit {
     });
   }
 }
+
+//

@@ -4,13 +4,17 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpSentEvent,
+  HttpResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { map, share, take, tap } from 'rxjs/operators';
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private loadingService: LoadingService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -18,13 +22,24 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
     if (request.headers.get('Ignore') !== 'true') {
       const token = this.authService.getToken();
       if (token) {
-        return next.handle(this.injectToken(request));
+
+        this.loadingService.setLoading(request.url, true);
+
+        return next.handle(this.injectToken(request)).pipe(tap((evt) => {
+
+          if (evt instanceof HttpResponse) {
+            this.loadingService.setLoading(request.url, false);
+          }
+        }));
       }
     }
     // If a request with a header ignore don't handle the request and delete the Flag = "Ignore"
     const newHeader = request.headers.delete('Ignore');
     const newRequest = request.clone({ headers: newHeader });
-    return next.handle(newRequest);
+
+    const nextObservable = next.handle(newRequest);
+
+    return nextObservable;
   }
 
   injectToken(request: HttpRequest<any>) {
