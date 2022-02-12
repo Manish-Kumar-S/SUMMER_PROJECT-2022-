@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { auditTime, debounce, debounceTime, filter, throttleTime } from 'rxjs/operators';
+import { auditTime, debounce, debounceTime, delay, filter, throttleTime } from 'rxjs/operators';
 import { LoadingService } from './shared/loading/loading.service';
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent {
         });
       });
       
-      this.loadingService.loadingChange$.pipe().subscribe((loading) => {
+      this.loadingService.loadingChange$.pipe(delay(0)).subscribe((loading) => {
 
         this.loading = loading
       });

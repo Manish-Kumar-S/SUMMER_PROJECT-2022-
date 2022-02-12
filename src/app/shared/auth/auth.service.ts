@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
+import { now } from 'moment';
 import { StudentService } from 'src/app/student/student.service';
 import { API } from 'src/environments/environment';
 
@@ -15,7 +17,13 @@ export class AuthService {
   }
 
   isAuthenticated() {
+    //check expiry
     return !!localStorage.getItem('errorJWT');
+  }
+
+  getRole() {
+
+    return this.http.get(`${API}/user/role`);
   }
 
   logout() {

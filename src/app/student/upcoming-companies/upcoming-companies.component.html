@@ -1,6 +1,6 @@
 <div class="student-container">
   <h1 class="title">Upcoming Companies</h1>
-  <mat-card *ngIf="companies?.length === 0" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;height: 50px;padding: 15px;">
+  <mat-card *ngIf="companies?.length === 0" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;padding: 15px; margin-bottom: 1em">
     <span>Oops! No upcoming companies found. Please check back later. Click <a href="">here</a> to learn more </span>
     <!-- <mat-icon style="vertical-align: middle;">timer</mat-icon> -->
     <div class="button-row" style="float:right; padding-bottom: 5px;">
@@ -8,124 +8,53 @@
       <mat-icon style="vertical-align: middle;font-size: 27px;">error</mat-icon>
     </div>
   </mat-card>
-  <!-- <section class="company__list grid" *ngIf="companies">
-    <div
-      class="company__card"
-      *ngFor="let company of companies"
-    >
-      <div class="company__card-header">
-        <div class="company__card-logo">
-          <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-        </div>
-        <div class="company__card-title">
-          <h2>{{ company.drive_name }}</h2>
-          <h3>{{ company.company.address }}</h3>
-        </div>
-      </div>
-      <div class="company__card-body">
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Eligible Branches : </span
-            ><span
-              class="details"
-              *ngFor="let course_id of company.eligible_courses_id[0].split(',')"
-              >{{ filterCourses(course_id) }}</span
-            >
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Eligibility Criteria : </span>
-            <span class="details" *ngIf="company.eligibility_in_present"
-              >{{ company.eligibility_in_present }} above</span
-            >
-            <span class="details" *ngIf="company.eligibility_10"
-              >{{ company.eligibility_10 }} %(10th)</span
-            >
-            <span class="details" *ngIf="company.eligibility_12"
-              >{{ company.eligibility_12 }} %(12th)</span
-            >
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Package : </span
-            ><span *ngIf="company.ctc_for_ug"
-              >{{ company.ctc_for_ug }} (UG)</span
-            >,
-            <span *ngIf="company.ctc_for_pg"
-              >{{ company.ctc_for_pg }} (PG)</span
-            >
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Role : </span
-            ><span class="details" *ngFor="let role of company.roles">{{
-              role
-            }}</span>
-          </p>
-        </div>
-        <div class="company__card-details">
-          <p>
-            <span class="details-heading">Test Date : </span
-            ><span>{{ company.date_of_visiting | date }}</span>
-          </p>
-        </div>
-      </div>
-    </div>
 
-    
-  </section> -->
-
-  <mat-card *ngFor="let company of companies" [style.opacity]="company.eligible_status === false ? '0.5' : '1'" (click)="redirect(company)" class="box" style="width: 50%;height: 220px;transition: box-shadow .3s;cursor: pointer;">
-    <!-- <hr *ngIf="!company.eligible_status" size="10px" color="red">
-    <hr *ngIf="company.eligible_status" size="10px" color="green"> -->
-    <mat-card-title style="width: 100%;">
-      <div style="display: inline;" fxFlexLayout="row" fxLayoutAlign="end center">
-        <h5 fxFlayoutAlign="column" fxFlex>
-          {{company?.company?.name}} <br>
-          <span style="font-size: 15px;color: rgb(97, 97, 97);">{{company?.roles}}</span>
-        </h5>
-        <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/363_Visa_Credit_Card_logo-512.png" style="vertical-align: middle;" width="60px">
-      </div>
-    </mat-card-title>
-    <mat-card-content>
-      <div fxLayoutAlign="row wrap" fxLayoutGap="10px">
-        <div matTooltip="Minimum CGPA Criteria" fxFlex="10%">
-          <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-          <span style="color: rgb(97, 97, 97);"><small></small> {{company?.eligibility_in_present}}+</span>
+  <div class="grid-layout">
+    <mat-card *ngFor="let company of companies" [style]="!company.eligible_status ? 'background: #ebe9e982;' : ''" (click)="redirect(company)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
+      <!-- <hr *ngIf="!company.eligible_status" size="10px" color="red">
+      <hr *ngIf="company.eligible_status" size="10px" color="green"> -->
+      <mat-card-title style="width: 100%;">
+        <div style="display: inline;" fxFlexLayout="row" fxLayoutAlign="end center">
+          <h5 fxFlayoutAlign="column" fxFlex>
+            {{company?.company?.name}} <br>
+            <span style="font-size: 15px;color: rgb(97, 97, 97);">{{company?.roles}}</span>
+          </h5>
+          <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/363_Visa_Credit_Card_logo-512.png" style="vertical-align: middle;" width="60px">
         </div>
-        <div fxFlex="30%">
-          <mat-icon style="vertical-align: middle;font-size: 20px;">currency_rupee</mat-icon>
-          <span style="color: rgb(97, 97, 97);">{{company.ctc_for_ug}} LPA</span>
+      </mat-card-title>
+      <mat-card-content>
+        <div fxLayoutAlign="row wrap" fxLayoutGap="10px" class="card-content">
+          <div matTooltip="Minimum CGPA Criteria" fxFlex="10%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
+            <span style="color: rgb(97, 97, 97);"><small></small> {{company?.eligibility_in_present}}+</span>
+          </div>
+          <div fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">currency_rupee</mat-icon>
+            <span style="color: rgb(97, 97, 97);">{{company.ctc_for_ug}} LPA</span>
+          </div>
+          <div fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
+            <span style="color: rgb(97, 97, 97);">Deadline: {{company?.registration_deadline.split('T')[0]}}</span>
+          </div>
+          <div matTooltip="Assessment date" fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">quiz</mat-icon>
+            <span style="color: rgb(97, 97, 97);">Assesment: {{company?.date_time_of_test.split('T')[0]}}</span>
+          </div>
         </div>
-        <div fxFlex="30%">
-          <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
-          <span style="color: rgb(97, 97, 97);">Deadline: {{company?.registration_deadline.split('T')[0]}}</span>
+        <mat-divider></mat-divider>
+        <div class="info">
+          {{company?.other_information}}
         </div>
-        <div matTooltip="Assessment date" fxFlex="30%">
-          <mat-icon style="vertical-align: middle;font-size: 20px;">quiz</mat-icon>
-          <span style="color: rgb(97, 97, 97);">Assesment: {{company?.date_time_of_test.split('T')[0]}}</span>
+        <div fxLayout="row" fxLayoutAlign="end end" style="margin-top: 10px;" class="tags">
+          <div matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
+          <div matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
+          <div matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
+          <div matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
+          <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">check</mat-icon>
+          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">close</mat-icon>
         </div>
-      </div>
-      <mat-divider></mat-divider>
-      <div style="overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;margin-top: 10px;">
-        {{company?.other_information}}
-      </div>
-      <div fxLayout="row" fxLayoutAlign="end end" style="margin-top: 10px;">
-        <div matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
-        <div matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
-        <div matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
-        <div matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
-        <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">check</mat-icon>
-        <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">close</mat-icon>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
 </div>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMapTo } from 'rxjs/operators';
@@ -15,13 +15,19 @@ import { StudentModelComponent } from './student-model/student-model.component';
   styleUrls: ['./student-details.component.scss'],
 })
 export class StudentDetailsComponent implements OnInit {
+
   student: StudentModel;
   photographLink: string;
+
   courses: CourseModel[];
+
   options: any[];
   courseTypes: any[];
+
   myData$: Observable<Object>;
   event$: BehaviorSubject<any>;
+
+  placeholderLink = `${IMG_URL}/placeholder-profile.png`;
 
   constructor(
     private http: HttpClient,
@@ -47,6 +53,11 @@ export class StudentDetailsComponent implements OnInit {
     return this.http
       .get(`${API}/student/profile`)
       .pipe(map((res: any) => res.profile));
+  }
+
+  altImg() {
+
+    this.photographLink = `${IMG_URL}/placeholder-profile.png`;
   }
 
   ngOnInit(): void {

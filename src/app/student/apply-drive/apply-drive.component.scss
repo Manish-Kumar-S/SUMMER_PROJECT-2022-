@@ -1,118 +1,60 @@
 @import "/src/app/shared/scss/main.scss";
 
+.student-container {
+  @media (max-width: 400px) {
+    padding: 1em;
+    .title {
+      margin-top: 2em;
+    }
+  }
+}
+
 .title {
   font-size: 1.75em;
   font-weight: 600;
   padding: 0.35em;
   margin: 1em 0;
 
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary-color;
+    }
+  }
+
   @include sm-screen {
     font-size: 1.5em;
-    text-align: center;
   }
 }
 
-.grid {
-  display: grid;
-  gap: 2em;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
 
-.company__list {
-  margin-top: 1em;
-  padding: 1em;
-  grid-auto-rows: minmax(240px, auto);
-}
-
-.company__card {
-  background-color: #eee;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 1em;
-  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
-  // height: 4em;
-  // height: 240px;
-  // transition: 0.3s ease-in-out;
-
-  // &:hover {
-  //   transform: scale(1.05);
-  // }
-
-  &-header {
+.container-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5em;
+  .content-wrap {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    border-bottom: 1px solid $primary-color;
-    h3 {
-      font-size: 1.25em;
+    flex-direction: column !important;
+    @media (max-width: 768px) {
+      max-width: unset !important;
     }
   }
-
-  &-logo {
-    width: 20%;
-    height: 100%;
-    object-fit: contain;
-
-    @include sm-screen {
-      width: 25%;
-    }
-
-    img {
-      max-width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
+  @media (max-width: 768px) {
+    gap: unset;
+    flex-direction: column !important;
   }
+}
 
-  &-title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    margin-top: -1em;
+.flow, .tags {
+  flex-flow: row wrap;
+}
+.tags {
+  place-content: unset !important;
+}
 
-    @include sm-screen {
-      align-items: center;
-    }
-
-    h2 {
-      font-size: 1.25em;
-      margin-bottom: 0.25em;
-    }
-    h3 {
-      font-size: 0.95em;
-    }
-    h2,
-    h3 {
-      font-weight: 400;
-    }
-  }
-
-  &-body {
-    margin-top: 1em;
-  }
-
-  &-details {
-    margin: 1em 0;
-
-    p span:nth-child(2) {
-      font-size: 0.95em;
-
-      @include sm-screen {
-        font-size: 0.85em;
-      }
-    }
-    .details-heading {
-      font-size: 1.1em;
-      font-weight: 600;
-
-      @include sm-screen {
-        font-size: 0.95em;
-      }
-    }
-    .details {
-      margin-left: 0.3em;
-    }
-  }
+.mat-card {
+  height: auto !important;
 }

@@ -54,28 +54,18 @@
                 </ng-container>
         
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-mat-row" (click)="detailedView(row)"></tr>
             </table>
     
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
             </mat-paginator>
         </div>
     
-        <button [disabled]="approving" mat-raised-button style="width: 100%; margin: auto; background-color: rgba(143, 151, 255, 0.137);" (click)="approveStudents()"> 
-        
-            <div *ngIf="!approving">
-
-                Approve
-
-            </div>
-
-
+        <button [disabled]="approving" mat-raised-button class="btn" (click)="approveStudents()"> 
+            <div *ngIf="!approving">Approve</div>
             <div *ngIf="approving">
-
                 <i class="fas fa-spinner fa-spin"></i>
-
             </div>
-        
         </button>
     </div>
 

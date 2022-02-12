@@ -1,11 +1,13 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 import { StudentModel } from '../../../shared/models/student/student.model';
+import { StudentApprovalDetailsComponent } from './student-approval-details/student-approval-details.component';
 
 /**
  * @title Table with pagination
@@ -28,12 +30,13 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dialog: MatDialog) {
       
     this.setDatasource();
   }
 
   ngAfterViewInit() {
+
     this.dataSource.paginator = this.paginator;
   }
 
@@ -57,6 +60,20 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
       }) 
 
     ).subscribe(list => this.dataSource = new MatTableDataSource<StudentApprove>(list));
+  }
+
+  detailedView(row: StudentApprove) {
+
+    const studentModel = this.studentList.find((student) => student.reg_number === row.reg_no);
+
+    console.log(studentModel);
+
+    const dialogRef = this.dialog.open(StudentApprovalDetailsComponent, {
+      panelClass: 'student-approval-details-dialog',
+      data: {
+        student: studentModel,
+      }
+    });
   }
 
   get selectedNumber(): number {

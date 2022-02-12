@@ -25,3 +25,9 @@ html,
 body {
   height: 100%;
 }
+
+.student-approval-details-dialog > mat-dialog-container {
+  background: #e9edf2 !important;
+  box-shadow: none;
+  border-radius: 10px;
+}

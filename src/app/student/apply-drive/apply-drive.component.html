@@ -1,9 +1,11 @@
 <div class="student-container">
-  <h1 class="title">Apply for Company Drive</h1>
+  <h1 class="title">
+    <a routerLink="../">Companies</a>
+    <span style="color: #989898"> > </span> 
+    Apply for Company Drive</h1>
 
-  <div fxLayout="row" fxLayoutGap="30px">
-
-    <div fxFlex="70%">
+  <div class="container-wrap">
+    <div fxFlex="70%" class="content-wrap">
     
       <mat-card *ngIf="company" class="box" style="width: 100%;height: 250px;margin-bottom: 20px;">
         <mat-card-title style="width: 100%;">
@@ -34,15 +36,7 @@
               <span style="color: rgb(97, 97, 97);">Assesment: {{company?.date_time_of_test.split('T')[0]}}</span>
             </div>
           </div>
-          <!-- <mat-divider></mat-divider> -->
-          <!-- <div style="overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;margin-top: 10px;">
-            {{company?.other_information}}
-          </div> -->
-          <div fxLayout="row" fxLayoutAlign="end end">
+          <div fxLayout="row" fxLayoutAlign="end end" class="tags">
             <div matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
             <div matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
             <div matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 7px;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
@@ -56,7 +50,7 @@
         <h3>About Company</h3>
         <br>
 
-        <p>
+        <p style="overflow-wrap: break-word;">
           {{company?.other_information}}
         </p>
         <br>
@@ -101,7 +95,7 @@
         <h3>Selection Process</h3>
         <br>
 
-        <div fxLayout="row">
+        <div fxLayout="row" class="flow">
 
           <span *ngIf="company?.ppt_session">Pre-Placement Talk <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
@@ -131,7 +125,7 @@
     
     </div>
 
-    <div fxFlex="30%">
+    <div fxFlex="30%" class="content-wrap">
     
       <mat-card *ngIf="company" style="width: 100%;height: auto;padding-bottom: 20px;">
 

@@ -4,7 +4,7 @@
     <button class="edit" (click)="onEdit()"><i class="fas fa-edit"></i></button>
     <button (click)="onEdit()">Edit Personal Details</button>
   </div>
-  <mat-card *ngIf="student?.pending_approval" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;height: 50px;padding: 15px;">
+  <mat-card *ngIf="student?.pending_approval" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;padding: 15px;margin-bottom: 1em">
     <span>Changes to your details are awaiting approval from a Student Placement Representative. Click <a href="">here</a> to learn more </span>
     <!-- <mat-icon style="vertical-align: middle;">timer</mat-icon> -->
     <div class="button-row" style="float:right; padding-bottom: 5px;">
@@ -15,7 +15,7 @@
   <div class="grid c-2" *ngIf="student">
     <div class="box">
       <div class="img-container">
-        <img [src]="photographLink" alt="Profile" class="img" />
+        <img [src]="photographLink" (error)="altImg()" class="img" />
         <div class="header-content">
           <h3>{{ student.first_name + " " + student.last_name }}</h3>
           <p>{{ student.reg_number }}</p>

@@ -1,6 +1,6 @@
 <div class="company-container">
   <h1>Create Campus Drive</h1>
-  <form [formGroup]="form" [fxLayout]="isMobileView ? 'column' : 'row'" fxFlex fxLayoutGap="50px">
+  <form [formGroup]="form" [fxLayout]="isMobileView ? 'column' : 'row'" fxFlex fxLayoutGap="50px" class="form">
     <div fxLayout="column" fxFlex="60%">
       <h3>Drive Details</h3>
       <br [fxShow]="valid" />
@@ -306,7 +306,7 @@
         </mat-form-field>
       </div>
 
-      <mat-label>Allow students with History of Arrears?</mat-label>
+      <mat-label style="margin-bottom: 1em;">Allow students with History of Arrears?</mat-label>
       <br />
       <div>
         <mat-radio-group
@@ -376,9 +376,9 @@
           color="warn"
           [fxFlex]="isTabView ? '60%' : '60%'"
           (click)="OnSubmit()"
-          style="margin: auto;"
+          style="margin: auto; background: #6c63ff"
         >
-          <h3>Create Drive</h3>
+        Create Drive
         </button>
         <div fxFlex="10%"></div>
         <mat-spinner *ngIf="updateLoading" [diameter]="30"></mat-spinner>

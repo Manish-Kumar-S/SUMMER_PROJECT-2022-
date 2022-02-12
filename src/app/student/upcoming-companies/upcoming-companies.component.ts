@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
 import { API } from 'src/environments/environment';
 import { StudentService } from '../student.service';
@@ -17,8 +17,9 @@ export class UpcomingCompaniesComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private studentService: StudentService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.studentService.getCourses().subscribe((data) => {
@@ -34,6 +35,6 @@ export class UpcomingCompaniesComponent implements OnInit {
   }
 
   redirect(company: any){
-    this.router.navigate([`/student/apply-drive`],{queryParams: {id: company.id}});
+    this.router.navigate([`/student/upcoming-companies/apply-drive`],{queryParams: {id: company.id}});
   }
 }

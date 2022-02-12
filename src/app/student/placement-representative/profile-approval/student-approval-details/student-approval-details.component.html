@@ -1,0 +1,122 @@
+<div class="student-approval-container">
+
+  <h2 mat-dialog-title class="title">Student Details</h2>
+
+  <mat-dialog-content>
+
+    <div class="grid c-2" *ngIf="student">
+      <div class="box">
+        <div class="img-container">
+          <img [src]="photographLink" (error)="altImg()" class="img" />
+          <div class="header-content">
+            <h3>{{ student.first_name + " " + student.last_name }}</h3>
+            <p>{{ student.reg_number }}</p>
+          </div>
+        </div>
+        <div class="additional-details">
+          <div class="details">
+            <i class="far fa-envelope"></i>
+            <p>{{ student.email ? student.email : "&nbsp;" }}</p>
+          </div>
+          <div class="details">
+            <i class="fas fa-mobile-alt"></i>
+            <p>{{ student.phone }}</p>
+          </div>
+          <div class="details">
+            <i class="far fa-building"></i>
+            <p>{{ student.campus }}</p>
+          </div>
+          <div class="details">
+            <i class="fas fa-venus" *ngIf="student.gender === 'female'"></i>
+            <i class="fas fa-mars" *ngIf="student.gender === 'male'"></i>
+            <p>{{ student.gender | titlecase }}</p>
+          </div>
+          <div class="details">
+            <i class="far fa-address-card"></i>
+            <a [href]="student.resume_link" target="_blank">Resume Link</a>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <h3>College Information</h3>
+        <div class="additional-details">
+          <div class="grid c-2 equal">
+            <div class="details col">
+              <h3>Programme</h3>
+              <p class="outline">{{ student.course.name }}</p>
+            </div>
+            <div class="details col">
+              <h3>Branch</h3>
+              <p class="outline">{{ student.course.branch }}</p>
+            </div>
+            <div class="details col">
+              <h3>Course Type</h3>
+              <p class="outline">{{ filterCourseType(student.course_type) }}</p>
+            </div>
+            <div class="details col">
+              <h3>Course Percentage</h3>
+              <p class="outline">
+                {{ student.course_percentage }}
+              </p>
+            </div>
+            <div class="details col">
+              <h3>Current Arrears</h3>
+              <p class="outline">{{ filterOptions(student.current_arrears) }}</p>
+            </div>
+            <div class="details col">
+              <h3>History Of Arrears</h3>
+              <p class="outline">
+                {{ filterOptions(student.history_of_arrears) }}
+              </p>
+            </div>
+            <div class="details col">
+              <h3>Number of Arrears</h3>
+              <p class="outline">{{ student.number_of_arrears }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid c-1" *ngIf="student">
+      <div class="box">
+        <h3>Educational Information</h3>
+        <div class="additional-details">
+          <div class="grid c-2 equal">
+            <div class="details col">
+              <h3>SSLC Board</h3>
+              <p class="outline">{{ student.grade_10 }}</p>
+            </div>
+            <div class="details col">
+              <h3>SSLC percentage</h3>
+              <p class="outline">{{ student.grade_10_percentage }}</p>
+            </div>
+            <div class="details col">
+              <h3>HSC Board</h3>
+              <p class="outline">{{ student.grade_12 }}</p>
+            </div>
+            <div class="details col">
+              <h3>HSC Percentage</h3>
+              <p class="outline">{{ student.grade_12_percentage }}</p>
+            </div>
+            <div class="details col" *ngIf="student.ug_course !== 'null'">
+              <h3>UG Course</h3>
+              <p class="outline">{{ student.ug_course === "" ? 'NIL' : student.ug_course }}</p>
+            </div>
+            <div class="details col">
+              <h3>UG Course Percentage</h3>
+              <p class="outline">{{ student.ug_course_percentage }}</p>
+            </div>
+            <div class="details col">
+              <h3>Year Gap</h3>
+              <p class="outline">{{ student.year_gap }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+
+
+</div>
+

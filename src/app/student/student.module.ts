@@ -14,6 +14,8 @@ import { FlexModule } from '@angular/flex-layout';
 import { PlacementRepresentativeComponent } from './placement-representative/placement-representative.component';
 import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
 import { PlacementRepresentativeApproval } from './placement-representative/profile-approval/profile-approval.component';
+import { StudentApprovalDetailsComponent } from './placement-representative/profile-approval/student-approval-details/student-approval-details.component';
+import { CompaniesComponent } from './companies/companies.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PlacementRepresentativeApproval } from './placement-representative/prof
     UpcomingCompaniesComponent,
     PlacementRepresentativeComponent,
     PlacementRepresentativeApproval,
-    ApplyDriveComponent
+    StudentApprovalDetailsComponent,
+    ApplyDriveComponent,
+    CompaniesComponent,
   ],
   imports: [
     CommonModule,

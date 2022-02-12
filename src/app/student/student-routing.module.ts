@@ -6,6 +6,7 @@ import { PlacementRepresentativeGuard } from './placement-representative/placeme
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentComponent } from './student.component';
 import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-companies.component';
+import { CompaniesComponent } from './companies/companies.component';
 
 const routes: Routes = [
   {
@@ -23,13 +24,19 @@ const routes: Routes = [
       },
       {
         path: 'upcoming-companies',
-        component: UpcomingCompaniesComponent,
+        component: CompaniesComponent,
         data: { title: 'CUIC | Upcoming Companies' },
-      },
-      {
-        path: 'apply-drive',
-        component: ApplyDriveComponent,
-        data: { title: 'CUIC | Apply for Job' },
+        children: [
+          {
+            path: '',
+            component: UpcomingCompaniesComponent,
+          },
+          {
+            path: 'apply-drive',
+            component: ApplyDriveComponent,
+            data: { title: 'CUIC | Apply for Job' },
+          },
+        ]
       },
       {
         path: 'placement-representative',
