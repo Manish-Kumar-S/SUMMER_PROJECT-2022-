@@ -36,8 +36,9 @@ const routes: Routes = [
       import('./admin/admin.module').then((mod) => mod.AdminModule),
   },
   {
-    path: 'aLogin',
-    component: AdminLoginComponent
+    path: 'alogin',
+    component: AdminLoginComponent,
+    data: { title: 'CUIC | Anna University' },
   },
   {
     path: '**',
