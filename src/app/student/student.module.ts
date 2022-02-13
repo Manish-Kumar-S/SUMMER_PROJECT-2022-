@@ -16,6 +16,8 @@ import { ApplyDriveComponent } from './apply-drive/apply-drive.component';
 import { PlacementRepresentativeApproval } from './placement-representative/profile-approval/profile-approval.component';
 import { StudentApprovalDetailsComponent } from './placement-representative/profile-approval/student-approval-details/student-approval-details.component';
 import { CompaniesComponent } from './companies/companies.component';
+import { PlacementStatusComponent } from './placement-representative/placement-status/placement-status.component';
+import { ChangePlacementStatusComponent } from './placement-representative/placement-status/change-placement-status/change-placement-status.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { CompaniesComponent } from './companies/companies.component';
     PlacementRepresentativeComponent,
     PlacementRepresentativeApproval,
     StudentApprovalDetailsComponent,
+    PlacementStatusComponent,
+    ChangePlacementStatusComponent,
     ApplyDriveComponent,
     CompaniesComponent,
   ],

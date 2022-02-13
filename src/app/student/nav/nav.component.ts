@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {}
 
   onToggle() {
+    console.log("toggle");
     this.isClicked = !this.isClicked;
   }
 }

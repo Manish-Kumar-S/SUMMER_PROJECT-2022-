@@ -1,6 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +10,19 @@ import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 import { StudentModel } from '../../../shared/models/student/student.model';
 import { StudentApprovalDetailsComponent } from './student-approval-details/student-approval-details.component';
+
+interface StudentApprove {
+
+  serial_number: number;
+  reg_no: number;
+  name: string;
+}
+
+interface StudentApproveFilters {
+
+  name: {filters: string[]},
+  reg_no: {filters: number[]},
+}
 
 /**
  * @title Table with pagination
@@ -17,20 +32,37 @@ import { StudentApprovalDetailsComponent } from './student-approval-details/stud
     templateUrl: './profile-approval.component.html',
     styleUrls: ['./profile-approval.component.scss']
 })
-export class PlacementRepresentativeApproval implements AfterViewInit {
+export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
+ 
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+ 
   displayedColumns: string[] = ['serial_number', 'name', 'reg_no', 'approve'];
 
   dataSource = new MatTableDataSource<StudentApprove>();
 
   selection = new SelectionModel<StudentApprove>(true, []);
 
+  filters: StudentApproveFilters = {
+
+    name: {
+      filters: [],
+    },
+
+    reg_no: {
+      filters: [],
+    },
+  }
+
   studentList: StudentModel[];
+  studentApproveList: StudentApprove[];
 
   approving = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  constructor(private http: HttpClient, private dialog: MatDialog) {
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
+
+  ngOnInit(): void {
       
     this.setDatasource();
   }
@@ -48,7 +80,7 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
 
         this.studentList = response.students;
 
-        return response.students.map((student, index): StudentApprove => {
+        return response.students.map((student: StudentModel, index: number): StudentApprove => {
 
             return {
     
@@ -59,7 +91,13 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
         });
       }) 
 
-    ).subscribe(list => this.dataSource = new MatTableDataSource<StudentApprove>(list));
+    ).subscribe(list => {
+
+      this.studentApproveList = list;
+      this.dataSource = new MatTableDataSource<StudentApprove>(list);
+      this.selection.clear();
+      this.dataSource.data = this.applyFilters();
+    });
   }
 
   detailedView(row: StudentApprove) {
@@ -136,41 +174,59 @@ export class PlacementRepresentativeApproval implements AfterViewInit {
       }
     });
   }
+
+   ///////////////////////
+    // FILTERS
+    ///////////////////////
+
+    private applyFilters(): StudentApprove[] {
+
+      let filteredData: StudentApprove[] = Array.from(this.studentApproveList);
+
+      Object.keys(this.filters).forEach((filterColumn) => {
+
+          if(this.filters[filterColumn].filters.length === 0) return;
+
+          filteredData = filteredData.filter((student) => {
+
+              const pred = this.filters[filterColumn].filters.includes(student[filterColumn]);
+              console.log(filterColumn, student[filterColumn], pred);
+              return pred;
+          });
+      });
+
+      return filteredData;
+  }
+
+  add(event: MatChipInputEvent, column: string, type: 'text' | 'number'): void {
+      const value = (event.value || '').trim();
+
+      let values: (string | number)[] = value.split(',');
+
+      if(type === "number") values = values.map(value => parseInt(value.toString()));
+
+      if(value) values.forEach(value => this.filters[column].filters.push(value));
+
+      this.dataSource.data = this.applyFilters();
+  
+      // Clear the input value
+      event.input.value = '';
+  }
+
+  remove(filter: string | number, column: string): void {
+      
+      const index = this.filters[column].filters.indexOf(filter);
+
+      if (index >= 0) {
+
+          this.filters[column].filters.splice(index, 1);
+          this.dataSource.data = this.applyFilters();
+      }
+  }
+
+  clearFilters(column: string) {
+
+      this.filters[column].filters = [];
+      this.dataSource.data = this.applyFilters();
+  }
 }
-
-export interface StudentApprove {
-
-    serial_number: number;
-    reg_no: number;
-    name: string;
-}
-
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-//   {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-//   {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-//   {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-//   {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-//   {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-//   {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-//   {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-//   {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-//   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-//   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-// ];

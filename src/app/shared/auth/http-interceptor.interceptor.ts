@@ -8,12 +8,12 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
-import { LoadingService } from '../loading/loading.service';
+import { finalize, tap } from 'rxjs/operators';
+import { VisualFeedbackService } from '../loading/loading.service';
 
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private loadingService: LoadingService) {}
+  constructor(private authService: AuthService, private loadingService: VisualFeedbackService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -24,12 +24,22 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
 
         this.loadingService.setLoading(request.url, true);
 
-        return next.handle(this.injectToken(request)).pipe(tap((evt) => {
+        return next.handle(this.injectToken(request)).pipe(
 
-          if (evt instanceof HttpResponse) {
+          finalize(() => {
+
             this.loadingService.setLoading(request.url, false);
-          }
-        }));
+          })
+
+          // tap((evt) => {
+
+          //   if(evt instanceof HttpResponse) {
+
+          //     this.loadingService.setLoading(request.url, false);
+          //   }
+          // })
+
+        );
       }
     }
     // If a request with a header ignore don't handle the request and delete the Flag = "Ignore"

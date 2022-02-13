@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatChipsModule} from '@angular/material/chips';
 
 const materialModules = [
   CommonModule,
@@ -58,7 +59,8 @@ const materialModules = [
   MatCardModule,
   MatRadioModule,
   MatTooltipModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatChipsModule
 ];
 
 @NgModule({

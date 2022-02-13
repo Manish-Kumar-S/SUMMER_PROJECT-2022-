@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class LoadingService {
+export class VisualFeedbackService {
 
     loadingChange$ = new BehaviorSubject<boolean>(false);
 
@@ -14,7 +14,7 @@ export class LoadingService {
 
         if (!url) {
 
-            throw new Error('The request URL must be provided to the LoadingService.setLoading function');
+            throw new Error('The request URL must be provided to the VisualFeedbackService.setLoading function');
         }
 
         if (loading === true) {
@@ -32,5 +32,9 @@ export class LoadingService {
 
             this.loadingChange$.next(false);
         }
+    }
+
+    showSnackbar(message: string) {
+        
     }
 }

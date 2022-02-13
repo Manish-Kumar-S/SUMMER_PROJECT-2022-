@@ -1,0 +1,45 @@
+<h2>Change Status</h2>
+<mat-dialog-content class="model-box">
+
+    <form [formGroup]="statusForm">
+        <div class="grid-box" fxLayout="column">
+            <mat-form-field class="form-field">
+                <mat-label>Current Round</mat-label>
+                <mat-select formControlName="current_round" required>
+                    <mat-option *ngFor="let round of rounds" [value]="round">{{ getCurrentRound(round) }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="statusForm.get('current_round').invalid"
+                >Current Round is required</mat-error
+                >
+            </mat-form-field>
+
+            <mat-form-field class="form-field">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" required>
+                    <mat-option *ngFor="let status of statuses" [value]="status">{{ getPlacementStatus(status) }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="statusForm.get('status').invalid"
+                >Status is required</mat-error
+                >
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <button class="cancel-btn" 
+        mat-raised-button 
+        mat-dialog-close>
+        Cancel
+    </button>
+
+    <button
+        mat-raised-button
+        class="btn"
+        (click)="onSubmit()"
+        [disabled]="statusForm.invalid">
+        Save
+    </button>
+
+</mat-dialog-actions>

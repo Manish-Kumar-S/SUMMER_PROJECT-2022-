@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
   CanActivate,
   Router,
-  RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from '../shared/auth/auth.service';
-import { Location } from '@angular/common';
-import jwt_decode from 'jwt-decode';
-import { filter, map } from 'rxjs/operators';
+import { catchError, filter, map } from 'rxjs/operators';
 import { Roles } from '../shared/models/shared.resources';
-import { API } from 'src/environments/environment';
 
 
 @Injectable({
@@ -30,10 +25,24 @@ export class LogoutGuard implements CanActivate {
     //check role and navigate to that route
     this.authService.getRole().pipe(
 
+      catchError((err) => {
+
+        if(err.status !== 200) {
+          
+          this.authService.logout();
+        }
+        return of(null);
+      }),
+
       filter((response: any) => {
 
-        if(response.response.status !== 200){
-          console.error(response.response.error);
+        if(!response) return false;
+
+        // console.log(response);
+        if(response?.status !== 200 || response.is_expire){
+          // console.log(response.response);
+          // console.log(response?.response.error);
+          this.authService.logout();
           return false;
         };
 
@@ -43,8 +52,6 @@ export class LogoutGuard implements CanActivate {
       map((response: any): number => response?.role)
 
     ).subscribe(role => {
-
-      console.log(role);
 
       let url: string;
     

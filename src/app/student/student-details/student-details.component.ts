@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, switchMapTo } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMapTo } from 'rxjs/operators';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
 import { StudentModel } from 'src/app/shared/models/student/student.model';
 import { API, IMG_URL } from 'src/environments/environment';
@@ -61,6 +61,7 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getStudent().subscribe((data) => {
       this.student = data;
       this.student.photograph_link !== 'null'
@@ -96,27 +97,35 @@ export class StudentDetailsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.http
+    dialogRef.afterClosed().pipe(
+
+      mergeMap((result) => {
+
+        if(result) {
+
+          return this.http
           .put(`${API}/student/profile`, result)
-          .subscribe((data: any) => {
-            if (data.response.status === 200) {
-              this.event$.next(true);
-              this.myData$.subscribe((data: any) => {
-                this.student = data;
-                this.studentService.currentStudent = data;
-                this.student.photograph_link !== 'null'
-                  ? (this.photographLink = this.convertImgURL(
-                      data.photograph_link
-                    ))
-                  : (this.photographLink = `${IMG_URL}/user.jpg`);
-                this.studentService
-                  .getCourses()
-                  .subscribe((data) => (this.courses = data));
-              });
-            }
-          });
+        } else return of(null);
+      })
+
+    ).
+    subscribe((data) => {
+      if (data) {
+          if (data.response.status === 200) {
+            this.event$.next(true);
+            this.myData$.subscribe((data: any) => {
+              this.student = data;
+              this.studentService.currentStudent = data;
+              this.student.photograph_link !== 'null'
+                ? (this.photographLink = this.convertImgURL(
+                    data.photograph_link
+                  ))
+                : (this.photographLink = `${IMG_URL}/user.jpg`);
+              this.studentService
+                .getCourses()
+                .subscribe((data) => (this.courses = data));
+            });
+          }
       }
     });
   }

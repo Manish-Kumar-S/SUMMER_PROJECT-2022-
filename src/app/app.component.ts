@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { delay, filter } from 'rxjs/operators';
-import { LoadingService } from './shared/loading/loading.service';
+import { VisualFeedbackService } from './shared/loading/loading.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loadingService: LoadingService,
+    private loadingService: VisualFeedbackService,
     private titleService: Title
   ) {}
   // Dynamically Setting the Title of the Webpage

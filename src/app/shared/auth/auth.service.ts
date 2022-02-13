@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   getRole() {
-
+    //TODO: 
     return this.http.get(`${API}/user/role`);
   }
 

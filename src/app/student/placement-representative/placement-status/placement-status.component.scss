@@ -4,14 +4,6 @@ table {
     width: 100%;
 }
 
-th {
-    font-size: 1.02em;
-}
-
-td {
-    font-size: 1em;
-}
-
 .btn {
     background: $primary-color;
     color: white;
@@ -20,11 +12,6 @@ td {
         background: gainsboro;
         cursor: not-allowed;
     }
-}
-
-.tr-mat-row:hover {
-    background-color: rgb(219, 219, 219);
-    cursor: pointer;
 }
 
 .mat-form-field-wrapper, .mat-form-field {

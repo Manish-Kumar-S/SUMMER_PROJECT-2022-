@@ -10,6 +10,8 @@ export class CompaniesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    this
   }
 
 }
