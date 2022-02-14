@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StudentModel } from 'src/app/shared/models/student/student.model';
-import { StudentService } from '../student.service';
 import { StudentPlacementStatus } from './placement-status/placement-status.component';
 
 interface TabDetails {
@@ -9,13 +7,11 @@ interface TabDetails {
   studentApproval :{
 
     studentList: StudentModel[],
-    filters: Object
   },
 
   placementStatus: {
 
     studentList: StudentPlacementStatus[],
-    filters: Object
   }
 }
 
@@ -31,19 +27,15 @@ export class PlacementRepresentativeComponent implements OnInit {
     studentApproval: {
       
       studentList: null,
-      filters: null,
     },
 
     placementStatus: {
 
       studentList: null,
-      filters: null,
     }
   }
 
   constructor(
-    private http: HttpClient,
-    private studentService: StudentService,
   ) {
     
   }

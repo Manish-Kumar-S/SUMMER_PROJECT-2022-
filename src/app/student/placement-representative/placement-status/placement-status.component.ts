@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angu
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { filter, map, mergeMap } from "rxjs/operators";
 import { API } from "src/environments/environment";
 import { currentRoundOptions, placementStatusOptions } from "../../student.resources";
 import { ChangePlacementStatusComponent } from "./change-placement-status/change-placement-status.component";
