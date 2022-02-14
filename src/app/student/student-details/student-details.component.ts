@@ -8,6 +8,7 @@ import { StudentModel } from 'src/app/shared/models/student/student.model';
 import { API, IMG_URL } from 'src/environments/environment';
 import { StudentService } from '../student.service';
 import { StudentModelComponent } from './student-model/student-model.component';
+import { VisualFeedbackService } from 'src/app/shared/loading/loading.service';
 
 @Component({
   selector: 'app-student-details',
@@ -32,7 +33,8 @@ export class StudentDetailsComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private visualFeedBackService: VisualFeedbackService,
   ) {
     this.options = [
       { key: 'Yes', value: true },
@@ -88,6 +90,9 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   onEdit() {
+
+    if(!this.student) return;
+
     let dialogRef = this.dialog.open(StudentModelComponent, {
       data: {
         student: this.student,

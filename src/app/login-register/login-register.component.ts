@@ -202,8 +202,9 @@ export class LoginRegisterComponent implements OnInit {
           let tokenString = err.headers.get('Tokenstring');
 
           if(err.error.error_type === 4)
-            this.router.navigate(['otp'], {queryParams: {email: this.loginForm.get('email').value, token: tokenString}});
-          else{
+            this.router.navigate(['otp'], {queryParams: {email: this.loginForm.get('email').value, token: tokenString}, skipLocationChange: true});
+
+          else {
             this.loginError = err.error.response.message['message'];
           }
         }
@@ -220,7 +221,7 @@ export class LoginRegisterComponent implements OnInit {
         (data) => {
           console.log(data.headers.get('Tokenstring'));
           let tokenString = data.headers.get('Tokenstring');
-          this.router.navigate(['otp'], {queryParams: {email: this.registerForm.get('email').value, token: tokenString}});
+          this.router.navigate(['otp'], {queryParams: {email: this.registerForm.get('email').value, token: tokenString}, skipLocationChange: true});
         },
         (err) => (this.registerError = err.error.response.message['message'])
       );

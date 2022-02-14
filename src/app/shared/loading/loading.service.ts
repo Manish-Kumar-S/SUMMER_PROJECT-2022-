@@ -8,6 +8,11 @@ export class VisualFeedbackService {
 
     loadingChange$ = new BehaviorSubject<boolean>(false);
 
+    get loading(): boolean {
+
+        return this.loadingChange$.value;
+    }
+
     loadingMap = new Map<string, boolean>();
 
     setLoading(url: string, loading: boolean) {

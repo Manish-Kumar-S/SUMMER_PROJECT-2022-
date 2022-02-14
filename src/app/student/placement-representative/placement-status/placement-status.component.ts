@@ -10,6 +10,7 @@ import { currentRoundOptions, placementStatusOptions } from "../../student.resou
 import { ChangePlacementStatusComponent } from "./change-placement-status/change-placement-status.component";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from "@angular/material/chips";
+import { of } from "rxjs";
 
 export interface StudentPlacementStatus {
 
@@ -197,7 +198,7 @@ export class PlacementStatusComponent implements OnInit {
 
             filter((response: any) => {
 
-                if(response?.response.status !== 200) {
+                if(!response && response.response.status !== 200) {
 
                     return false;
                 }
@@ -207,7 +208,7 @@ export class PlacementStatusComponent implements OnInit {
 
             map((response: any): StudentPlacementStatus[] => {
 
-                return response.student_list.map((student: any, index: number): StudentPlacementStatus => {
+                return response.student_list?.map((student: any, index: number): StudentPlacementStatus => {
 
                     return {
 
@@ -226,6 +227,8 @@ export class PlacementStatusComponent implements OnInit {
             })
 
         ).subscribe((list) => {
+
+            if(!list) return;
 
             this.studentList = list;
             this.dataSource = new MatTableDataSource<StudentPlacementStatus>(list);
@@ -252,13 +255,14 @@ export class PlacementStatusComponent implements OnInit {
 
             mergeMap((result: FormData) => {
 
+                if(!result) return of(null);
+
                 result.append('student_list', this.selection.selected.map(student => student.id).toString().replace('[','').replace(']',''));
 
                 return this.http.post(`${API}/pr/changestatus`, result);
     
             })
 
-        ).
-        subscribe(() => this.setDatasource());
+        ).subscribe((res) => !!res ? this.setDatasource() : null);
     }
 }

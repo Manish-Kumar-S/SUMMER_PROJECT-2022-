@@ -7,6 +7,7 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { StudentComponent } from './student.component';
 import { UpcomingCompaniesComponent } from './upcoming-companies/upcoming-companies.component';
 import { CompaniesComponent } from './companies/companies.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'personal-details',
+        redirectTo: 'home',
+      },
+      {
+        path: 'home',
+        component: HomeComponent,
       },
       {
         path: 'personal-details',

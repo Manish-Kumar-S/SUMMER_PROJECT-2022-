@@ -18,6 +18,7 @@ import { StudentApprovalDetailsComponent } from './placement-representative/prof
 import { CompaniesComponent } from './companies/companies.component';
 import { PlacementStatusComponent } from './placement-representative/placement-status/placement-status.component';
 import { ChangePlacementStatusComponent } from './placement-representative/placement-status/change-placement-status/change-placement-status.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ChangePlacementStatusComponent } from './placement-representative/place
     ChangePlacementStatusComponent,
     ApplyDriveComponent,
     CompaniesComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

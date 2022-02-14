@@ -2,9 +2,9 @@
   <div class="btn-container">
     <h3 class="title">Personal Details</h3>
     <button class="edit" (click)="onEdit()"><i class="fas fa-edit"></i></button>
-    <button (click)="onEdit()">Edit Personal Details</button>
+    <button *ngIf="!!student" (click)="onEdit()">Edit Personal Details</button>
   </div>
-  <mat-card *ngIf="student?.pending_approval" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;padding: 15px;margin-bottom: 1em">
+  <mat-card *ngIf="student?.pending_approval" style="background-color: rgb(241, 192, 100);border-radius: 8px;opacity: 70%;padding: 15px;margin-bottom: 1em;">
     <span>Changes to your details are awaiting approval from a Student Placement Representative. Click <a href="">here</a> to learn more </span>
     <!-- <mat-icon style="vertical-align: middle;">timer</mat-icon> -->
     <div class="button-row" style="float:right; padding-bottom: 5px;">
@@ -64,7 +64,7 @@
           <div class="details col">
             <h3>Course Percentage</h3>
             <p class="outline">
-              {{ student.course_percentage }}
+              <small>{{ student.course_percentage }}</small> <span style="padding-left: 5%"></span> <span style="opacity: 0.4;">|</span> <span style="padding-left: 5%;"><small>CGPA: {{ student.course_percentage/10 }}</small></span>
             </p>
           </div>
           <div class="details col">
@@ -80,6 +80,10 @@
           <div class="details col">
             <h3>Number of Arrears</h3>
             <p class="outline">{{ student.number_of_arrears }}</p>
+          </div>
+          <div class="details col">
+            <h3>Year of Passout</h3>
+            <p class="outline">{{ student.passing_out_year }}</p>
           </div>
         </div>
       </div>
@@ -108,11 +112,11 @@
           </div>
           <div class="details col" *ngIf="student.ug_course !== 'null'">
             <h3>UG Course</h3>
-            <p class="outline">{{ student.ug_course }}</p>
+            <p class="outline">{{ student.ug_course ? student.ug_course : 'Not Applicable' }}</p>
           </div>
           <div class="details col">
             <h3>UG Course Percentage</h3>
-            <p class="outline">{{ student.ug_course_percentage }}</p>
+            <p class="outline">{{ student.ug_course_percentage ? student.ug_course_percentage : 'Not Applicable' }}</p>
           </div>
           <div class="details col">
             <h3>Year Gap</h3>

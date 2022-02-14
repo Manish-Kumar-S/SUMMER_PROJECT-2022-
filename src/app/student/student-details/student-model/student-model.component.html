@@ -5,21 +5,20 @@
     <div class="grid-box">
       <mat-form-field class="form-field">
         <mat-label>First Name</mat-label>
-        <input matInput formControlName="first_name" required />
+        <input matInput type="text" formControlName="first_name" required />
         <mat-error *ngIf="studentForm.get('first_name').invalid"
           >First Name is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Last Name</mat-label>
-        <input matInput formControlName="last_name" required />
+        <input matInput type="text" formControlName="last_name" required />
         <mat-error *ngIf="studentForm.get('last_name').invalid"
-          >Last Name is required</mat-error
-        >
+          >Last Name is required</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Register Number</mat-label>
-        <input matInput formControlName="reg_number" required />
+        <input matInput type="number" formControlName="reg_number" required />
         <mat-error *ngIf="studentForm.get('reg_number').invalid"
           >Register Number is required</mat-error
         >
@@ -37,21 +36,21 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" required />
+        <input matInput type="number" formControlName="phone" required />
         <mat-error *ngIf="studentForm.get('phone').invalid"
           >Phone is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Photograph Link</mat-label>
-        <input matInput formControlName="photograph_link" required />
+        <input matInput type="url" formControlName="photograph_link" required />
         <mat-error *ngIf="studentForm.get('photograph_link').invalid"
           >Photograph Link is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Resume Link</mat-label>
-        <input matInput formControlName="resume_link" required />
+        <input matInput type="url" formControlName="resume_link" required />
         <mat-error *ngIf="studentForm.get('resume_link').invalid"
           >Resume Link is required</mat-error
         >
@@ -61,7 +60,7 @@
     <div class="grid-box">
       <mat-form-field class="form-field">
         <mat-label>campus</mat-label>
-        <input matInput formControlName="campus" required />
+        <input matInput type="text" formControlName="campus" required />
         <mat-error *ngIf="studentForm.get('campus').invalid"
           >campus is required</mat-error
         >
@@ -69,6 +68,7 @@
       <mat-form-field class="form-field" *ngIf="data.courses.length > 0">
         <mat-label> Current Course</mat-label>
         <input
+          type="text"
           matInput
           aria-label="Course"
           formControlName="course_id"
@@ -98,7 +98,7 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Current Course Percentage</mat-label>
-        <input matInput formControlName="course_percentage" required />
+        <input matInput type="number" formControlName="course_percentage" required />
         <mat-error *ngIf="studentForm.get('course_percentage').invalid"
           >Course Percentage is required</mat-error
         >
@@ -127,19 +127,25 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Number Of Arrears</mat-label>
-        <input matInput formControlName="number_of_arrears" required />
+        <input matInput type="number" formControlName="number_of_arrears" required />
         <mat-error *ngIf="studentForm.get('number_of_arrears').invalid"
           >Number Of Arrears is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>UG Course (Only for PG)</mat-label>
-        <input matInput formControlName="ug_course" />
+        <input matInput type="text" formControlName="ug_course" />
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>UG Course Percentage (Only for PG)</mat-label>
-        <input matInput formControlName="ug_course_percentage" />
+        <input matInput type="number" formControlName="ug_course_percentage" />
       </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Passing out Year</mat-label>
+        <input matInput type="number" formControlName="passing_out_year"/>
+      </mat-form-field>
+
     </div>
     <h3 class="model-sub-title">Educational Details</h3>
     <div class="grid-box">
@@ -156,7 +162,7 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Grade 10 Percentage</mat-label>
-        <input matInput formControlName="grade_10_percentage" required />
+        <input matInput type="number" formControlName="grade_10_percentage" required />
         <mat-error *ngIf="studentForm.get('grade_10_percentage').invalid"
           >Grade 10 Percentage is required</mat-error
         >
@@ -174,14 +180,14 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Grade 12 Percentage</mat-label>
-        <input matInput formControlName="grade_12_percentage" required />
+        <input matInput type="number" formControlName="grade_12_percentage" required />
         <mat-error *ngIf="studentForm.get('grade_12_percentage').invalid"
           >Grade 12 Percentage is required</mat-error
         >
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Year Gap</mat-label>
-        <input matInput formControlName="year_gap" required />
+        <input matInput type="number" formControlName="year_gap" required />
         <mat-error *ngIf="studentForm.get('year_gap').invalid"
           >Year Gap is required</mat-error
         >

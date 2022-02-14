@@ -19,7 +19,7 @@
             {{company?.company?.name}} <br>
             <span style="font-size: 15px;color: rgb(97, 97, 97);">{{company?.roles}}</span>
           </h5>
-          <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/363_Visa_Credit_Card_logo-512.png" style="vertical-align: middle;" width="60px">
+          <img src="https://library.kissclipart.com/20181003/szw/kissclipart-free-corner-ribbon-png-clipart-logo-f2cbd51c4ca46d94.png" style="vertical-align: middle;" width="60px">
         </div>
       </mat-card-title>
       <mat-card-content>
@@ -51,7 +51,7 @@
           <div *ngIf="company.employment_type.id === 1 || company.employment_type.id === 3" matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
           <div *ngIf="company.employment_type.id === 2 || company.employment_type.id === 3" matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
           <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: green;margin-left: auto;">check</mat-icon>
-          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(255, 174, 0);margin-left: auto;">close</mat-icon>
+          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(207, 70, 70);margin-left: auto;">close</mat-icon>
         </div>
       </mat-card-content>
     </mat-card>

@@ -56,6 +56,9 @@ export class StudentModelComponent implements OnInit {
       ),
       ug_course: new FormControl(data.student.ug_course),
       ug_course_percentage: new FormControl(data.student.ug_course_percentage),
+
+      passing_out_year: new FormControl(data.student.passing_out_year, Validators.required), 
+
       history_of_arrears: new FormControl(
         data.student.history_of_arrears,
         Validators.required
@@ -79,6 +82,7 @@ export class StudentModelComponent implements OnInit {
         Validators.required
       ),
       year_gap: new FormControl(data.student.year_gap, Validators.required),
+
     });
   }
 
@@ -108,6 +112,10 @@ export class StudentModelComponent implements OnInit {
     form.append(
       'ug_course_percentage',
       this.studentForm.value['ug_course_percentage']
+    );
+    form.append(
+      'passing_out_year',
+      this.studentForm.value['passing_out_year']
     );
     form.append(
       'history_of_arrears',

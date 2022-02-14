@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
 import { API } from 'src/environments/environment';
 import { StudentService } from '../student.service';
+import { StudentModel } from '../../shared/models/student/student.model';
 
 @Component({
   selector: 'app-apply-drive',
@@ -13,12 +14,21 @@ import { StudentService } from '../student.service';
 export class ApplyDriveComponent implements OnInit {
 
   company: any;
-  student: any;
+  student: StudentModel;
   courses: CourseModel[];
   driveId: number;
   applySpinner: boolean = false;
   applySuccess: boolean = false;
   applyError: boolean = false;
+
+  // get pendingApproval(): boolean {
+
+  //   return this.student.pending_approval;
+  // }
+
+  // get passing_out_year_eligble(): boolean {
+  //   return this.company.year_batch_eligible.map((year: string) => parseInt(year)).includes(this.student.y);
+  // }
 
   constructor(
     private http: HttpClient,
