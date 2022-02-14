@@ -25,4 +25,5 @@ export class NavComponent implements OnInit {
     console.log("toggle");
     this.isClicked = !this.isClicked;
   }
+
 }

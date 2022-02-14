@@ -13,6 +13,7 @@ import { StudentService } from '../student.service';
 export class ApplyDriveComponent implements OnInit {
 
   company: any;
+  student: any;
   courses: CourseModel[];
   driveId: number;
   applySpinner: boolean = false;
@@ -41,6 +42,7 @@ export class ApplyDriveComponent implements OnInit {
           });
          });
         // this.companies = data.companies;
+        this.student = this.studentService.currentStudent;
         console.log(this.company);
         console.log(this.studentService.currentStudent);
       });

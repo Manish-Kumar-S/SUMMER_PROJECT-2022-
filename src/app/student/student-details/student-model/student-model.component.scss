@@ -2,6 +2,9 @@
 
 .model-box {
   padding-right: 1.25em;
+  @media only screen and (max-width: 500px) {
+    width: 80vw !important;
+  }
   .grid-box {
     .gender {
       display: flex;

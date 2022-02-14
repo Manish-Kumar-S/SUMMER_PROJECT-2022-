@@ -26,7 +26,7 @@
         <div fxLayoutAlign="row wrap" fxLayoutGap="10px" class="card-content">
           <div matTooltip="Minimum CGPA Criteria" fxFlex="10%" class="card-row-content">
             <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-            <span style="color: rgb(97, 97, 97);"><small></small> {{company?.eligibility_in_present}}+</span>
+            <span style="color: rgb(97, 97, 97);"><small>CGPA</small> {{company?.eligibility_in_present/10}}+</span>
           </div>
           <div fxFlex="30%" class="card-row-content">
             <mat-icon style="vertical-align: middle;font-size: 20px;">currency_rupee</mat-icon>
@@ -46,12 +46,12 @@
           {{company?.other_information}}
         </div>
         <div fxLayout="row" fxLayoutAlign="end end" style="margin-top: 10px;" class="tags">
-          <div matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
-          <div matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
-          <div matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
-          <div matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
-          <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">check</mat-icon>
-          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 24px;">close</mat-icon>
+          <div *ngIf="company.category.id === 1" matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
+          <div *ngIf="company.category.id === 2" matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
+          <div *ngIf="company.employment_type.id === 1 || company.employment_type.id === 3" matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
+          <div *ngIf="company.employment_type.id === 2 || company.employment_type.id === 3" matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
+          <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: green;margin-left: auto;">check</mat-icon>
+          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(255, 174, 0);margin-left: auto;">close</mat-icon>
         </div>
       </mat-card-content>
     </mat-card>
