@@ -8,7 +8,7 @@ import { StudentModel } from 'src/app/shared/models/student/student.model';
 import { API, IMG_URL } from 'src/environments/environment';
 import { StudentService } from '../student.service';
 import { StudentModelComponent } from './student-model/student-model.component';
-import { VisualFeedbackService } from 'src/app/shared/loading/loading.service';
+import { VisualFeedbackService } from 'src/app/shared/visual-feedback/visual-feedback.service';
 
 @Component({
   selector: 'app-student-details',
@@ -48,13 +48,7 @@ export class StudentDetailsComponent implements OnInit {
       { key: 'Part Time', value: 2 },
     ];
     this.event$ = new BehaviorSubject(true);
-    this.myData$ = this.event$.pipe(switchMapTo(this.getStudent()));
-  }
-
-  getStudent() {
-    return this.http
-      .get(`${API}/student/profile`)
-      .pipe(map((res: any) => res.profile));
+    this.myData$ = this.event$.pipe(switchMapTo(this.studentService.getStudent()));
   }
 
   altImg() {
@@ -64,15 +58,22 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getStudent().subscribe((data) => {
-      this.student = data;
-      this.student.photograph_link !== 'null'
-        ? (this.photographLink = this.convertImgURL(data.photograph_link))
-        : (this.photographLink = `${IMG_URL}/user.jpg`);
-      this.studentService
-        .getCourses()
-        .subscribe((data) => (this.courses = data));
-    });
+    this.studentService.getStudent().pipe(
+
+      mergeMap((data) => {
+
+        this.student = data;
+        this.student.photograph_link !== 'null'
+          ? (this.photographLink = this.convertImgURL(data.photograph_link))
+          : (this.photographLink = `${IMG_URL}/user.jpg`);
+
+        return this.studentService
+          .getCourses()
+
+      }),
+      
+    ).
+    subscribe((data) => this.courses = data);
   }
 
   // Converts the drive link to image link

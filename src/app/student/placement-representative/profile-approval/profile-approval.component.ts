@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 import { StudentModel } from '../../../shared/models/student/student.model';
+import { StudentService } from '../../student.service';
 import { StudentApprovalDetailsComponent } from './student-approval-details/student-approval-details.component';
 
 interface StudentApprove {
@@ -82,7 +83,7 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private dialog: MatDialog, private studentService: StudentService) { }
 
   ngOnInit(): void {
       
@@ -96,9 +97,11 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
   setDatasource() {
 
-    this.getStudentApprovalList().pipe(
+    this.studentService.getStudentApprovalList().pipe(
 
       map((response: any): StudentApprove[] => {
+
+        console.log(response);
 
         this.studentList = response.students;
 
@@ -163,12 +166,6 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.serial_number + 1}`;
-  }
-
-  getStudentApprovalList() {
-
-    //return only id, name, reg
-    return this.http.get(`${API}/pr/studentlist`);
   }
 
   approveStudents() {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { API } from 'src/environments/environment';
+import { CompanyService } from '../../company.service';
 
 @Component({
   selector: 'dialog-company-details-dialog',
@@ -26,7 +27,7 @@ export class CompanyDetailsDialog implements OnInit {
     address: new FormControl('')
   });
 
-  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver, private companyService: CompanyService) {
     this.updateLoading = true;
     this.successMsg = false;
   }
@@ -54,7 +55,7 @@ export class CompanyDetailsDialog implements OnInit {
       }
     );
 
-    this.http.get(`${API}/company/profile`).subscribe(
+    this.companyService.getCompany().subscribe(
       (data: any) => {
         if(data.response.status === 200){
           console.log(data);

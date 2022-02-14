@@ -31,5 +31,6 @@ export interface StudentModel {
   resume_link: string;
   photograph_link: string;
   pending_approval: boolean;
+  passing_out_year: number;
   is_placement_representative: boolean;
 }

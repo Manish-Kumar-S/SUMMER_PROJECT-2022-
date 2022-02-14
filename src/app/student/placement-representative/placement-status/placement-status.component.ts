@@ -11,6 +11,7 @@ import { ChangePlacementStatusComponent } from "./change-placement-status/change
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from "@angular/material/chips";
 import { of } from "rxjs";
+import { StudentService } from "../../student.service";
 
 export interface StudentPlacementStatus {
 
@@ -95,9 +96,11 @@ export class PlacementStatusComponent implements OnInit {
         return this.selection.selected.length;
     }
 
-    constructor(private http: HttpClient, private dialog: MatDialog) { }
+    constructor(private http: HttpClient, private dialog: MatDialog, private studentService: StudentService) { }
 
     ngOnInit(): void {
+
+        console.log(this.studentList);
 
         if(!this.studentList) this.setDatasource();
     }
@@ -194,7 +197,7 @@ export class PlacementStatusComponent implements OnInit {
 
     setDatasource() {
 
-        this.getRegisteredStudents().pipe(
+        this.studentService.getRegisteredStudents().pipe(
 
             filter((response: any) => {
 
@@ -208,7 +211,9 @@ export class PlacementStatusComponent implements OnInit {
 
             map((response: any): StudentPlacementStatus[] => {
 
-                return response.student_list?.map((student: any, index: number): StudentPlacementStatus => {
+                if(!response.student_list) return [];
+
+                return response.student_list.map((student: any, index: number): StudentPlacementStatus => {
 
                     return {
 
@@ -224,23 +229,17 @@ export class PlacementStatusComponent implements OnInit {
                         status: this.getPlacementStatus(student.status)
                     }
                 })
-            })
+            }),
 
         ).subscribe((list) => {
-
-            if(!list) return;
 
             this.studentList = list;
             this.dataSource = new MatTableDataSource<StudentPlacementStatus>(list);
             this.dataSource.data = this.applyFilters();
             this.selection.clear();
+
             this.studentListChange.emit(this.studentList);
         });
-    }
-
-    getRegisteredStudents() {
-
-        return this.http.get(`${API}/pr/studentsregistered`);
     }
 
     openStatusDialog() {

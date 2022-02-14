@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { delay, filter } from 'rxjs/operators';
-import { VisualFeedbackService } from './shared/loading/loading.service';
+import { VisualFeedbackService } from './shared/visual-feedback/visual-feedback.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +17,9 @@ export class AppComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loadingService: VisualFeedbackService,
-    private titleService: Title
+    private visualFeedbackService: VisualFeedbackService,
+    private titleService: Title,
+    private snackBar: MatSnackBar
   ) {}
   // Dynamically Setting the Title of the Webpage
   ngOnInit() {
@@ -30,10 +32,16 @@ export class AppComponent {
         });
       });
       
-      this.loadingService.loadingChange$.pipe(delay(0)).subscribe((loading) => {
+      this.visualFeedbackService.loadingChange$.pipe(delay(0)).subscribe((loading) => {
 
         this.loading = loading
       });
+
+      this.visualFeedbackService.snackBarTrigger$.subscribe((message) => {
+
+        //show snackbar
+        this.snackBar.open(message, '', {duration: 1000});
+      })
   }
   
   getChild(activatedRoute: ActivatedRoute) {

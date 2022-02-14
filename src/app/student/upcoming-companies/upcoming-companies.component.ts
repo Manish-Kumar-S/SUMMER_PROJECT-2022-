@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
 import { API } from 'src/environments/environment';
 import { StudentService } from '../student.service';
@@ -22,12 +23,17 @@ export class UpcomingCompaniesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.studentService.getCourses().subscribe((data) => {
-      this.courses = data;
-      this.http.get<any>(`${API}/student/drives/upcoming`).subscribe((data) => {
+    this.studentService.getCourses().pipe(
+
+      mergeMap((data) => {
+
+        this.courses = data;
+        return this.studentService.getUpcomingCompanies()
+      })
+  
+    ).subscribe((data) => {
         this.companies = data.companies;
         console.log(this.companies);
-      });
     });
   }
 

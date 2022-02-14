@@ -9,11 +9,11 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { finalize, tap } from 'rxjs/operators';
-import { VisualFeedbackService } from '../loading/loading.service';
+import { VisualFeedbackService } from '../visual-feedback/visual-feedback.service';
 
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private loadingService: VisualFeedbackService) {}
+  constructor(private authService: AuthService, private visualFeedbackService: VisualFeedbackService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -22,22 +22,14 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
       const token = this.authService.getToken();
       if (token) {
 
-        this.loadingService.setLoading(request.url, true);
+        this.visualFeedbackService.setLoading(request.url, true);
 
         return next.handle(this.injectToken(request)).pipe(
 
           finalize(() => {
 
-            this.loadingService.setLoading(request.url, false);
+            this.visualFeedbackService.setLoading(request.url, false);
           })
-
-          // tap((evt) => {
-
-          //   if(evt instanceof HttpResponse) {
-
-          //     this.loadingService.setLoading(request.url, false);
-          //   }
-          // })
 
         );
       }
@@ -46,9 +38,16 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
     const newHeader = request.headers.delete('Ignore');
     const newRequest = request.clone({ headers: newHeader });
 
-    const nextObservable = next.handle(newRequest);
+    this.visualFeedbackService.setLoading(request.url, true);
 
-    return nextObservable;
+    return next.handle(newRequest).pipe(
+
+      finalize(() => {
+
+        this.visualFeedbackService.setLoading(request.url, false);
+      })
+
+    );;
   }
 
   injectToken(request: HttpRequest<any>) {

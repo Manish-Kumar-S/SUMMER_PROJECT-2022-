@@ -21,14 +21,15 @@ export class ApplyDriveComponent implements OnInit {
   applySuccess: boolean = false;
   applyError: boolean = false;
 
-  // get pendingApproval(): boolean {
+  get pendingApproval(): boolean {
 
-  //   return this.student.pending_approval;
-  // }
+    return this.student.pending_approval;
+  }
 
-  // get passing_out_year_eligble(): boolean {
-  //   return this.company.year_batch_eligible.map((year: string) => parseInt(year)).includes(this.student.y);
-  // }
+  get passing_out_year_eligible(): boolean {
+
+    return this.company.year_batch_eligible.map((year: string) => parseInt(year)).includes(this.student.passing_out_year);
+  }
 
   constructor(
     private http: HttpClient,
@@ -40,18 +41,15 @@ export class ApplyDriveComponent implements OnInit {
   ngOnInit(): void {
     this.studentService.getCourses().subscribe((data) => {
       this.courses = data;
-      this.http.get<any>(`${API}/student/drives/upcoming`).subscribe((data) => {
-        // console.log(data)
+      this.studentService.getUpcomingCompanies().subscribe((data) => {
         this.route.queryParams.subscribe((params) => {
           data.companies.forEach((c:any) => {
-            // console.log(c.id);
             this.driveId = c.id;
             if (c.id === +params.id) {
               this.company = c;
             }
           });
          });
-        // this.companies = data.companies;
         this.student = this.studentService.currentStudent;
         console.log(this.company);
         console.log(this.studentService.currentStudent);
@@ -67,7 +65,7 @@ export class ApplyDriveComponent implements OnInit {
 
     this.applySpinner = true;
 
-    this.http.post<any>(`${API}/student/drives/apply?drive_id=${this.driveId}`, {}).subscribe((data) => {
+    this.studentService.applyDrive(this.driveId).subscribe((data) => {
       if(data.response.status == 200) {
         console.log(data);
         this.applySpinner = false;

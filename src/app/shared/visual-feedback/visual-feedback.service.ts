@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class VisualFeedbackService {
+
+    ///////////////////
+    // Loading
+    ///////////////////
 
     loadingChange$ = new BehaviorSubject<boolean>(false);
 
@@ -39,7 +43,14 @@ export class VisualFeedbackService {
         }
     }
 
-    showSnackbar(message: string) {
-        
+    ////////////////////
+    // Snackbar
+    ////////////////////
+
+    snackBarTrigger$ = new Subject<string>();
+
+    set snackBar(message: string) {
+
+        this.snackBarTrigger$.next(message);
     }
 }

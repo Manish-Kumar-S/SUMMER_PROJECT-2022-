@@ -211,11 +211,11 @@
 
           <div fxLayout="column" fxLayoutGap="10px" fxFlex>
 
-            <mat-icon *ngIf="!student?.pending_approval" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="student?.pending_approval" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="!pendingApproval" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="pendingApproval" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.passing_out_year == company?.year_batch_eligible" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.passing_out_year == company?.year_batch_eligible)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="passing_out_year_eligible" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(passing_out_year_eligible)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
             <mat-icon *ngIf="student?.course_percentage >= company?.eligibility_in_present" class="eligible-icon" fxFlex="30%">check</mat-icon>
             <mat-icon *ngIf="!(student?.course_percentage >= company?.eligibility_in_present)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
