@@ -1,10 +1,10 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { filter, map, mergeMap } from "rxjs/operators";
 import { API } from "src/environments/environment";
 import { currentRoundOptions, placementStatusOptions } from "../../student.resources";
 import { ChangePlacementStatusComponent } from "./change-placement-status/change-placement-status.component";
@@ -48,6 +48,7 @@ export class PlacementStatusComponent implements OnInit {
 
     studentList: StudentPlacementStatus[];
 
+
     dataSource = new MatTableDataSource<StudentPlacementStatus>();
 
     filters: StudentPlacementStatusFilters = {
@@ -74,6 +75,18 @@ export class PlacementStatusComponent implements OnInit {
 
     selection = new SelectionModel<StudentPlacementStatus>(true, []);
 
+    @Input() set studentListInput(studentList: StudentPlacementStatus[]) {
+
+        if(!studentList) return;
+
+        this.studentList = studentList;
+        this.dataSource = new MatTableDataSource<StudentPlacementStatus>(this.studentList);
+        this.selection.clear();
+        this.dataSource.data = this.applyFilters();
+    }
+
+    @Output() studentListChange = new EventEmitter<StudentPlacementStatus[]>();
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     get selectedNumber(): number {
@@ -85,7 +98,7 @@ export class PlacementStatusComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.setDatasource();
+        if(!this.studentList) this.setDatasource();
     }
 
     ///////////////////////
@@ -103,7 +116,6 @@ export class PlacementStatusComponent implements OnInit {
             filteredData = filteredData.filter((student) => {
 
                 const pred = this.filters[filterColumn].filters.includes(student[filterColumn]);
-                console.log(filterColumn, student[filterColumn], pred);
                 return pred;
             });
         });
@@ -185,11 +197,8 @@ export class PlacementStatusComponent implements OnInit {
 
             filter((response: any) => {
 
-                console.log(response?.response.status);
-
                 if(response?.response.status !== 200) {
 
-                    console.error(response?.response.error);
                     return false;
                 }
 
@@ -222,6 +231,7 @@ export class PlacementStatusComponent implements OnInit {
             this.dataSource = new MatTableDataSource<StudentPlacementStatus>(list);
             this.dataSource.data = this.applyFilters();
             this.selection.clear();
+            this.studentListChange.emit(this.studentList);
         });
     }
 
@@ -241,8 +251,6 @@ export class PlacementStatusComponent implements OnInit {
         dialogRef.afterClosed().pipe(
 
             mergeMap((result: FormData) => {
-
-                console.log(result.get('status'));
 
                 result.append('student_list', this.selection.selected.map(student => student.id).toString().replace('[','').replace(']',''));
 

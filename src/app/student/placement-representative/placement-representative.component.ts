@@ -1,6 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../student.service';
+import { StudentModel } from 'src/app/shared/models/student/student.model';
+import { StudentPlacementStatus } from './placement-status/placement-status.component';
+
+interface TabDetails {
+
+  studentApproval :{
+
+    studentList: StudentModel[],
+  },
+
+  placementStatus: {
+
+    studentList: StudentPlacementStatus[],
+  }
+}
 
 @Component({
   selector: 'app-placement-representative',
@@ -9,9 +22,20 @@ import { StudentService } from '../student.service';
 })
 export class PlacementRepresentativeComponent implements OnInit {
 
+  tabDetails: TabDetails = {
+
+    studentApproval: {
+      
+      studentList: null,
+    },
+
+    placementStatus: {
+
+      studentList: null,
+    }
+  }
+
   constructor(
-    private http: HttpClient,
-    private studentService: StudentService,
   ) {
     
   }
@@ -19,6 +43,16 @@ export class PlacementRepresentativeComponent implements OnInit {
   ngOnInit(): void {
     
 
+  }
+
+  setStudentApproval(studentList: StudentModel[]) {
+
+    this.tabDetails.studentApproval.studentList = studentList;
+  } 
+
+  setPlacementStatus(studentList: StudentPlacementStatus[]) {
+
+    this.tabDetails.placementStatus.studentList = studentList;
   }
   
 }
