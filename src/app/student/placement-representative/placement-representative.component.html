@@ -2,8 +2,25 @@
 
   <mat-tab-group>
     
-    <mat-tab label="Approve Profiles"> <app-pr-approval></app-pr-approval> </mat-tab>
-    <mat-tab label="Change Placement Status"> <app-pr-placement-status></app-pr-placement-status> </mat-tab>
+    <mat-tab label="Approve Profiles">
+      
+      <ng-template matTabContent>
+
+        <app-pr-approval (studentListChange)="setStudentApproval($event)" [studentListInput]="tabDetails.studentApproval.studentList"></app-pr-approval>
+
+      </ng-template>
+
+    </mat-tab>
+      
+    <mat-tab label="Change Placement Status">
+      
+      <ng-template matTabContent>
+
+        <app-pr-placement-status (studentListChange)="setPlacementStatus($event)" [studentListInput]="tabDetails.placementStatus.studentList"></app-pr-placement-status> 
+
+      </ng-template>
+
+    </mat-tab>
 
   </mat-tab-group>
 

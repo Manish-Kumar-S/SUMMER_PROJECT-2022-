@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -58,13 +58,35 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
   approving = false;
 
+  @Input() set studentListInput(studentList: StudentModel[]) {
+
+    if(!studentList) return;
+
+    this.studentList = studentList;
+    this.studentApproveList = studentList.map((student: StudentModel, index: number): StudentApprove => {
+
+        return {
+
+          serial_number: index + 1,
+          name: student.first_name + ' ' + student.last_name,
+          reg_no: student.reg_number
+        }
+    });
+
+    this.dataSource = new MatTableDataSource<StudentApprove>(this.studentApproveList);
+    this.selection.clear();
+    if(!!studentList) this.dataSource.data = this.applyFilters();
+  }
+
+  @Output() studentListChange = new EventEmitter<StudentModel[]>();
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
       
-    this.setDatasource();
+    if(!this.studentList) this.setDatasource();
   }
 
   ngAfterViewInit() {
@@ -97,6 +119,7 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource<StudentApprove>(list);
       this.selection.clear();
       this.dataSource.data = this.applyFilters();
+      this.studentListChange.emit(this.studentList);
     });
   }
 
@@ -104,9 +127,7 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
     const studentModel = this.studentList.find((student) => student.reg_number === row.reg_no);
 
-    console.log(studentModel);
-
-    const dialogRef = this.dialog.open(StudentApprovalDetailsComponent, {
+     this.dialog.open(StudentApprovalDetailsComponent, {
       panelClass: 'student-approval-details-dialog',
       data: {
         student: studentModel,
@@ -190,7 +211,6 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
           filteredData = filteredData.filter((student) => {
 
               const pred = this.filters[filterColumn].filters.includes(student[filterColumn]);
-              console.log(filterColumn, student[filterColumn], pred);
               return pred;
           });
       });
