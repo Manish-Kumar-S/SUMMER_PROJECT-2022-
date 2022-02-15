@@ -85,7 +85,7 @@ export class CompanyDetailsDialog implements OnInit {
     req.append('details_of_office', this.form.get('details_of_office').value);
     req.append('address', this.form.get('address').value);
 
-    this.http.put(`${API}/company/profile`, req).subscribe(
+    this.companyService.updateCompanyDetails(req).subscribe(
       (data: any) => {
         if(data.response.status === 200){
           this.updateLoading = false;

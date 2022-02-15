@@ -57,7 +57,12 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
   studentList: StudentModel[];
   studentApproveList: StudentApprove[];
 
-  approving = false;
+  private _approving = false;
+
+  get approving(): boolean {
+
+    return this._approving && (!this.studentList || this.studentList.length !== 0);
+  }
 
   @Input() set studentListInput(studentList: StudentModel[]) {
 
@@ -180,11 +185,11 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
     form.set('student_list', studentList);
 
-    this.approving = true;
+    this._approving = true;
 
-    this.http.post(`${API}/pr/approvestudentprofile`, form).subscribe((response: any) => {
+    this.studentService.approveStudentProfile(form).subscribe((response: any) => {
 
-      this.approving = false;
+      this._approving = false;
 
       if(response.response.status === 200) {
 

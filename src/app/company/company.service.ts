@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { API } from "src/environments/environment";
 import { VisualFeedbackService } from "../shared/visual-feedback/visual-feedback.service";
 
@@ -11,6 +11,10 @@ import { VisualFeedbackService } from "../shared/visual-feedback/visual-feedback
 export class CompanyService {
 
     constructor(private http: HttpClient, private visualFeedbackService: VisualFeedbackService) { }
+
+    //////////////////
+    // COMPANY
+    /////////////////
 
     /** 
    * Request Type: GET
@@ -25,6 +29,121 @@ export class CompanyService {
                 this.visualFeedbackService.snackBar = err.statusText;
                 return of(null);
       
+            })
+
+        );
+    }
+
+     /** 
+   * Request Type: PUT
+   * @returns Updates the company details
+   * */
+      updateCompanyDetails(req: FormData) {
+
+        return this.http.put(`${API}/company/profile`, req).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+      
+            })
+
+        );
+    }
+
+    /** 
+     * Request Type: GET
+     * @returns All the students applied to this company
+     */
+    getAppliedStudents() {
+
+    return this.http.get(`${API}/company/studentapplied`).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+
+            })
+
+        );
+    }
+
+    //////////////////
+    // DRIVE
+    /////////////////
+
+    /** 
+     * Request Type: GET
+     * @returns All the drives for this company
+     */
+    getCompanyDrives() {
+
+    return this.http.get(`${API}/company/drive`).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+        
+            })
+
+        );
+    }
+
+    /** 
+     * Request Type: POST
+     * @param req the drive details
+     * @returns Uploads the drive details to the database
+     * */
+    uploadDrive(req: FormData) {
+
+        return this.http.post(`${API}/company/drive`, req).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+      
+            })
+
+        );
+    }
+
+    /**
+     * Request Type: PUT
+     * @param driveID the id of the drive to be updated
+     * @param req the updated drive details 
+     * @returns updates the drive details
+     */
+     updateDrive(driveID: number, req: FormData) {
+
+        return this.http.put(`${API}/company/drive?drive_id=${driveID}`, req).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+      
+            })
+
+        );
+    }
+
+    /** 
+     * Request Type: GET
+     * @returns Courses accepted by a drive
+     **/
+    getCourses() {
+    return this.http
+        .get(`${API}/get/courses`).pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                this.visualFeedbackService.snackBar = err.statusText;
+                return of(null);
+        
             })
 
         );

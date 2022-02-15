@@ -48,7 +48,7 @@ export class StudentDetailsComponent implements OnInit {
       { key: 'Part Time', value: 2 },
     ];
     this.event$ = new BehaviorSubject(true);
-    this.myData$ = this.event$.pipe(switchMapTo(this.studentService.getStudent()));
+    this.myData$ = this.event$.pipe(switchMapTo(this.studentService.getStudent().pipe(map(response => response?.profile))));
   }
 
   altImg() {
@@ -59,6 +59,8 @@ export class StudentDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.studentService.getStudent().pipe(
+
+      map((response) => response?.profile),
 
       mergeMap((data) => {
 
@@ -105,12 +107,11 @@ export class StudentDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(
 
-      mergeMap((result) => {
+      mergeMap((result: FormData) => {
 
         if(result) {
 
-          return this.http
-          .put(`${API}/student/profile`, result)
+          return this.studentService.updateStudent(result);
         } else return of(null);
       })
 
@@ -120,6 +121,7 @@ export class StudentDetailsComponent implements OnInit {
           if (data.response.status === 200) {
             this.event$.next(true);
             this.myData$.subscribe((data: any) => {
+              console.log(data);
               this.student = data;
               this.studentService.currentStudent = data;
               this.student.photograph_link !== 'null'

@@ -66,9 +66,28 @@ export class StudentService {
 
         }),
       
-        map((res: any) => res?.profile)
+        // map((res: any) => res?.profile)
       
       );
+  }
+
+  /**
+   * Request Type: PUT
+   * @param form updated student details
+   * @returns 
+   */
+  updateStudent(form: FormData) {
+
+    return this.http.put(`${API}/student/profile`, form).pipe(
+
+      catchError((err: HttpErrorResponse) => {
+
+        this.visualFeedbackService.snackBar = err.statusText;
+        return of(null);
+
+      })
+
+    );
   }
 
   /** 
@@ -154,6 +173,25 @@ export class StudentService {
     );  
   }
 
+  /**
+   * Request Type: POST
+   * @param req status details of the student
+   * @returns 
+   */
+  changePlacementStatus(req: FormData) {
+
+    return this.http.post(`${API}/pr/changestatus`, req).pipe(
+
+      catchError((err: HttpErrorResponse) => {
+
+          this.visualFeedbackService.snackBar = err.statusText;
+          return of(null);
+
+      })
+
+    );
+  }
+
   /** 
    * Request Type: GET
    * @access Only Placement Representatives
@@ -171,6 +209,25 @@ export class StudentService {
       })
 
     );
+  }
+
+  /**
+   * Request Type: POST
+   * @param form list of students to be approved
+   * @returns 
+   */
+  approveStudentProfile(form: FormData) {
+
+    return this.http.post(`${API}/pr/approvestudentprofile`, form).pipe(
+
+      catchError((err: HttpErrorResponse) => {
+
+          this.visualFeedbackService.snackBar = err.statusText;
+          return of(null);
+
+      })
+
+  );
   }
 
 }

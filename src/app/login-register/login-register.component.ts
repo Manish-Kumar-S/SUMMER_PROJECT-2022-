@@ -23,7 +23,7 @@ export class OTPComponent {
   error3: boolean;
   otp_resend: boolean;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute){
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router, private route: ActivatedRoute){
 
     localStorage.removeItem('errorJWT');
 
@@ -56,24 +56,24 @@ export class OTPComponent {
             'Tokenstring': this.token,
           })
 
-          this.http.post<any>(`${this.url}/verify`, form, { headers: headers, observe: 'response' })
-            .subscribe(
-              (data) => {
-                this.success = true;
-                clearInterval(this.t);
-                setTimeout(() => {
-                  this.router.navigateByUrl('');
-                }, 3000);
-              },
-              (err) => {
-                if(err.error.error_type == 2)
-                  this.error2 = true;
-                else if(err.error.error_type == 3)
-                  this.error3 = true;
-                else
-                  this.error1 = true;
-              }
-            );
+          
+          this.authService.verifyOtp(form, headers).subscribe(
+            () => {
+              this.success = true;
+              clearInterval(this.t);
+              setTimeout(() => {
+                this.router.navigateByUrl('');
+              }, 3000);
+            },
+            (err) => {
+              if(err.error.error_type == 2)
+                this.error2 = true;
+              else if(err.error.error_type == 3)
+                this.error3 = true;
+              else
+                this.error1 = true;
+            }
+          );
         }
 
         this.error1 = false;
@@ -96,8 +96,8 @@ export class OTPComponent {
       'Tokenstring': this.token,
     })
 
-    this.http.post<any>(`${this.url}/regenerateOTP?email=${this.email}`,{}, { headers: headers, observe: 'response' })
-    .subscribe((data) => {
+    
+    this.authService.regenerateOtp(this.email, headers).subscribe((data) => {
       // console.log('new otp');
       this.otp_resend = true;
       this.timer(5);
@@ -148,7 +148,7 @@ export class LoginRegisterComponent implements OnInit {
   registerError: string;
   logo: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
     this.url = `${API}/user`;
     this.logo = `${IMG_URL}/annauniv-logo.png`;
     this.roles = [
@@ -174,9 +174,8 @@ export class LoginRegisterComponent implements OnInit {
     form.append('email', this.loginForm.get('email').value);
     form.append('password', this.loginForm.get('password').value);
     form.append('role', this.loginForm.get('role').value);
-    this.http
-      .post<any>(`${this.url}/authenticate`, form, { observe: 'response' })
-      .subscribe(
+    
+      this.authService.authenticateUser(form).subscribe(
         (data) => {
           console.log(data.headers.get('Tokenstring'));
           if(this.loginForm.get('role').value == 1)
@@ -215,8 +214,7 @@ export class LoginRegisterComponent implements OnInit {
     const form = new FormData();
     form.append('email', this.registerForm.get('email').value);
     form.append('password', this.registerForm.get('password').value);
-    this.http
-      .post<any>(`${this.url}/register`, form, { observe: 'response' })
+    this.authService.registerUser(form)
       .subscribe(
         (data) => {
           console.log(data.headers.get('Tokenstring'));

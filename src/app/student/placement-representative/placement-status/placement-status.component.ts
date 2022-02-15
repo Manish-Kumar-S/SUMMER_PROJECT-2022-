@@ -258,7 +258,7 @@ export class PlacementStatusComponent implements OnInit {
 
                 result.append('student_list', this.selection.selected.map(student => student.id).toString().replace('[','').replace(']',''));
 
-                return this.http.post(`${API}/pr/changestatus`, result);
+                return this.studentService.changePlacementStatus(result);
     
             })
 

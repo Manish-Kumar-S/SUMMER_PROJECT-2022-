@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
+import { CompanyService } from '../company.service';
 
 export interface DashboardData {
   reg_number: number;
@@ -36,7 +37,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   isTabView: boolean = false;
   isMobileView: boolean = false;
 
-  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
     this.isLoading = true;
     this.show = false;
     this.displayedColumns = ['reg_no', 'name', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
@@ -80,8 +81,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.http
-      .get(`${API}/company/studentapplied`).subscribe(
+    this.companyService.getAppliedStudents().subscribe(
         (res: any) => {
           this.dashData = res.drive;
           console.log(this.dashData);
@@ -103,8 +103,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
     //   (err) => console.log(err)
     // );
 
-    this.http
-      .get(`${API}/company/drive`)
+    this.companyService.getCompanyDrives()
       .pipe(map((res: any) => res.drives))
       .subscribe((val) =>{
         this.driveResponse = val;

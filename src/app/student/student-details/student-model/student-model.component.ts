@@ -93,6 +93,7 @@ export class StudentModelComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.studentForm.value['photograph_link']);
     const form: FormData = new FormData();
     form.append('first_name', this.studentForm.value['first_name']);
     form.append('last_name', this.studentForm.value['last_name']);

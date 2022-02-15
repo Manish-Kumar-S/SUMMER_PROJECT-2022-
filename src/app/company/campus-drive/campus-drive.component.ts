@@ -7,6 +7,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
+import { CompanyService } from '../company.service';
 
 @Component({
   selector: 'dialog-confirmation-dialog',
@@ -96,7 +97,7 @@ export class CampusDriveComponent implements OnInit {
     other_information: new FormControl("")
   })
 
-  constructor(private http: HttpClient,private router: Router,public dialog: MatDialog,public breakpointObserver: BreakpointObserver,private changeDetectionRef: ChangeDetectorRef) {
+  constructor(private http: HttpClient,private router: Router,public dialog: MatDialog,public breakpointObserver: BreakpointObserver,private companyService: CompanyService) {
     this.bond = false;
     this.valid = false;
     this.updateLoading = false;
@@ -127,7 +128,7 @@ export class CampusDriveComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getCourses().subscribe((res) => {
+    this.companyService.getCourses().pipe(map((res: any) => res.courses)).subscribe((res) => {
       this.courses = res;
     });
 
@@ -152,12 +153,6 @@ export class CampusDriveComponent implements OnInit {
       }
     );
 
-  }
-
-  getCourses() {
-    return this.http
-      .get(`${API}/get/courses`)
-      .pipe(map((res: any) => res.courses));
   }
 
   OnSubmit() {
@@ -210,7 +205,7 @@ export class CampusDriveComponent implements OnInit {
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
     req.append('other_information',this.form.get('other_information').value)
 
-    this.http.post(`${API}/company/drive`, req).subscribe(
+    this.companyService.uploadDrive(req).subscribe(
       (data:any) => {
         if(data.response.status === 200){
           console.log(data);

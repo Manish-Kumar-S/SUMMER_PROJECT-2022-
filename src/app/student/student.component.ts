@@ -20,13 +20,14 @@ export class StudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private authSerivce: AuthService,
-    private http: HttpClient
   ) {}
 
   getStudent() {
-    return this.http
-      .get(`${API}/student/profile`)
-      .pipe(map((res: any) => res.profile));
+    return this.studentService.getStudent()
+      .pipe(map((res: any) => {
+        console.log(res);
+        return res?.profile;
+      }));
   }
 
   ngOnInit(): void {
@@ -39,9 +40,8 @@ export class StudentComponent implements OnInit {
     // )
 
     this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
-    this.getStudent().subscribe((student: StudentModel) => {
-      this.studentService.currentStudent = student;
-    });
+    
+    this.getStudent().subscribe((student: StudentModel) => this.studentService.currentStudent = student);
 
     this.studentService.currentStudentChange$.subscribe(data => {
 

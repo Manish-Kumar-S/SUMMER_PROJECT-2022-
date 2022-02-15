@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
+import { CompanyService } from '../../company.service';
 
 @Component({
   selector: 'app-drive-update',
@@ -93,15 +94,14 @@ export class DriveUpdateComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef) {
+  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
     this.isLoading = true;
     this.updateLoading = false;
     this.updateSuccess = false;
   }
 
   getCourses() {
-    return this.http
-      .get(`${API}/get/courses`)
+    return this.companyService.getCourses()
       .pipe(map((res: any) => res.courses));
   }
 
@@ -228,7 +228,7 @@ export class DriveUpdateComponent implements OnInit {
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
     req.append('other_information',this.form.get('other_information').value)
 
-    this.http.put(`${API}/company/drive?drive_id=${this.driveID}`, req).subscribe(
+    this.companyService.updateDrive(this.driveID, req).subscribe(
       (data: any) => {
         if (data.response.status === 200 && this.driveID != null){
           console.log(data);
