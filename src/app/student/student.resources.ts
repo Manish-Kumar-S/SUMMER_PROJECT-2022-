@@ -10,16 +10,18 @@ export enum PlacementStatusOptions {
 }
 
 export const placementStatusOptions = {
-    0: "Unplaced",
-    1: "Placed PBC",
-    2: "Placed SBC",
-    3: "Got Internship",
-    4: "Banned",
-    5: "Awaited"
+    '0': "Unplaced",
+    '1': "Placed PBC",
+    '2': "Placed SBC",
+    '3': "Got Internship",
+    '4': "Banned",
+    '5': "Awaited",
+    '6': "Rejected"
 }
 
 export enum CurrentRoundOptions {
 
+    NOTAPPLICABLE=-1,
     APTITUDE=0,
     CODING=1,
     GROUP_DISCUSSION=2,
@@ -35,16 +37,17 @@ export enum CurrentRoundOptions {
 
 export const currentRoundOptions = {
 
-    0: "Aptitude",
-    1: "Coding",
-    2: "Technical 1",
-    3: "Technical 2",
-    4: "Technical 3",
-    5: "HR 1",
-    6: "HR 2",
-    7: "HR 3",
-    8: "Technical HR",
-    9: "PPT"
+    '-1': "-",    
+    '0': "Aptitude",
+    '1': "Coding",
+    '2': "Technical 1",
+    '3': "Technical 2",
+    '4': "Technical 3",
+    '5': "HR 1",
+    '6': "HR 2",
+    '7': "HR 3",
+    '8': "Technical HR",
+    '9': "PPT"
 }
 
 

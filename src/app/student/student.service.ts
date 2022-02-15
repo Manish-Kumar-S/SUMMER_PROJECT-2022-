@@ -40,11 +40,9 @@ export class StudentService {
 
         catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
-
+          return this.visualFeedbackService.standardApiErrorHandling(err);
         }),
-        
+
         map((res) => res.courses)
         
       );
@@ -61,8 +59,7 @@ export class StudentService {
 
         catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
+          return this.visualFeedbackService.standardApiErrorHandling(err);
 
         }),
       
@@ -82,8 +79,7 @@ export class StudentService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -101,8 +97,7 @@ export class StudentService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -124,8 +119,7 @@ export class StudentService {
 
         catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
+          return this.visualFeedbackService.standardApiErrorHandling(err);
 
         })
 
@@ -142,8 +136,7 @@ export class StudentService {
 
         catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
+          return this.visualFeedbackService.standardApiErrorHandling(err);
 
         })
 
@@ -165,8 +158,7 @@ export class StudentService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -184,8 +176,7 @@ export class StudentService {
 
       catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
+          return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -203,8 +194,7 @@ export class StudentService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 

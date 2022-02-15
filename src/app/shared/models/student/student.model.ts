@@ -30,7 +30,7 @@ export interface StudentModel {
   year_gap: number;
   resume_link: string;
   photograph_link: string;
-  pending_approval: boolean;
+  pending_approval: boolean; // Do not use this property from studentService.currentStudent
   passing_out_year: number;
   is_placement_representative: boolean;
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap } from 'rxjs/operators';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
-import { API } from 'src/environments/environment';
 import { StudentService } from '../student.service';
 
 @Component({
@@ -15,10 +14,13 @@ export class UpcomingCompaniesComponent implements OnInit {
   companies: any[];
   courses: CourseModel[];
 
+  eligible_status(company): boolean {
+
+    return company.eligible_status.eligible_status;
+  }
+
   constructor(
-    private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute,
     private studentService: StudentService
   ) { }
 

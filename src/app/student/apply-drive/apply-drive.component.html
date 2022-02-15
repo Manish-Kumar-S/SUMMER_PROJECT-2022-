@@ -181,31 +181,35 @@
           <div fxLayout="column" fxLayoutGap="10px" fxFlex="90%">
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>Profile</small> {{!student?.pending_approval ? 'Complete' : 'Incomplete'}}</span>
+              <span style="color: rgb(97, 97, 97);"><small>Profile</small> ({{!pendingApproval ? 'Complete' : 'Incomplete'}})</span>
+            </div>
+            <div fxFlex="30%">
+              <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
+              <span style="color: rgb(97, 97, 97);"><small>Eligible Courses</small> <br> (UG:{{eligibleCoursesArrayUG}} | PG: {{eligibleCoursesArrayPG}}) </span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>Passout Year</small> {{company?.year_batch_eligible}}</span>
+              <span style="color: rgb(97, 97, 97);"><small>Passout Year</small> ({{company?.year_batch_eligible}})</span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>CGPA</small> {{company?.eligibility_in_present/10}}+</span>
+              <span style="color: rgb(97, 97, 97);"><small>CGPA</small> ({{company?.eligibility_in_present/10}}+)</span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>Current Arrears</small> {{company?.current_arrears ? 'Allowed' : 'Nil'}}</span>
+              <span style="color: rgb(97, 97, 97);"><small>Current Arrears</small> ({{company?.current_arrears ? 'Allowed' : 'Not Applicable'}})</span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>History of Arrears</small> {{company?.history_of_arrears ? 'Allowed' : 'Nil'}}</span>
+              <span style="color: rgb(97, 97, 97);"><small>History of Arrears</small> ({{company?.history_of_arrears ? 'Allowed' : 'Not Applicable'}})</span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>Grade XII Percentage</small> </span>
+              <span style="color: rgb(97, 97, 97);"><small>Grade XII Percentage</small> ({{company?.eligibility_12}}%+) </span>
             </div>
             <div fxFlex="30%">
               <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
-              <span style="color: rgb(97, 97, 97);"><small>Grade X Percentage</small> </span>
+              <span style="color: rgb(97, 97, 97);"><small>Grade X Percentage</small> ({{company?.eligibility_10}}%+) </span>
             </div>
           </div>
 
@@ -213,6 +217,9 @@
 
             <mat-icon *ngIf="!pendingApproval" class="eligible-icon" fxFlex="30%">check</mat-icon>
             <mat-icon *ngIf="pendingApproval" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+
+            <mat-icon *ngIf="eligible_courses" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!eligible_courses" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
             <mat-icon *ngIf="passing_out_year" class="eligible-icon" fxFlex="30%">check</mat-icon>
             <mat-icon *ngIf="!passing_out_year" class="ineligible-icon" fxFlex="30%">close</mat-icon>
@@ -238,10 +245,14 @@
 
         <br>
 
-        <h3 *ngIf="!eligible_status" style="text-align: center;color: rgb(240, 85, 85);">You are Ineligible for this Job Profile</h3>
+        <!-- !placed_status ? "Already Placed" : "You are Ineligible for this Job Profile" -->
+
+        <h3 *ngIf="!eligible_status" style="text-align: center;color: rgb(240, 85, 85);">{{ getIneligibleMessage() }}</h3>
 
         <div *ngIf="!applySuccess && eligible_status" fxLayout="column" fxLayoutAlign="center center">
-          <button style="width: 100%;margin: auto;" mat-raised-button color="primary" (click)="applyDrive()">Apply Now</button>
+          <button [disabled]="!eligible_status" style="width: 100%;margin: auto;" mat-raised-button color="primary" (click)="applyDrive()">
+            Apply
+          </button>
           <mat-spinner *ngIf="applyStatus" [diameter]="35"></mat-spinner>
         </div>
 

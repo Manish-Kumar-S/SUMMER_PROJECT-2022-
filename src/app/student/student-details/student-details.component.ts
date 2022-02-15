@@ -31,10 +31,8 @@ export class StudentDetailsComponent implements OnInit {
   placeholderLink = `${IMG_URL}/placeholder-profile.png`;
 
   constructor(
-    private http: HttpClient,
     private dialog: MatDialog,
     private studentService: StudentService,
-    private visualFeedBackService: VisualFeedbackService,
   ) {
     this.options = [
       { key: 'Yes', value: true },

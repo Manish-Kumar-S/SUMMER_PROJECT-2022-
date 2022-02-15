@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, of, Subject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -52,5 +54,18 @@ export class VisualFeedbackService {
     set snackBar(message: string) {
 
         this.snackBarTrigger$.next(message);
+    }
+
+    ////////////////////
+    // Error Handling
+    ////////////////////
+    
+    standardApiErrorHandling(err?: HttpErrorResponse, caught?: unknown) {
+
+        console.log(err.error.response.message.error);
+
+        this.snackBar = err.error.response.message.error;
+
+        return of(null);
     }
 }

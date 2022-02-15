@@ -26,8 +26,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 
@@ -44,8 +43,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 
@@ -62,8 +60,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
 
             })
 
@@ -84,8 +81,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
         
             })
 
@@ -103,8 +99,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 
@@ -123,8 +118,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 
@@ -141,8 +135,7 @@ export class CompanyService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
         
             })
 

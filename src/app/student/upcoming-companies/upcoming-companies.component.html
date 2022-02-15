@@ -10,7 +10,7 @@
   </mat-card>
 
   <div class="grid-layout">
-    <mat-card *ngFor="let company of companies" [style]="!company.eligible_status ? 'background: #ebe9e982;' : ''" (click)="redirect(company)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
+    <mat-card *ngFor="let company of companies" [style]="!eligible_status(company) ? 'background: #ebe9e982;' : ''" (click)="redirect(company)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
       <!-- <hr *ngIf="!company.eligible_status" size="10px" color="red">
       <hr *ngIf="company.eligible_status" size="10px" color="green"> -->
       <mat-card-title style="width: 100%;">
@@ -50,8 +50,8 @@
           <div *ngIf="company.category.id === 2" matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
           <div *ngIf="company.employment_type.id === 1 || company.employment_type.id === 3" matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
           <div *ngIf="company.employment_type.id === 2 || company.employment_type.id === 3" matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
-          <mat-icon *ngIf="company.eligible_status" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: green;margin-left: auto;">check</mat-icon>
-          <mat-icon *ngIf="!company.eligible_status" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(207, 70, 70);margin-left: auto;">close</mat-icon>
+          <mat-icon *ngIf="eligible_status(company)" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: green;margin-left: auto;">check</mat-icon>
+          <mat-icon *ngIf="!eligible_status(company)" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(207, 70, 70);margin-left: auto;">close</mat-icon>
         </div>
       </mat-card-content>
     </mat-card>

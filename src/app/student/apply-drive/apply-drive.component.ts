@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
-import { API } from 'src/environments/environment';
 import { StudentService } from '../student.service';
 import { StudentModel } from '../../shared/models/student/student.model';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-apply-drive',
@@ -21,9 +20,18 @@ export class ApplyDriveComponent implements OnInit {
   applySuccess: boolean = false;
   applyError: boolean = false;
 
+  getIneligibleMessage(): string {
+
+    if(!this.placed_status) return "Already Placed";
+
+    if(this.pendingApproval) return "Incomplete Profile";
+
+    return "You are Ineligible for this Job Profile";
+  }
+
   get pendingApproval(): boolean {
 
-    return this.student.pending_approval;
+    return !this.company.eligible_status.profile_status;
   }
 
   get passing_out_year(): boolean {
@@ -56,9 +64,30 @@ export class ApplyDriveComponent implements OnInit {
     return this.company.eligible_status.eligibility_10;
   }
 
+  get placed_status(): boolean {
+
+    return this.company.eligible_status.placed_status;
+  }
+
+  get eligible_courses(): boolean {
+
+    return this.company.eligible_status.eligible_courses;
+  }
+
+  //OVERALL ELIGIBILITY
   get eligible_status(): boolean {
 
     return this.company.eligible_status.eligible_status;
+  }
+
+  get eligibleCoursesArrayUG(): string {
+
+    return this.company.eligible_courses.filter((c) => c.programme === "UG").map((c) => c.code).toString();
+  }
+
+  get eligibleCoursesArrayPG(): string {
+
+    return this.company.eligible_courses.filter((c) => c.programme === "PG").map((c) => c.code).toString();
   }
 
   constructor(
@@ -67,21 +96,28 @@ export class ApplyDriveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.studentService.getCourses().subscribe((data) => {
-      this.courses = data;
-      this.studentService.getUpcomingCompanies().subscribe((data) => {
-        this.route.queryParams.subscribe((params) => {
-          data.companies.forEach((c:any) => {
-            this.driveId = c.id;
-            if (c.id === +params.id) {
-              this.company = c;
-            }
-          });
-         });
-        this.student = this.studentService.currentStudent;
-        console.log(this.company);
-        console.log(this.studentService.currentStudent);
+    this.studentService.getCourses().pipe(
+
+      mergeMap((data) => {
+
+        this.courses = data;
+        return this.studentService.getUpcomingCompanies();
+      }),
+
+    ).
+    subscribe((data) => {
+      
+      this.route.queryParams.subscribe((params) => {
+        data.companies.forEach((c:any) => {
+          this.driveId = c.id;
+          if (c.id === +params.id) {
+            this.company = c;
+          }
+        });
       });
+      this.student = this.studentService.currentStudent;
+      console.log(this.company);
+      console.log(this.studentService.currentStudent);
     });
   }
 

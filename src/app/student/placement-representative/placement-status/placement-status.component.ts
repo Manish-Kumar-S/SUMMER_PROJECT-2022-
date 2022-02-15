@@ -1,16 +1,14 @@
 import { SelectionModel } from "@angular/cdk/collections";
-import { HttpClient } from "@angular/common/http";
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { filter, map, mergeMap } from "rxjs/operators";
-import { API } from "src/environments/environment";
-import { currentRoundOptions, placementStatusOptions } from "../../student.resources";
+import { CurrentRoundOptions, currentRoundOptions, PlacementStatusOptions, placementStatusOptions } from "../../student.resources";
 import { ChangePlacementStatusComponent } from "./change-placement-status/change-placement-status.component";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from "@angular/material/chips";
-import { of } from "rxjs";
+import { forkJoin, of } from "rxjs";
 import { StudentService } from "../../student.service";
 
 export interface StudentPlacementStatus {
@@ -96,11 +94,9 @@ export class PlacementStatusComponent implements OnInit {
         return this.selection.selected.length;
     }
 
-    constructor(private http: HttpClient, private dialog: MatDialog, private studentService: StudentService) { }
+    constructor(private dialog: MatDialog, private studentService: StudentService) { }
 
     ngOnInit(): void {
-
-        console.log(this.studentList);
 
         if(!this.studentList) this.setDatasource();
     }
@@ -162,13 +158,12 @@ export class PlacementStatusComponent implements OnInit {
 
     getCurrentRound(round: number): string {
 
-        if(round === null) return "-";
-        return currentRoundOptions[round];
+        return currentRoundOptions[round.toString()];
     }
 
     getPlacementStatus(status: number){
         
-        return placementStatusOptions[status];
+        return placementStatusOptions[status.toString()];
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -249,7 +244,7 @@ export class PlacementStatusComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ChangePlacementStatusComponent, {
             data: {
-                studentList: this.dataSource.data
+                studentList: this.selection.selected
             }
         });
 
@@ -261,8 +256,27 @@ export class PlacementStatusComponent implements OnInit {
 
                 result.append('student_list', this.selection.selected.map(student => student.id).toString().replace('[','').replace(']',''));
 
-                return this.studentService.changePlacementStatus(result);
-    
+                const remainingStudentStatus = new FormData();
+
+                remainingStudentStatus.append('status', PlacementStatusOptions.REJECTED.toString());
+
+                remainingStudentStatus.append('current_round', CurrentRoundOptions.NOTAPPLICABLE.toString());
+
+                const remainingStudents = this.dataSource.data
+                .filter(student => !this.selection.selected.includes(student));
+
+                remainingStudentStatus.append(
+                    'student_list', 
+                    remainingStudents
+                        .map(student => student.id)
+                        .toString().replace('[','').replace(']','')
+                );
+
+                return forkJoin([
+                    this.studentService.changePlacementStatus(result),
+                    remainingStudents.length === 0 ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus)
+                ])
+
             })
 
         ).subscribe((res) => !!res ? this.setDatasource() : null);

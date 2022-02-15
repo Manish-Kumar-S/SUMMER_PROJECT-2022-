@@ -62,8 +62,7 @@ export class AuthService {
 
         catchError((err: HttpErrorResponse) => {
 
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
+          return this.visualFeedbackService.standardApiErrorHandling(err);
 
         })
 
@@ -82,8 +81,7 @@ export class AuthService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -100,8 +98,7 @@ export class AuthService {
 
       catchError((err: HttpErrorResponse) => {
 
-        this.visualFeedbackService.snackBar = err.statusText;
-        return of(null);
+        return this.visualFeedbackService.standardApiErrorHandling(err);
 
       })
 
@@ -132,8 +129,7 @@ export class AuthService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 
@@ -153,8 +149,7 @@ export class AuthService {
 
             catchError((err: HttpErrorResponse) => {
 
-                this.visualFeedbackService.snackBar = err.statusText;
-                return of(null);
+                return this.visualFeedbackService.standardApiErrorHandling(err);
       
             })
 

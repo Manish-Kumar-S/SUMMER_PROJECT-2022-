@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { currentRoundOptions, placementStatusOptions } from "src/app/student/student.resources";
+import { currentRoundOptions, PlacementStatusOptions, placementStatusOptions } from "src/app/student/student.resources";
 import { StudentPlacementStatus } from "../placement-status.component";
 
 @Component({
@@ -16,43 +16,51 @@ export class ChangePlacementStatusComponent {
     statuses = [0,1,2,3,5,6];
     rounds = [0,1,2,3,4,5,6,7,8,9];
 
-    currentRoundNull = false;
+    selectEnabled() {
+
+        if(this.statusForm.get('status').value === PlacementStatusOptions.AWAITED || this.statusForm.get('status').value === PlacementStatusOptions.REJECTED) {
+
+            this.statusForm.get('current_round').enable();
+        }
+
+        else this.statusForm.get('current_round').disable();
+    }
 
     constructor(@Inject(MAT_DIALOG_DATA) data: {studentList: StudentPlacementStatus[]}, private dialogRef: MatDialogRef<ChangePlacementStatusComponent>) {
 
-        this.currentRoundNull = data.studentList[0].current_round_number === null;
-
-        console.log(data.studentList[0].current_round_number);
-
+        
         this.statusForm = new FormGroup({
-            current_round: new FormControl(this.currentRoundNull ? 'disabled' : data.studentList[0].current_round_number, Validators.required),
+            current_round: new FormControl(data.studentList[0].current_round_number, Validators.required),
             status: new FormControl(data.studentList[0].status_number, Validators.required)
         });
-
-
-        this.statusForm.get('current_round').valueChanges.subscribe(value => {
-            if(value === 'disabled'){
-                this.currentRoundNull = true;
-            }else{
-                this.currentRoundNull = false;
-            }
-        });
+        
+        this.selectEnabled();
+        this.statusForm.get('status').valueChanges.subscribe(() => this.selectEnabled());
     }
 
     getPlacementStatus(status: number) {
 
-        return placementStatusOptions[status];
+        return placementStatusOptions[status.toString()];
     }
 
     getCurrentRound(round: number) {
 
-        return currentRoundOptions[round];
+        return currentRoundOptions[round.toString()];
     }
 
     onSubmit() {
         const form: FormData = new FormData();
-        this.currentRoundNull ? form.append('current_round', null) : form.append('current_round', this.statusForm.get('current_round').value);
+
+        let current_round = this.statusForm.get('current_round').value;
+
+        if(!(this.statusForm.get('status').value === PlacementStatusOptions.AWAITED || this.statusForm.get('status').value === PlacementStatusOptions.REJECTED)) {
+
+            current_round = -1;
+        }
+
+        form.append('current_round', current_round);
         form.append('status', this.statusForm.value['status']);
+
         this.dialogRef.close(form);
     }
 }
