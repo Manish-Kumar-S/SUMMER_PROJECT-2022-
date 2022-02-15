@@ -26,14 +26,42 @@ export class ApplyDriveComponent implements OnInit {
     return this.student.pending_approval;
   }
 
-  get passing_out_year_eligible(): boolean {
+  get passing_out_year(): boolean {
 
-    return this.company.year_batch_eligible.map((year: string) => parseInt(year)).includes(this.student.passing_out_year);
+    return this.company.eligible_status.year_batch_eligible;
+  }
+
+  get course_percentage(): boolean {
+
+    return this.company.eligible_status.eligibility_in_present;
+  }
+
+  get current_arrears(): boolean {
+
+    return this.company.eligible_status.current_arrears;
+  }
+
+  get history_of_arrears(): boolean {
+
+    return this.company.eligible_status.history_of_arrears;
+  }
+
+  get eligibility_12(): boolean {
+
+    return this.company.eligible_status.eligibility_12;
+  }
+
+  get eligibility_10(): boolean {
+
+    return this.company.eligible_status.eligibility_10;
+  }
+
+  get eligible_status(): boolean {
+
+    return this.company.eligible_status.eligible_status;
   }
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
     private route: ActivatedRoute,
     private studentService: StudentService
   ) {}

@@ -104,34 +104,25 @@
         >
       </mat-form-field>
       <mat-form-field class="form-field">
-        <mat-label>History Of Arrears</mat-label>
-        <mat-select formControlName="history_of_arrears" required>
-          <mat-option *ngFor="let option of options" [value]="option.value">{{
-            option.key
-          }}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="studentForm.get('history_of_arrears').invalid"
-          >History Of Arrears is required</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field class="form-field">
         <mat-label>Current Arrears</mat-label>
-        <mat-select formControlName="current_arrears" required>
+        <mat-select #currentArrears formControlName="current_arrears" required>
           <mat-option *ngFor="let option of options" [value]="option.value">{{
             option.key
           }}</mat-option>
         </mat-select>
-        <mat-error *ngIf="studentForm.get('current_arrears').invalid"
+        <mat-error
           >Current Arrears is required</mat-error
         >
       </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Number Of Arrears</mat-label>
-        <input matInput type="number" formControlName="number_of_arrears" required />
-        <mat-error *ngIf="studentForm.get('number_of_arrears').invalid"
-          >Number Of Arrears is required</mat-error
-        >
-      </mat-form-field>
+      <div fxLayout="column" fxLayoutGap="0.5px">
+        <mat-form-field class="form-field">
+          <mat-label>Number Of Arrears</mat-label>
+          <input matInput type="number" formControlName="number_of_arrears" required />
+          <mat-error>
+            >Number Of Arrears is required</mat-error>
+        </mat-form-field>
+        <mat-error>{{ arrearError }}</mat-error>
+      </div>
       <mat-form-field class="form-field">
         <mat-label>UG Course (Only for PG)</mat-label>
         <input matInput type="text" formControlName="ug_course" />

@@ -115,21 +115,21 @@
 
         <div fxLayout="row" class="flow">
 
-          <span *ngIf="company?.ppt_session">Pre-Placement Talk <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.ppt_session"> Pre-Placement Talk <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.aptitude_test">Aptitude Test <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.aptitude_test"> Aptitude Test <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.online_test">Coding Round <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.online_test"> Coding Round <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.group_discussion">Group Discussion Round <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.group_discussion"> Group Discussion Round <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.technical_interview1">Technical Interview 1 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.technical_interview1"> Technical Interview 1 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.technical_interview2">Technical Interview 2 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.technical_interview2"> Technical Interview 2 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.technical_interview3">Technical Interview 3 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.technical_interview3"> Technical Interview 3 <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
-          <span *ngIf="company?.technical_plus_hr_interview">Technical + HR Interview <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
+          <span *ngIf="company?.technical_plus_hr_interview"> Technical + HR Interview <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
           <span *ngIf="company?.hr_interview">HR Interview <mat-icon style="vertical-align: middle;font-size: 20px;">east</mat-icon></span>
 
@@ -214,23 +214,23 @@
             <mat-icon *ngIf="!pendingApproval" class="eligible-icon" fxFlex="30%">check</mat-icon>
             <mat-icon *ngIf="pendingApproval" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="passing_out_year_eligible" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(passing_out_year_eligible)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="passing_out_year" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!passing_out_year" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.course_percentage >= company?.eligibility_in_present" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.course_percentage >= company?.eligibility_in_present)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="course_percentage" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(course_percentage)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.current_arrears >= company?.current_arrears" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.current_arrears >= company?.current_arrears)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="current_arrears" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(current_arrears)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.history_of_arrears >= company?.history_of_arrears" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.history_of_arrears >= company?.history_of_arrears)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="history_of_arrears" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(history_of_arrears)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.grade_12_percentage >= company?.eligibility_12" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.grade_12_percentage >= company?.eligibility_12)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="eligibility_12" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(eligibility_12)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
-            <mat-icon *ngIf="student?.grade_10_percentage >= company?.eligibility_10" class="eligible-icon" fxFlex="30%">check</mat-icon>
-            <mat-icon *ngIf="!(student?.grade_10_percentage >= company?.eligibility_10)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
+            <mat-icon *ngIf="eligibility_10" class="eligible-icon" fxFlex="30%">check</mat-icon>
+            <mat-icon *ngIf="!(eligibility_10)" class="ineligible-icon" fxFlex="30%">close</mat-icon>
 
           </div>
 
@@ -238,9 +238,9 @@
 
         <br>
 
-        <h3 *ngIf="!company?.eligible_status" style="text-align: center;color: rgb(240, 85, 85);">You are Ineligible for this Job Profile</h3>
+        <h3 *ngIf="!eligible_status" style="text-align: center;color: rgb(240, 85, 85);">You are Ineligible for this Job Profile</h3>
 
-        <div *ngIf="!applySuccess && company?.eligible_status" fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="!applySuccess && eligible_status" fxLayout="column" fxLayoutAlign="center center">
           <button style="width: 100%;margin: auto;" mat-raised-button color="primary" (click)="applyDrive()">Apply Now</button>
           <mat-spinner *ngIf="applyStatus" [diameter]="35"></mat-spinner>
         </div>

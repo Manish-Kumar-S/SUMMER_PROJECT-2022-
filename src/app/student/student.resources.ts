@@ -1,5 +1,3 @@
-
-
 export enum PlacementStatusOptions {
 
     UNPLACED=0,
@@ -7,7 +5,8 @@ export enum PlacementStatusOptions {
     PLACED_SBC=2,
     GOT_INTERNSHIP=3,
     BANNED=4,
-    AWAITED=5
+    AWAITED=5,
+    REJECTED=6,
 }
 
 export const placementStatusOptions = {

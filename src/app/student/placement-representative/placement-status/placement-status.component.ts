@@ -162,6 +162,7 @@ export class PlacementStatusComponent implements OnInit {
 
     getCurrentRound(round: number): string {
 
+        if(round === null) return "-";
         return currentRoundOptions[round];
     }
 
@@ -210,6 +211,8 @@ export class PlacementStatusComponent implements OnInit {
             }),
 
             map((response: any): StudentPlacementStatus[] => {
+
+                console.log(response);
 
                 if(!response.student_list) return [];
 

@@ -73,7 +73,7 @@ export class AuthService {
   /**
    * Request Type: POST
    * @param form email, password and role
-   * @returns 
+   * @returns api response
    */
   authenticateUser(form: FormData) {
 

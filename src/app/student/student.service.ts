@@ -175,8 +175,8 @@ export class StudentService {
 
   /**
    * Request Type: POST
-   * @param req status details of the student
-   * @returns 
+   * @param req status and round of the students in the drive
+   * @returns api response
    */
   changePlacementStatus(req: FormData) {
 

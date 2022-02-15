@@ -13,14 +13,29 @@ export class ChangePlacementStatusComponent {
 
     statusForm: FormGroup;
     
-    statuses = [0,1,2,3,4];
+    statuses = [0,1,2,3,5,6];
     rounds = [0,1,2,3,4,5,6,7,8,9];
+
+    currentRoundNull = false;
 
     constructor(@Inject(MAT_DIALOG_DATA) data: {studentList: StudentPlacementStatus[]}, private dialogRef: MatDialogRef<ChangePlacementStatusComponent>) {
 
+        this.currentRoundNull = data.studentList[0].current_round_number === null;
+
+        console.log(data.studentList[0].current_round_number);
+
         this.statusForm = new FormGroup({
-            current_round: new FormControl(data.studentList[0].current_round_number, Validators.required),
+            current_round: new FormControl(this.currentRoundNull ? 'disabled' : data.studentList[0].current_round_number, Validators.required),
             status: new FormControl(data.studentList[0].status_number, Validators.required)
+        });
+
+
+        this.statusForm.get('current_round').valueChanges.subscribe(value => {
+            if(value === 'disabled'){
+                this.currentRoundNull = true;
+            }else{
+                this.currentRoundNull = false;
+            }
         });
     }
 
@@ -36,7 +51,7 @@ export class ChangePlacementStatusComponent {
 
     onSubmit() {
         const form: FormData = new FormData();
-        form.append('current_round', this.statusForm.value['current_round']);
+        this.currentRoundNull ? form.append('current_round', null) : form.append('current_round', this.statusForm.get('current_round').value);
         form.append('status', this.statusForm.value['status']);
         this.dialogRef.close(form);
     }

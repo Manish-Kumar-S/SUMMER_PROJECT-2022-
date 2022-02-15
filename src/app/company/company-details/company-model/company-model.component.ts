@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate } from '@angular/animations';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -8,7 +9,7 @@ import { CompanyService } from '../../company.service';
 @Component({
   selector: 'dialog-company-details-dialog',
   templateUrl: './company-model.component.html',
-  styleUrls: ['./company-model.component.scss']
+  styleUrls: ['./company-model.component.scss'],
 })
 export class CompanyDetailsDialog implements OnInit {
 

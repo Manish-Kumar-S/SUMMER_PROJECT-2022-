@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -13,6 +13,20 @@ export class StudentModelComponent implements OnInit {
   boards: string[];
   options: any[];
   courseTypes: any[];
+
+  get arrearError(): string {
+
+    console.log(this.studentForm.get('current_arrears').value);
+
+    if(this.studentForm.get('number_of_arrears').value === null) return null; 
+
+    if(this.studentForm.get('number_of_arrears').value <= 0 && this.studentForm.get('current_arrears').value === true){
+      return '>Should be greater than 0';
+    };
+
+    return null;
+  }
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<StudentModelComponent>
@@ -58,11 +72,6 @@ export class StudentModelComponent implements OnInit {
       ug_course_percentage: new FormControl(data.student.ug_course_percentage),
 
       passing_out_year: new FormControl(data.student.passing_out_year, Validators.required), 
-
-      history_of_arrears: new FormControl(
-        data.student.history_of_arrears,
-        Validators.required
-      ),
       current_arrears: new FormControl(
         data.student.current_arrears,
         Validators.required
@@ -93,7 +102,13 @@ export class StudentModelComponent implements OnInit {
   }
 
   onSubmit() {
+
+    if(this.arrearError) return
+
     console.log(this.studentForm.value['photograph_link']);
+
+    const historyOfArrears = this.studentForm.value['number_of_arrears'] > 0;
+
     const form: FormData = new FormData();
     form.append('first_name', this.studentForm.value['first_name']);
     form.append('last_name', this.studentForm.value['last_name']);
@@ -120,7 +135,7 @@ export class StudentModelComponent implements OnInit {
     );
     form.append(
       'history_of_arrears',
-      this.studentForm.value['history_of_arrears']
+      historyOfArrears.toString(),
     );
     form.append('current_arrears', this.studentForm.value['current_arrears']);
     form.append(
@@ -141,3 +156,13 @@ export class StudentModelComponent implements OnInit {
     this.dialogRef.close(form);
   }
 }
+
+// function arrearError() {
+
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//     if (control.get('number_of_arrears').value === 0 && control.get('current_arrears').value) {
+//       return { arrearError: true };
+//     }
+//     return null;
+//   }
+// }
