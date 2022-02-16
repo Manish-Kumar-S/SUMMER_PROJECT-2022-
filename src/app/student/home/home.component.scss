@@ -1,1 +1,93 @@
 @import "/src/app/shared/scss/main.scss";
+
+
+mat-table {
+
+    min-width: 630px !important;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-size: 1.02em;
+}
+
+td {
+    font-size: 1em;
+}
+
+.btn {
+    background: $primary-color;
+    color: white;
+    margin-top: 1em;
+    &:disabled {
+        background: gainsboro;
+        cursor: not-allowed;
+    }
+}
+
+.mat-form-field-wrapper, .mat-form-field {
+    overflow-y: auto !important;
+    max-height: 300px !important;
+}
+
+.student-container {
+  @media (max-width: 400px) {
+    padding: 1em;
+    .title {
+      margin-top: 2em;
+    }
+  }
+}
+
+.title {
+  font-size: 1.75em;
+  font-weight: 600;
+  padding: 0.35em;
+  margin: 1em 0;
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary-color;
+    }
+  }
+
+  @include sm-screen {
+    font-size: 1.5em;
+  }
+}
+
+
+.container-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5em;
+  .content-wrap {
+    display: flex;
+    flex-direction: column !important;
+    @media (max-width: 768px) {
+      max-width: unset !important;
+    }
+  }
+  @media (max-width: 768px) {
+    gap: unset;
+    flex-direction: column !important;
+  }
+}
+
+.flow, .tags {
+  flex-flow: row wrap;
+}
+.tags {
+  place-content: unset !important;
+}
+
+.mat-card {
+  height: auto !important;
+}

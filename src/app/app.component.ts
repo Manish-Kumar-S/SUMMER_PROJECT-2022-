@@ -37,10 +37,10 @@ export class AppComponent {
         this.loading = loading
       });
 
-      this.visualFeedbackService.snackBarTrigger$.subscribe((message) => {
+      this.visualFeedbackService.snackBarTrigger$.subscribe((data) => {
 
         //show snackbar
-        this.snackBar.open(message, '', {duration: 1000});
+        this.snackBar.open(data.message, '', {duration: data.delay || 1500});
       })
   }
   

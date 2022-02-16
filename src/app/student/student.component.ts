@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { API } from 'src/environments/environment';
 import { AuthService } from '../shared/auth/auth.service';
 import { StudentModel } from '../shared/models/student/student.model';
+import { VisualFeedbackService } from '../shared/visual-feedback/visual-feedback.service';
 import { StudentService } from './student.service';
 @Component({
   selector: 'app-student',
@@ -17,31 +18,34 @@ export class StudentComponent implements OnInit {
   reg_no: number;
   isPlacementRep: boolean;
 
+  first_login = new BehaviorSubject<boolean>(false);
+
   constructor(
     private studentService: StudentService,
     private authSerivce: AuthService,
-  ) {}
-
-  getStudent() {
-    return this.studentService.getStudent()
-      .pipe(map((res: any) => {
-        console.log(res);
-        return res?.profile;
-      }));
-  }
+    private router: Router,
+    private visualFeedbackService: VisualFeedbackService,
+  ) { }
 
   ngOnInit(): void {
 
-    // this.getStudent().subscribe(
-    //   (data) => {
-    //     this.name = data.first_name + ' ' + data.last_name;
-    //     this.reg_no = data.reg_number;
-    //   }
-    // )
+    console.log("student");
 
     this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
     
-    this.getStudent().subscribe((student: StudentModel) => this.studentService.currentStudent = student);
+    this.studentService.getStudent().pipe(
+
+      map((res: any) => {
+
+        this.first_login.next(res?.first_login);
+
+        return res?.profile
+      }),
+
+    ).subscribe((student: StudentModel) => {
+      
+      this.studentService.currentStudent = student;
+    });
 
     this.studentService.currentStudentChange$.subscribe(data => {
 
@@ -50,6 +54,15 @@ export class StudentComponent implements OnInit {
       this.isPlacementRep = data?.is_placement_representative;
     });
 
-    console.log(this.studentService.studentToken);
+    this.first_login.subscribe((data) => {
+
+      console.log(data);  
+      if(data) {
+
+        this.router.navigateByUrl('student/personal-details');
+        this.visualFeedbackService.snackBar("Complete your profile to proceed!", 5000);
+      }
+    })
   }
+
 }

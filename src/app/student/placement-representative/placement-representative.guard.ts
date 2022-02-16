@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { StudentService } from '../student.service';
 import { Location } from '@angular/common';
 import { filter, map } from 'rxjs/operators';
@@ -17,7 +17,10 @@ export class PlacementRepresentativeGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     return this.studentService.currentStudent === null ? this.studentService.getStudent().pipe(
-      filter(student => student !== null),
+      
+      filter(res => res !== null && res.profile !== null),
+
+      map(res => res.profile),
 
       map(student => {
 
@@ -27,6 +30,6 @@ export class PlacementRepresentativeGuard implements CanActivate {
 
         return false;
       })
-    ) : this.studentService.currentStudent.is_placement_representative;
+    ) : of(this.studentService.currentStudent.is_placement_representative);
   }
 }

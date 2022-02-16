@@ -13,10 +13,9 @@ export class StudentModelComponent implements OnInit {
   boards: string[];
   options: any[];
   courseTypes: any[];
+  first_login = false;
 
   get arrearError(): string {
-
-    console.log(this.studentForm.get('current_arrears').value);
 
     if(this.studentForm.get('number_of_arrears').value === null) return null; 
 
@@ -31,6 +30,9 @@ export class StudentModelComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<StudentModelComponent>
   ) {
+
+    this.first_login = data.first_login;
+
     this.genders = ['male', 'female', 'others'];
     this.boards = ['STATE', 'CBSE', 'ICSE', 'OTHERS'];
     this.options = [

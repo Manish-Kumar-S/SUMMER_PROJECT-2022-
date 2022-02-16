@@ -27,10 +27,22 @@ export class LogoutGuard implements CanActivate {
 
       catchError((err) => {
 
-        if(err.status !== 200) {
-          
-          this.authService.logout();
+        //check if token expired and logout if yes
+        if('is_expired' in err.error) {
+
+          if(err.error.is_expired) {
+
+            console.log("logout")
+
+            this.authService.logout();
+
+          }
+
+        } else {
+
+          console.error(err);
         }
+
         return of(null);
       }),
 
@@ -38,13 +50,12 @@ export class LogoutGuard implements CanActivate {
 
         if(!response) return false;
 
-        // console.log(response);
-        if(response?.status !== 200 || response.is_expire){
-          // console.log(response.response);
-          // console.log(response?.response.error);
-          this.authService.logout();
-          return false;
-        };
+        // if(response?.status !== 200 || response.is_expire){
+
+          
+        //   this.authService.logout();
+        //   return false;
+        // };
 
         return true;
       }),

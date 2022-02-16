@@ -38,10 +38,7 @@ export class StudentService {
       .get<any>(`${API}/get/courses`)
       .pipe(
 
-        catchError((err: HttpErrorResponse) => {
-
-          return this.visualFeedbackService.standardApiErrorHandling(err);
-        }),
+        this.visualFeedbackService.standardApiErrorHandling(),
 
         map((res) => res.courses)
         
@@ -57,11 +54,7 @@ export class StudentService {
       .get(`${API}/student/profile`)
       .pipe(
 
-        catchError((err: HttpErrorResponse) => {
-
-          return this.visualFeedbackService.standardApiErrorHandling(err);
-
-        }),
+        this.visualFeedbackService.standardApiErrorHandling(),
       
         // map((res: any) => res?.profile)
       
@@ -77,11 +70,7 @@ export class StudentService {
 
     return this.http.put(`${API}/student/profile`, form).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
     );
   }
@@ -95,11 +84,7 @@ export class StudentService {
 
     return this.http.post<any>(`${API}/student/drives/apply?drive_id=${driveId}`, {}).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
     );
   }
@@ -117,11 +102,7 @@ export class StudentService {
     return this.http
       .get(`${API}/student/drives/applied`).pipe(
 
-        catchError((err: HttpErrorResponse) => {
-
-          return this.visualFeedbackService.standardApiErrorHandling(err);
-
-        })
+        this.visualFeedbackService.standardApiErrorHandling(),
 
       );
   }
@@ -134,11 +115,13 @@ export class StudentService {
 
     return this.http.get(`${API}/student/drives/upcoming`).pipe(
 
-        catchError((err: HttpErrorResponse) => {
+        // catchError((err: HttpErrorResponse) => {
 
-          return this.visualFeedbackService.standardApiErrorHandling(err);
+        //   return this.visualFeedbackService.standardApiErrorHandling(),(err);
 
-        })
+        // })
+
+        this.visualFeedbackService.standardApiErrorHandling(),
 
       );
   }
@@ -156,11 +139,7 @@ export class StudentService {
 
     return this.http.get(`${API}/pr/studentsregistered`).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
     );  
   }
@@ -174,11 +153,7 @@ export class StudentService {
 
     return this.http.post(`${API}/pr/changestatus`, req).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-          return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
     );
   }
@@ -192,11 +167,7 @@ export class StudentService {
 
     return this.http.get(`${API}/pr/studentlist`).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
     );
   }
@@ -210,12 +181,7 @@ export class StudentService {
 
     return this.http.post(`${API}/pr/approvestudentprofile`, form).pipe(
 
-      catchError((err: HttpErrorResponse) => {
-
-          this.visualFeedbackService.snackBar = err.statusText;
-          return of(null);
-
-      })
+      this.visualFeedbackService.standardApiErrorHandling(),
 
   );
   }

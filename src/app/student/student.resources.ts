@@ -50,6 +50,20 @@ export const currentRoundOptions = {
     '9': "PPT"
 }
 
+export enum CompanyStatusOptions {
+
+    ONGOING=0,
+    COMPLETED=1,
+    DEFERRED=2,
+}
+
+export const companyStatusOptions = {
+
+    '0': "Ongoing",
+    '1': "Completed",
+    '2': "Deferred"
+}
+
 
 // - Registered
 // - shortlisted

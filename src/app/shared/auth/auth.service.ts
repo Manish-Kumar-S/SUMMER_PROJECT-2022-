@@ -1,17 +1,13 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { StudentService } from 'src/app/student/student.service';
 import { API } from 'src/environments/environment';
-import { VisualFeedbackService } from '../visual-feedback/visual-feedback.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router, private studentService: StudentService, private visualFeedbackService: VisualFeedbackService) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   /////////////////////
   // LOCAL STORAGE
@@ -42,7 +38,6 @@ export class AuthService {
    * @returns Gets the role of the user and tells whether the JWT token is expired or not
    * */
   getRole() {
-    //TODO: 
     return this.http.get(`${API}/user/role`);
   }
 
@@ -58,15 +53,7 @@ export class AuthService {
   registerUser(form: FormData) {
 
     return this.http
-    .post<any>(`${API}/user/register`, form, { observe: 'response' }).pipe(
-
-        catchError((err: HttpErrorResponse) => {
-
-          return this.visualFeedbackService.standardApiErrorHandling(err);
-
-        })
-
-      );
+    .post<any>(`${API}/user/register`, form, { observe: 'response' });
   }
 
   /**
@@ -77,15 +64,7 @@ export class AuthService {
   authenticateUser(form: FormData) {
 
     return this.http
-    .post<any>(`${API}/user/authenticate`, form, { observe: 'response' }).pipe(
-
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
-
-    );
+    .post<any>(`${API}/user/authenticate`, form, { observe: 'response' });
   }
 
   /** 
@@ -94,20 +73,12 @@ export class AuthService {
    * */
   logout() {
     console.log('This is Logout')
-    this.http.get(`${API}/user/logout`).pipe(
-
-      catchError((err: HttpErrorResponse) => {
-
-        return this.visualFeedbackService.standardApiErrorHandling(err);
-
-      })
-
-    ).
+    this.http.get(`${API}/user/logout`).
     subscribe((data: any) => {
       if (data.response.status === 200) {
         localStorage.removeItem('errorJWT');
         this.router.navigateByUrl('/');
-        this.studentService.currentStudent = null;
+        // this.studentService.currentStudent = null;
       }
     });
   }
@@ -125,15 +96,7 @@ export class AuthService {
    */
    verifyOtp(form: FormData, headers: HttpHeaders) {
 
-    return this.http.post<any>(`${API}/user/verify`, form, { headers: headers, observe: 'response' }).pipe(
-
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
-
-        );
+    return this.http.post<any>(`${API}/user/verify`, form, { headers: headers, observe: 'response' });
   }
 
   /**
@@ -145,14 +108,6 @@ export class AuthService {
    */
   regenerateOtp(email: string, headers: HttpHeaders) {
 
-    return this.http.post<any>(`${API}/user/regenerateOTP?email=${email}`,{}, { headers: headers, observe: 'response' }).pipe(
-
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
-
-        );
+    return this.http.post<any>(`${API}/user/regenerateOTP?email=${email}`,{}, { headers: headers, observe: 'response' });
   }
 }

@@ -1,5 +1,192 @@
 <div class="student-container">
 
+    <h3 class="title">Applied Companies:</h3>
+
     
+    <div style="margin-top: 10px;">
+
+        <!-- <div *ngIf="!!studentList && studentList.length === 0" style="width: 100%; height: 30vh; border:dashed grey; opacity: 0.6; position: relative;">
+        
+            <div style="width: 100%; text-align: center; vertical-align:bottom; position: absolute; top: 50%; font-size:large">No Students</div>
+        
+        </div> -->
+        
+        <div>
+
+            <div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
+
+                <div style="overflow-x: auto;">
+            
+                    <mat-table [dataSource]="dataSource">
+                
+                        <!-- Serial Number Column -->
+                        <ng-container matColumnDef="serial_number">
+        
+                            <mat-header-cell *matHeaderCellDef>
+                                No. 
+                            </mat-header-cell>
+                            
+                            <mat-cell *matCellDef="let element"> {{ element.serial_number }} </mat-cell>
+                        </ng-container>
+                
+                        <!-- Name Column
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Name 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'name', type: 'text'}">
+                                    <mat-icon *ngIf="filters.name.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.name.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+                        </ng-container> -->
+                
+                        <!-- Registration No. Column -->
+                        <!-- <ng-container matColumnDef="reg_number">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Registration Number 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'reg_number', type: 'number'}">
+                                    <mat-icon *ngIf="filters.reg_number.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.reg_number.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.reg_number }} </mat-cell>
+                        </ng-container> -->
+        
+                        <!-- Drive Name Column -->
+                        <ng-container matColumnDef="drive_name">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Drive Name 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'drive_name', type: 'string'}">
+                                    <mat-icon *ngIf="filters.drive_name.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.drive_name.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.drive_name }} </mat-cell>
+                        </ng-container>
+        
+                        <!-- Company Column -->
+                        <ng-container matColumnDef="company_name">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Company Name 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'company_name', type: 'string'}">
+                                    <mat-icon *ngIf="filters.company_name.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.company_name.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.company_name }} </mat-cell>
+                        </ng-container>
+        
+                        <!-- Current Round Column -->
+                        <ng-container matColumnDef="current_round">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Current Round 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'current_round', type: 'string'}">
+                                    <mat-icon *ngIf="filters.current_round.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.current_round.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.current_round }} </mat-cell>
+                        </ng-container>
+        
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Status 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'status', type: 'string'}">
+                                    <mat-icon *ngIf="filters.status.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.status.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.status }} </mat-cell>
+                        </ng-container>
+
+                        <!-- Company Drive Status Column -->
+                        <ng-container matColumnDef="company_drive_status">
+                            <mat-header-cell *matHeaderCellDef> 
+                                Drive Status 
+                                <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'company_drive_status', type: 'string'}">
+                                    <mat-icon *ngIf="filters.company_drive_status.filters.length === 0">filter_list</mat-icon>
+                                    <mat-icon *ngIf="filters.company_drive_status.filters.length > 0">filter_alt</mat-icon>
+                                </button> 
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.company_drive_status }} </mat-cell>
+                        </ng-container>
+        
+                        <!-- Checkbox Column -->
+                        <!-- <ng-container matColumnDef="select">
+                            <mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox [color]="'primary'" (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                                ({{ selectedNumber }})
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-checkbox [color]="'primary'" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </mat-cell>
+                        </ng-container> -->
+                
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                    
+                </div>
+        
+                <mat-paginator style="width: 100%;" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
+                </mat-paginator>
+
+            </div>
+
+        </div>
+
+        <mat-menu #filterMenu="matMenu">
+
+            <ng-template matMenuContent let-column="column" let-type="type">
+                
+                <div fxLayout="column" fxLayoutGap="5px" (click)="$event.stopPropagation()" style="text-align: center; margin: 15px;">
+        
+                    
+                    <h2>Apply Filter</h2>
+                        
+                
+                    <mat-form-field appearance="fill">
+                    <mat-label>Filters</mat-label>
+                    <mat-chip-list #chipList aria-label="Filter selection">
+                        <mat-chip *ngFor="let filter of filters[column].filters" (removed)="remove(filter, column)">
+                        {{filter}}
+                        <div fxLayout="row" fxLayoutAlign="center">
+                            <button mat-icon-button matChipRemove>
+                                <mat-icon style="position: absolute; top: -1.8px; left: -5px; font-size: 18px;">cancel</mat-icon>
+                            </button>
+                        </div>
+                        </mat-chip>
+                        <input style="max-height: 100px;" placeholder="Filter..."
+                            [type]="type"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="true"
+                            (matChipInputTokenEnd)="add($event, column, type)">
+                    </mat-chip-list>
+                    </mat-form-field>
+
+                    <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+
+                        <button (click)="clearFilters(column)" style="width: 18px; height: 18px; text-align: center;" mat-icon-button>
+                            <mat-icon style="position: absolute; top: -3.8px; left: -4px; font-size: 18px;">cancel</mat-icon>
+                        </button>
+
+                    </div>
+        
+                </div>
+
+            </ng-template>
+
+        </mat-menu>
+
+    </div>
+
 
 </div>

@@ -1,12 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, pipe, Subject, UnaryFunction } from 'rxjs';
+import { catchError, filter } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class VisualFeedbackService {
+
+    constructor(private authService: AuthService) { }
 
     ///////////////////
     // Loading
@@ -49,23 +52,49 @@ export class VisualFeedbackService {
     // Snackbar
     ////////////////////
 
-    snackBarTrigger$ = new Subject<string>();
+    snackBarTrigger$ = new Subject<{message: string, delay?: number}>();
 
-    set snackBar(message: string) {
+    snackBar(message: string, delay?: number) {
 
-        this.snackBarTrigger$.next(message);
+        this.snackBarTrigger$.next({message, delay});
     }
 
     ////////////////////
     // Error Handling
     ////////////////////
-    
-    standardApiErrorHandling(err?: HttpErrorResponse, caught?: unknown) {
 
-        console.log(err.error.response.message.error);
+    standardApiErrorHandling(): UnaryFunction<Observable<any>, Observable<any>> {
+            
+        const snackBar = (snackBarMessage: string) => {
 
-        this.snackBar = err.error.response.message.error;
+            this.snackBar(snackBarMessage, 5000);
+        }
 
-        return of(null);
+        return pipe(
+
+            catchError((err: HttpErrorResponse) => {
+
+                //check if token expired and logout if yes
+                if('is_expired' in err.error) {
+                    console.log("Fdfd");
+                    if(err.error.is_expired) {
+
+                        this.authService.logout();
+                    }
+
+                } else {
+
+                    console.log(err);
+                }
+
+                snackBar(err.error.response?.message.error || 'Something went wrong');
+
+                return of(null);
+            }),
+
+            filter((res) => res !== null)
+                
+        )
+        
     }
 }

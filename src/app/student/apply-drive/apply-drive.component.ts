@@ -96,6 +96,7 @@ export class ApplyDriveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.studentService.getCourses().pipe(
 
       mergeMap((data) => {

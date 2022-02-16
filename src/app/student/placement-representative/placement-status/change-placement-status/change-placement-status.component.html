@@ -17,7 +17,7 @@
             <mat-form-field class="form-field">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" required>
-                    <mat-option *ngFor="let status of statuses" [value]="status">{{ getPlacementStatus(status) }}</mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status" [disabled]="status === 6">{{ getPlacementStatus(status) }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="statusForm.get('status').invalid"
                 >Status is required</mat-error

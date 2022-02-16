@@ -4,11 +4,10 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { VisualFeedbackService } from '../visual-feedback/visual-feedback.service';
 
 @Injectable()
@@ -47,7 +46,7 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
         this.visualFeedbackService.setLoading(request.url, false);
       })
 
-    );;
+    );
   }
 
   injectToken(request: HttpRequest<any>) {

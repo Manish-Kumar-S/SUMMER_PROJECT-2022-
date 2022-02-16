@@ -10,6 +10,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from "@angular/material/chips";
 import { forkJoin, of } from "rxjs";
 import { StudentService } from "../../student.service";
+import { VisualFeedbackService } from "src/app/shared/visual-feedback/visual-feedback.service";
 
 export interface StudentPlacementStatus {
 
@@ -94,7 +95,7 @@ export class PlacementStatusComponent implements OnInit {
         return this.selection.selected.length;
     }
 
-    constructor(private dialog: MatDialog, private studentService: StudentService) { }
+    constructor(private dialog: MatDialog, private studentService: StudentService, private visualFeedbackService: VisualFeedbackService) { }
 
     ngOnInit(): void {
 
@@ -242,6 +243,18 @@ export class PlacementStatusComponent implements OnInit {
 
     openStatusDialog() {
 
+        const distinct = [];
+        const array = this.selection.selected;
+        for (var i = 0; i < array.length; i++)
+            if (!distinct.includes(array[i].drive_name))
+                distinct.push(array[i].drive_name)
+
+        if(distinct.length > 1) {
+
+            this.visualFeedbackService.snackBar("Please select students from the same drive", 5000);
+            return;
+        }
+
         const dialogRef = this.dialog.open(ChangePlacementStatusComponent, {
             data: {
                 studentList: this.selection.selected
@@ -262,8 +275,12 @@ export class PlacementStatusComponent implements OnInit {
 
                 remainingStudentStatus.append('current_round', CurrentRoundOptions.NOTAPPLICABLE.toString());
 
-                const remainingStudents = this.dataSource.data
-                .filter(student => !this.selection.selected.includes(student));
+                // const remainingStudents = this.dataSource.data
+                // .filter(student => !this.selection.selected.includes(student));
+
+                const remainingStudents = 
+                    this.studentList.filter(student => student.drive_name === this.selection.selected[0].drive_name) //all students of the same drive
+                        .filter(student => !this.selection.selected.includes(student)); //except the selected ones
 
                 remainingStudentStatus.append(
                     'student_list', 

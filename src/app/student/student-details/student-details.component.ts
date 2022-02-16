@@ -30,6 +30,8 @@ export class StudentDetailsComponent implements OnInit {
 
   placeholderLink = `${IMG_URL}/placeholder-profile.png`;
 
+  first_login = false;
+
   constructor(
     private dialog: MatDialog,
     private studentService: StudentService,
@@ -58,11 +60,17 @@ export class StudentDetailsComponent implements OnInit {
 
     this.studentService.getStudent().pipe(
 
-      map((response) => response?.profile),
+      map((response) => {
+
+        this.first_login = response?.first_login;
+
+        return response?.profile;
+      }),
 
       mergeMap((data) => {
 
         this.student = data;
+
         this.student.photograph_link !== 'null'
           ? (this.photographLink = this.convertImgURL(data.photograph_link))
           : (this.photographLink = `${IMG_URL}/user.jpg`);
@@ -73,7 +81,12 @@ export class StudentDetailsComponent implements OnInit {
       }),
       
     ).
-    subscribe((data) => this.courses = data);
+    subscribe((data) => {
+
+      this.courses = data;
+
+      if(this.first_login) this.onEdit();
+    });
   }
 
   // Converts the drive link to image link
@@ -100,7 +113,9 @@ export class StudentDetailsComponent implements OnInit {
         courses: this.courses,
         options: this.options,
         courseTypes: this.courseTypes,
+        first_login: this.first_login,
       },
+      disableClose: true,
     });
 
     dialogRef.afterClosed().pipe(
@@ -117,6 +132,7 @@ export class StudentDetailsComponent implements OnInit {
     subscribe((data) => {
       if (data) {
           if (data.response.status === 200) {
+            this.first_login = false;
             this.event$.next(true);
             this.myData$.subscribe((data: any) => {
               console.log(data);

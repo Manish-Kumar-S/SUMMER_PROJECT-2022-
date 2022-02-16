@@ -24,11 +24,7 @@ export class CompanyService {
 
         return this.http.get(`${API}/company/profile`).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -41,11 +37,7 @@ export class CompanyService {
 
         return this.http.put(`${API}/company/profile`, req).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -56,13 +48,9 @@ export class CompanyService {
      */
     getAppliedStudents() {
 
-    return this.http.get(`${API}/company/studentapplied`).pipe(
+        return this.http.get(`${API}/company/studentapplied`).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -77,13 +65,9 @@ export class CompanyService {
      */
     getCompanyDrives() {
 
-    return this.http.get(`${API}/company/drive`).pipe(
+        return this.http.get(`${API}/company/drive`).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-        
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -97,11 +81,7 @@ export class CompanyService {
 
         return this.http.post(`${API}/company/drive`, req).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -116,11 +96,7 @@ export class CompanyService {
 
         return this.http.put(`${API}/company/drive?drive_id=${driveID}`, req).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-      
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
@@ -133,11 +109,7 @@ export class CompanyService {
     return this.http
         .get(`${API}/get/courses`).pipe(
 
-            catchError((err: HttpErrorResponse) => {
-
-                return this.visualFeedbackService.standardApiErrorHandling(err);
-        
-            })
+            this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
