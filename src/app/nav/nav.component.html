@@ -1,45 +1,3 @@
-
-<!-- MOBILE VIEW -->
-
-<!-- <ng-container *ngFor="let route of routes">
-
-  <li *ngIf="route.show">
-
-    <a 
-    routerLinkActive="active"
-    class="menu__item"
-    routerLink="./{{route.path}}"
-    >
-
-      <i class="fas fa-{{route.icon}}"></i>
-      <span>{{route.name}}</span>
-
-    </a>
-
-  </li>
-
-</ng-container> -->
-
-
-
-<!-- DESKTOP VIEW -->
-
-<!-- <ng-container *ngFor="let route of routes">
-
-  <a 
-  *ngIf="route.show"
-  routerLinkActive="active"
-  routerLink="./{{route.path}}"
-  >
-
-    <i class="fas fa-{{route.icon}}"></i>
-    <span>{{route.name}}</span>
-
-  </a>
-
-</ng-container> -->
-
-
 <!-- MOBILE NAV -->
 
 <div class="hamburger-menu">
@@ -140,7 +98,7 @@
         <a 
         *ngIf="route.show"
         routerLinkActive="active"
-        [routerLink]="getPath(route)"
+        [routerLink]="route.path"
         >
       
           <i class="fas {{route.icon}}"></i>

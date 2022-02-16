@@ -46,17 +46,4 @@ export class NavComponent implements OnInit {
     this.isClicked = !this.isClicked;
   }
 
-  getPath(
-    route :{
-    path: string,
-    icon: string,
-    name: string,
-
-    show: boolean,
-    }
-  ): string {
-
-    return route.path;
-  }
-
 }
