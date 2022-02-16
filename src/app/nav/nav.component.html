@@ -1,3 +1,4 @@
+
 <!-- MOBILE NAV -->
 
 <div class="hamburger-menu">
@@ -98,7 +99,7 @@
         <a 
         *ngIf="route.show"
         routerLinkActive="active"
-        [routerLink]="route.path"
+        [routerLink]="getPath(route)"
         >
       
           <i class="fas {{route.icon}}"></i>
