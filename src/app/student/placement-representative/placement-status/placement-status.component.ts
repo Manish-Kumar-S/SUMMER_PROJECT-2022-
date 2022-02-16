@@ -49,6 +49,7 @@ export class PlacementStatusComponent implements OnInit {
 
     studentList: StudentPlacementStatus[];
 
+    changingStatus = false;
 
     dataSource = new MatTableDataSource<StudentPlacementStatus>();
 
@@ -275,9 +276,6 @@ export class PlacementStatusComponent implements OnInit {
 
                 remainingStudentStatus.append('current_round', CurrentRoundOptions.NOTAPPLICABLE.toString());
 
-                // const remainingStudents = this.dataSource.data
-                // .filter(student => !this.selection.selected.includes(student));
-
                 const remainingStudents = 
                     this.studentList.filter(student => student.drive_name === this.selection.selected[0].drive_name) //all students of the same drive
                         .filter(student => !this.selection.selected.includes(student)); //except the selected ones
@@ -289,6 +287,8 @@ export class PlacementStatusComponent implements OnInit {
                         .toString().replace('[','').replace(']','')
                 );
 
+                this.changingStatus = true;
+
                 return forkJoin([
                     this.studentService.changePlacementStatus(result),
                     remainingStudents.length === 0 ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus)
@@ -296,6 +296,11 @@ export class PlacementStatusComponent implements OnInit {
 
             })
 
-        ).subscribe((res) => !!res ? this.setDatasource() : null);
+        ).subscribe((res) => {
+
+            this.changingStatus = false;
+
+            if(!!res) this.setDatasource();
+        });
     }
 }

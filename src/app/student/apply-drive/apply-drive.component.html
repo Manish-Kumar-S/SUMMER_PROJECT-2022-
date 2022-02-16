@@ -245,15 +245,15 @@
 
         <br>
 
-        <!-- !placed_status ? "Already Placed" : "You are Ineligible for this Job Profile" -->
-
         <h3 *ngIf="!eligible_status" style="text-align: center;color: rgb(240, 85, 85);">{{ getIneligibleMessage() }}</h3>
 
         <div *ngIf="!applySuccess && eligible_status" fxLayout="column" fxLayoutAlign="center center">
-          <button [disabled]="!eligible_status" style="width: 100%;margin: auto;" mat-raised-button color="primary" (click)="applyDrive()">
-            Apply
+          <button [disabled]="!eligible_status || applySpinner" style="width: 100%;margin: auto;" mat-raised-button color="primary" (click)="applyDrive()">
+            <div *ngIf="!applySpinner">Approve</div>
+            <div *ngIf="applySpinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
           </button>
-          <mat-spinner *ngIf="applyStatus" [diameter]="35"></mat-spinner>
         </div>
 
         <h4 *ngIf="applySuccess" style="text-align: center;color: rgb(43, 192, 43);">Applied For Job Succesfully</h4>
