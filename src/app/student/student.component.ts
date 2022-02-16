@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NavInput } from '../nav/nav.component';
 import { AuthService } from '../shared/auth/auth.service';
 import { StudentModel } from '../shared/models/student/student.model';
 import { VisualFeedbackService } from '../shared/visual-feedback/visual-feedback.service';
 import { StudentService } from './student.service';
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -14,9 +16,48 @@ import { StudentService } from './student.service';
 })
 export class StudentComponent implements OnInit {
 
-  name: string;
-  reg_no: number;
-  isPlacementRep: boolean;
+  navInput: NavInput = {
+
+    title: 'CUIC | STUDENT',
+    name: '',
+    reg_no: 0,
+    isPlacementRep: false,
+
+    routes: [
+      {
+        path: './home',
+        icon: 'fa-home',
+        name: 'Home',
+
+        show: true,
+      },
+
+      {
+        path: './personal-details',
+        icon: 'fa-user-edit',
+        name: 'Personal Details',
+
+        show: true,
+      },
+
+      {
+        path: './upcoming-companies',
+        icon: 'fa-building',
+        name: 'Upcoming Companies',
+
+        show: true,
+      },
+
+      {
+        path: './placement-representative',
+        icon: 'fa-building',
+        name: 'Placement Representative',
+
+        //Changed Later based on user
+        show: false
+      }, 
+    ]
+  }
 
   first_login = new BehaviorSubject<boolean>(false);
 
@@ -28,8 +69,6 @@ export class StudentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    console.log("student");
 
     this.studentService.studentToken = jwtDecode(this.authSerivce.getToken());
     
@@ -49,9 +88,9 @@ export class StudentComponent implements OnInit {
 
     this.studentService.currentStudentChange$.subscribe(data => {
 
-      this.name = data?.first_name + ' ' + data?.last_name;
-      this.reg_no = data?.reg_number;
-      this.isPlacementRep = data?.is_placement_representative;
+      this.navInput.name = data?.first_name + ' ' + data?.last_name;
+      this.navInput.reg_no = data?.reg_number;
+      this.navInput.routes[this.navInput.routes.length - 1].show = data?.is_placement_representative;
     });
 
     this.first_login.subscribe((data) => {

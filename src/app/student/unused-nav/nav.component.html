@@ -1,4 +1,4 @@
-<div class="hamburger-menu">
+<!-- <div class="hamburger-menu">
   <input id="menu__toggle" type="checkbox" />
   <label class="menu__btn" for="menu__toggle">
     <span></span>
@@ -7,33 +7,42 @@
     <div class="menu__box-nav">
       <li>
         <a
-          routerLink="./dashboard"
           routerLinkActive="active"
           class="menu__item"
-          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="./home"
         >
-          <i class="fas fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <i class="fas fa-home"></i>
+          <span>Home</span>
         </a>
       </li>
       <li>
         <a
-          routerLink="./campus-drive"
-          class="menu__item"
+          routerLink="./personal-details"
           routerLinkActive="active"
+          class="menu__item"
         >
           <i class="fas fa-user-edit"></i>
-          <span>Create Campus Drive</span>
+          <span>Personal Details</span>
         </a>
       </li>
       <li>
         <a
-          routerLink="./company-details"
-          class="menu__item"
+          routerLink="./upcoming-companies"
           routerLinkActive="active"
+          class="menu__item"
         >
-          <i class="fas fa-user"></i>
-          <span>Company Details</span>
+          <i class="fas fa-building"></i>
+          <span>Upcoming Companies</span>
+        </a>
+      </li>
+      <li *ngIf="isPlacementRep">
+        <a
+          routerLink="./placement-representative"
+          routerLinkActive="active"
+          class="menu__item"
+        >
+          <i class="fas fa-building"></i>
+          <span>Placement Representative</span>
         </a>
       </li>
     </div>
@@ -44,13 +53,14 @@
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
-        <span>Jitiendran</span>
+        <span>{{name}} <small>{{reg_no}}</small></span>
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
         <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
       </div>
     </div>
   </ul>
 </div>
+
 <div class="main">
   <div class="nav-wrapper">
     <div class="icon-container">
@@ -59,26 +69,29 @@
           [src]="imgUrl + '/annauniv-logo-transparent.png'"
           alt="Anna University"
         />
-        <h3>CUIC | Company</h3>
+        <h3>CUIC | Student</h3>
       </div>
       <div class="line"></div>
     </div>
     <div class="nav">
       <a
-        routerLink="./dashboard"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="./home"
       >
-        <i class="fas fa-tachometer-alt"></i>
-        <span>Dashboard</span>
+        <i class="fas fa-home"></i>
+        <span>Home</span>
       </a>
-      <a routerLink="./campus-drive" routerLinkActive="active">
+      <a routerLink="./personal-details" routerLinkActive="active">
         <i class="fas fa-user-edit"></i>
-        <span>Create Campus Drive</span>
+        <span>Personal Details</span>
       </a>
-      <a routerLink="./company-details" routerLinkActive="active">
+      <a routerLink="./upcoming-companies" routerLinkActive="active">
+        <i class="fas fa-building"></i>
+        <span>Upcoming Companies</span>
+      </a>
+      <a *ngIf="isPlacementRep" routerLink="./placement-representative" routerLinkActive="active">
         <i class="fas fa-user"></i>
-        <span>Company Details</span>
+        <span>Placement Representative</span>
       </a>
     </div>
     <div class="dropup-wrap">
@@ -88,7 +101,7 @@
       </div>
       <div class="profile-wrap" (click)="onToggle()">
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
-        <span>Jitiendran</span>
+        <span>{{name}} <small>{{reg_no}}</small></span>
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
         <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
       </div>
@@ -97,4 +110,4 @@
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-</div>
+</div> -->

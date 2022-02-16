@@ -1,0 +1,191 @@
+
+<!-- MOBILE VIEW -->
+
+<!-- <ng-container *ngFor="let route of routes">
+
+  <li *ngIf="route.show">
+
+    <a 
+    routerLinkActive="active"
+    class="menu__item"
+    routerLink="./{{route.path}}"
+    >
+
+      <i class="fas fa-{{route.icon}}"></i>
+      <span>{{route.name}}</span>
+
+    </a>
+
+  </li>
+
+</ng-container> -->
+
+
+
+<!-- DESKTOP VIEW -->
+
+<!-- <ng-container *ngFor="let route of routes">
+
+  <a 
+  *ngIf="route.show"
+  routerLinkActive="active"
+  routerLink="./{{route.path}}"
+  >
+
+    <i class="fas fa-{{route.icon}}"></i>
+    <span>{{route.name}}</span>
+
+  </a>
+
+</ng-container> -->
+
+
+<!-- MOBILE NAV -->
+
+<div class="hamburger-menu">
+
+  <!-- TOGGLE BUTTON -->
+
+  <input id="menu__toggle" type="checkbox" />
+
+  <label class="menu__btn" for="menu__toggle">
+    <span></span>
+  </label>
+
+  <ul class="menu__box">
+
+    <div class="menu__box-nav">
+
+      <!-- NAV ITEMS -->
+
+      <ng-container *ngFor="let route of navInput.routes">
+
+        <li *ngIf="route.show">
+
+          <a 
+          routerLinkActive="active"
+          class="menu__item"
+          [routerLink]="getPath(route)"
+          >
+
+            <i class="fas {{route.icon}}"></i>
+            <span>{{route.name}}</span>
+
+          </a>
+
+        </li>
+
+      </ng-container>
+
+    </div>
+
+    <!-- BOTTOM USER DETAILS -->
+
+    <div class="dropup-wrap">
+
+      <div class="dropup" *ngIf="isClicked">
+
+        <button>Change Password</button>
+
+        <button (click)="authService.logout()">Logout</button>
+
+      </div>
+
+      <div class="profile-wrap" (click)="onToggle()">
+
+        <img [src]="imgUrl + '/back.jpg'" alt="user" />
+
+        <span>{{navInput?.name || ''}} <small>{{navInput?.reg_no || ''}}</small></span>
+
+        <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
+
+        <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
+
+      </div>
+
+    </div>
+
+  </ul>
+
+</div>
+
+<!-- DESKTOP NAV -->
+
+<div class="main">
+
+  <div class="nav-wrapper">
+    
+    <!-- AU LOGO -->
+
+    <div class="icon-container">
+
+      <div class="icon-wrapper">
+  
+        <img [src]="imgUrl + '/annauniv-logo-transparent.png'" alt="Anna University">
+  
+        <h3> {{ navInput.title }} </h3>
+  
+      </div>
+
+      <div class="line"></div>
+
+    </div>
+
+    <div class="nav">
+
+      <!-- NAV ITEMS -->
+
+      <ng-container *ngFor="let route of navInput.routes">
+
+        <a 
+        *ngIf="route.show"
+        routerLinkActive="active"
+        [routerLink]="getPath(route)"
+        >
+      
+          <i class="fas {{route.icon}}"></i>
+          <span>{{route.name}}</span>
+      
+        </a>
+      
+      </ng-container>
+
+    </div>
+
+    <!-- BOTTOM USER DETAILS -->
+
+    <div class="dropup-wrap">
+
+      <div class="dropup" *ngIf="isClicked">
+
+        <button>Change Password</button>
+
+        <button (click)="authService.logout()">Logout</button>
+
+      </div>
+
+      <div class="profile-wrap" (click)="onToggle()">
+
+        <img [src]="imgUrl + '/back.jpg'" alt="user" />
+
+        <span> {{navInput?.name || ''}} <small>{{navInput?.reg_no || ''}}</small></span>
+
+        <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
+
+        <i class="fas fa-chevron-down" *ngIf="isClicked"></i>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CONTENT OF THE PAGE -->
+
+  <div class="content">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

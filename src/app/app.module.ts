@@ -12,7 +12,13 @@ import { AppComponent } from './app.component';
 import { HttpInterceptorInterceptor } from './shared/auth/http-interceptor.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, LoginRegisterComponent, OTPComponent, AdminLoginComponent],
+  declarations: [
+    AppComponent,
+    LoginRegisterComponent,
+    OTPComponent,
+    AdminLoginComponent,
+  ],
+
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

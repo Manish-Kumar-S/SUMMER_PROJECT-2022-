@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { StudentRoutingModule } from './student-routing.module';
 import { NgModule } from '@angular/core';
 
-import { NavComponent } from './nav/nav.component';
 import { StudentComponent } from './student.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentModelComponent } from './student-details/student-model/student-model.component';
@@ -19,10 +18,11 @@ import { CompaniesComponent } from './companies/companies.component';
 import { PlacementStatusComponent } from './placement-representative/placement-status/placement-status.component';
 import { ChangePlacementStatusComponent } from './placement-representative/placement-status/change-placement-status/change-placement-status.component';
 import { HomeComponent } from './home/home.component';
+import { NavModule } from '../nav/nav.module';
 
 @NgModule({
   declarations: [
-    NavComponent,
+    // NavComponent,
     StudentComponent,
     StudentDetailsComponent,
     StudentModelComponent,
@@ -34,7 +34,7 @@ import { HomeComponent } from './home/home.component';
     ChangePlacementStatusComponent,
     ApplyDriveComponent,
     CompaniesComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +44,7 @@ import { HomeComponent } from './home/home.component';
     SharedModule,
     FlexModule,
     StudentRoutingModule,
+    NavModule
   ],
 })
 export class StudentModule {}

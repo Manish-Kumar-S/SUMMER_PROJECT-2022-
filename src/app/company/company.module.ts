@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyComponent } from './company.component';
-import { NavComponent } from './nav/nav.component';
+// import { NavComponent } from './nav/nav.component';
+// import { NavComponent } from '../nav/nav.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
@@ -13,6 +14,7 @@ import { CompanyDetailsComponent } from './company-details/company-details.compo
 import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.component';
 import { CompanyDetailsDialog } from './company-details/company-model/company-model.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NavModule } from '../nav/nav.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     DriveUpdateComponent,
     ConfirmationDialog,
     CompanyDetailsDialog,
-    NavComponent
+    // NavComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     FlexLayoutModule,
     LayoutModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    NavModule
   ],
 })
 export class CompanyModule {}
