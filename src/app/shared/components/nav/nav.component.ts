@@ -28,6 +28,8 @@ export class NavComponent implements OnInit {
   isClicked: boolean;
   imgUrl: string;
 
+  isOpened = false;
+
   @Input() navInput: NavInput;
 
   // @Input() name: string;
