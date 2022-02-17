@@ -16,14 +16,19 @@ export class ChangePlacementStatusComponent {
     statuses = [0,1,2,3,5,6];
     rounds = [0,1,2,3,4,5,6,7,8,9];
 
-    selectEnabled() {
+    selectEnable = true;
+
+    selectEnabled(): boolean {
 
         if(this.statusForm.get('status').value === PlacementStatusOptions.AWAITED || this.statusForm.get('status').value === PlacementStatusOptions.REJECTED) {
 
             this.statusForm.get('current_round').enable();
+            return true;
         }
 
-        else this.statusForm.get('current_round').disable();
+        this.statusForm.get('current_round').disable();
+
+        return false;
     }
 
     constructor(@Inject(MAT_DIALOG_DATA) data: {studentList: StudentPlacementStatus[]}, private dialogRef: MatDialogRef<ChangePlacementStatusComponent>) {
@@ -31,11 +36,12 @@ export class ChangePlacementStatusComponent {
         
         this.statusForm = new FormGroup({
             current_round: new FormControl(data.studentList[0].current_round_number, Validators.required),
-            status: new FormControl(data.studentList[0].status_number, Validators.required)
+            status: new FormControl(data.studentList[0].status_number, Validators.required),
+            reject_others: new FormControl(true)
         });
         
         this.selectEnabled();
-        this.statusForm.get('status').valueChanges.subscribe(() => this.selectEnabled());
+        this.statusForm.get('status').valueChanges.subscribe(() => this.selectEnable = this.selectEnabled());
     }
 
     getPlacementStatus(status: number) {
@@ -61,6 +67,6 @@ export class ChangePlacementStatusComponent {
         form.append('current_round', current_round);
         form.append('status', this.statusForm.value['status']);
 
-        this.dialogRef.close(form);
+        this.dialogRef.close({form: form, reject_others: this.statusForm.get('reject_others').value});
     }
 }

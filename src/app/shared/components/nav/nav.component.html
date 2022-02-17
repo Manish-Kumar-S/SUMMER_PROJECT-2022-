@@ -24,7 +24,7 @@
           <a 
           routerLinkActive="active"
           class="menu__item"
-          [routerLink]="getPath(route)"
+          [routerLink]="route.path"
           >
 
             <i class="fas {{route.icon}}"></i>
@@ -99,7 +99,7 @@
         <a 
         *ngIf="route.show"
         routerLinkActive="active"
-        [routerLink]="getPath(route)"
+        [routerLink]="route.path"
         >
       
           <i class="fas {{route.icon}}"></i>

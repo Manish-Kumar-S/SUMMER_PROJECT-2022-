@@ -264,9 +264,12 @@ export class PlacementStatusComponent implements OnInit {
 
         dialogRef.afterClosed().pipe(
 
-            mergeMap((result: FormData) => {
+            mergeMap((dialogResult) => {
 
-                if(!result) return of(null);
+                if(!dialogResult) return of(null);
+
+                const result: FormData = dialogResult.form;
+                const reject_others = dialogResult.reject_others;
 
                 result.append('student_list', this.selection.selected.map(student => student.id).toString().replace('[','').replace(']',''));
 
@@ -291,7 +294,7 @@ export class PlacementStatusComponent implements OnInit {
 
                 return forkJoin([
                     this.studentService.changePlacementStatus(result),
-                    remainingStudents.length === 0 ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus)
+                    remainingStudents.length === 0 || !reject_others ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus)
                 ])
 
             })

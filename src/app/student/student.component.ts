@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NavInput } from '../nav/nav.component';
+import { NavInput } from '../shared/components/nav/nav.component';
 import { AuthService } from '../shared/auth/auth.service';
 import { StudentModel } from '../shared/models/student/student.model';
 import { VisualFeedbackService } from '../shared/visual-feedback/visual-feedback.service';

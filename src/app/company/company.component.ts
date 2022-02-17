@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavInput } from '../nav/nav.component';
+import { NavInput } from '../shared/components/nav/nav.component';
 import { CompanyService } from './company.service';
 
 @Component({

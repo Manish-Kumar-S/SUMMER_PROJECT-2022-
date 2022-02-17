@@ -18,7 +18,6 @@ import { CompaniesComponent } from './companies/companies.component';
 import { PlacementStatusComponent } from './placement-representative/placement-status/placement-status.component';
 import { ChangePlacementStatusComponent } from './placement-representative/placement-status/change-placement-status/change-placement-status.component';
 import { HomeComponent } from './home/home.component';
-import { NavModule } from '../nav/nav.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import { NavModule } from '../nav/nav.module';
     SharedModule,
     FlexModule,
     StudentRoutingModule,
-    NavModule
   ],
 })
 export class StudentModule {}
