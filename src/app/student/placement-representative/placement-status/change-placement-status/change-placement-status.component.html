@@ -4,7 +4,7 @@
     <form [formGroup]="statusForm">
         <div class="grid-box" fxLayout="column">
             <mat-form-field class="form-field">
-                <mat-label>Current Round</mat-label>
+                <mat-label>Current Round <span *ngIf="!selectEnable"> (Not applicable for the current status) </span> </mat-label>
                 <mat-select formControlName="current_round" required>
                     <mat-option [value]="-1" disabled>{{ getCurrentRound(-1) }}</mat-option>
                     <mat-option *ngFor="let round of rounds" [value]="round">{{ getCurrentRound(round) }}</mat-option>
@@ -23,6 +23,9 @@
                 >Status is required</mat-error
                 >
             </mat-form-field>
+
+            <mat-checkbox formControlName="reject_others" [color]="'primary'">Reject Others from the same drive</mat-checkbox>
+
         </div>
     </form>
 </mat-dialog-content>
