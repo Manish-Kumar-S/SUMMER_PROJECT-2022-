@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../shared/auth/auth.service';
 import { API, IMG_URL } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, filter, mergeMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-otp',
@@ -42,46 +44,106 @@ export class OTPComponent {
 
     console.log(this.email);
 
-    this.otp.valueChanges.subscribe(
-      data => {
-        if(data.length == 6){
+    this.otp.valueChanges.pipe(
 
-          const form = new FormData();
-          form.append('email', this.email);
-          form.append('otp', data);
+      filter(data => {
 
-          console.log(form.has('email'));
+        if(data.length !== 6) {
 
-          let headers = new HttpHeaders({
-            'Tokenstring': this.token,
-          })
-
-          
-          this.authService.verifyOtp(form, headers).subscribe(
-            () => {
-              this.success = true;
-              clearInterval(this.t);
-              setTimeout(() => {
-                this.router.navigateByUrl('');
-              }, 3000);
-            },
-            (err) => {
-              if(err.error.error_type == 2)
-                this.error2 = true;
-              else if(err.error.error_type == 3)
-                this.error3 = true;
-              else
-                this.error1 = true;
-            }
-          );
+          this.error1 = false;
+          this.error2 = false;
+          this.error3 = false;
+          this.otp_resend = false;
         }
 
-        this.error1 = false;
-        this.error2 = false;
-        this.error3 = false;
-        this.otp_resend = false;
-      }
-    )
+        return data.length === 6;
+      }),
+
+      mergeMap((data) => {
+
+        console.log("verifying");
+        const form = new FormData();
+        form.append('email', this.email);
+        form.append('otp', data);
+
+        console.log(form.has('email'));
+
+        let headers = new HttpHeaders({
+          'Tokenstring': this.token,
+        })
+
+        return this.authService.verifyOtp(form, headers);
+
+      }),
+
+      catchError((err) => {
+
+        if(err.error.error_type == 2)
+          this.error2 = true;
+        else if(err.error.error_type == 3)
+          this.error3 = true;
+        else
+          this.error1 = true;
+        
+        return of(null);
+
+      }),
+
+      filter(v => !!v),
+
+      tap(() => {
+
+        console.log("success");
+        this.success = true;
+        clearInterval(this.t);
+        setTimeout(() => {
+          this.router.navigateByUrl('');
+        }, 3000);
+      })
+
+    ).subscribe();
+
+    // this.otp.valueChanges.subscribe(
+    //   data => {
+    //     if(data.length == 6){
+
+    //       const form = new FormData();
+    //       form.append('email', this.email);
+    //       form.append('otp', data);
+
+    //       console.log(form.has('email'));
+
+    //       let headers = new HttpHeaders({
+    //         'Tokenstring': this.token,
+    //       })
+          
+    //       this.authService.verifyOtp(form, headers).subscribe(
+    //         () => {
+    //           this.success = true;
+    //           clearInterval(this.t);
+    //           setTimeout(() => {
+    //             this.router.navigateByUrl('');
+    //           }, 3000);
+    //         },
+    //         (err) => {
+    //           if(err.error.error_type == 2)
+    //             this.error2 = true;
+    //           else if(err.error.error_type == 3)
+    //             this.error3 = true;
+    //           else
+    //             this.error1 = true;
+    //         }
+    //       );
+    //     } else {
+
+    //       this.error1 = false;
+    //       this.error2 = false;
+    //       this.error3 = false;
+    //       this.otp_resend = false;
+    //     }
+
+    //   }
+    // )
   }
 
   regenerateOTP(){
@@ -197,7 +259,7 @@ export class LoginRegisterComponent implements OnInit {
           // 4 = Unverifed Email
           // 5 = Unregistered user
           ///////////////////////////////
-
+;
           let tokenString = err.headers.get('Tokenstring');
 
           if(err.error.error_type === 4)

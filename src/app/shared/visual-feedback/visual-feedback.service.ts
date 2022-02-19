@@ -76,7 +76,7 @@ export class VisualFeedbackService {
 
                 //check if token expired and logout if yes
                 if('is_expired' in err.error) {
-                    console.log("Fdfd");
+                    
                     if(err.error.is_expired) {
 
                         this.authService.logout();

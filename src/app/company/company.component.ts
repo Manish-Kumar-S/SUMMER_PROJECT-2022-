@@ -13,7 +13,7 @@ export class CompanyComponent implements OnInit {
 
     title: 'CUIC | COMPANY',
 
-    name: '',
+    primaryInfo: '',
 
     routes: [
       {
@@ -46,7 +46,7 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.companyService.getCompany().subscribe(data => this.navInput.name = data.profile.name)
+    this.companyService.getCompany().subscribe(data => this.navInput.primaryInfo = data.profile.name)
   }
 
 }

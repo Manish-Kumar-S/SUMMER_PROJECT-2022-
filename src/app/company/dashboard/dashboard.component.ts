@@ -30,7 +30,7 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[];
   dataSource: DashboardData[];
-  driveResponse: any[];
+  drives: any[];
   dashData: any[];
   show: boolean;
   isLoading: boolean;
@@ -82,32 +82,20 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
     );
 
     this.companyService.getAppliedStudents().subscribe(
-        (res: any) => {
-          this.dashData = res.drive;
-          console.log(this.dashData);
-        }
-      )
+      (res: any) => {
+        this.dashData = res.drive;
+        console.log(this.dashData);
+      }
+    )
   }
 
   ngAfterViewInit(): void {
-    // const form = new FormData();
-    // form.append('email', 'company@company.com');
-    // form.append('password', 'asd');
-    // form.append('role', '2');
-    // this.http.post(`${API}/user/authenticate`, form,{observe: 'response'}).subscribe(
-    //   (data) => {
-    //     console.log(data)
-    //     localStorage.setItem('errorJWT', data.headers.get('Tokenstring'))
-    //     console.log(data.headers.get('Tokenstring'));
-    //   },
-    //   (err) => console.log(err)
-    // );
-
+    
     this.companyService.getCompanyDrives()
       .pipe(map((res: any) => res.drives))
       .subscribe((val) =>{
-        this.driveResponse = val;
-        console.log(this.driveResponse);
+        this.drives = val;
+        console.log(this.drives);
         
         this.isLoading = false;
         this.changeDetection.markForCheck();

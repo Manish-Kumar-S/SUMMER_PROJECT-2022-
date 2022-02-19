@@ -6,7 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
 import { StudentModel } from '../../../shared/models/student/student.model';
 import { StudentService } from '../../student.service';
@@ -187,14 +187,24 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
     this._approving = true;
 
-    this.studentService.approveStudentProfile(form).subscribe((response: any) => {
+    this.studentService.approveStudentProfile(form).pipe(
 
-      this._approving = false;
+      mergeMap((response) => {
 
-      if(response.response.status === 200) {
+        this._approving = false;
 
-        this.setDatasource();
-      }
+        if(response.response.status === 200) {
+
+          this.setDatasource();
+        }
+
+        return this.studentService.getStudent();
+      })
+
+    ).
+    subscribe((response: any) => {
+
+      this.studentService.currentStudent = response.profile;      
     });
   }
 

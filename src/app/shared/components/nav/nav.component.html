@@ -54,7 +54,7 @@
 
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
 
-        <span>{{navInput?.name || ''}} <small>{{navInput?.reg_no || ''}}</small></span>
+        <span>{{navInput?.primaryInfo || ''}} <small>{{navInput?.secondaryInfo || ''}}</small></span>
 
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
 
@@ -127,7 +127,7 @@
 
         <img [src]="imgUrl + '/back.jpg'" alt="user" />
 
-        <span> {{navInput?.name || ''}} <small>{{navInput?.reg_no || ''}}</small></span>
+        <span>{{navInput?.primaryInfo || ''}} <small>{{navInput?.secondaryInfo || ''}}</small></span>
 
         <i class="fas fa-chevron-up" *ngIf="!isClicked"></i>
 

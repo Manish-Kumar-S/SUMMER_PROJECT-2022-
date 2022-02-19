@@ -5,8 +5,8 @@ import { IMG_URL } from 'src/environments/environment';
 export interface NavInput {
 
   title: string;
-  name?: string;
-  reg_no?: number;
+  primaryInfo?: string;
+  secondaryInfo?: number;
   isPlacementRep?: boolean;
 
   routes:{
@@ -32,10 +32,6 @@ export class NavComponent implements OnInit {
 
   @Input() navInput: NavInput;
 
-  // @Input() name: string;
-  // @Input() reg_no: string;
-  // @Input() isPlacementRep: boolean;
-
   constructor(public authService: AuthService) {
     this.isClicked = false;
     this.imgUrl = IMG_URL;
@@ -44,7 +40,6 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {}
 
   onToggle() {
-    console.log("toggle");
     this.isClicked = !this.isClicked;
   }
 

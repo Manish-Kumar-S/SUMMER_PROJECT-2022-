@@ -4,8 +4,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
-import { API } from 'src/environments/environment';
-import { CompanyService } from '../../company.service';
+import { CompanyService } from '../company.service';
 
 @Component({
   selector: 'app-drive-update',

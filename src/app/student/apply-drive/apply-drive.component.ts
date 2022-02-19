@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CourseModel } from 'src/app/shared/models/student/course.model';
 import { StudentService } from '../student.service';
 import { StudentModel } from '../../shared/models/student/student.model';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
+import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-apply-drive',
@@ -101,25 +102,30 @@ export class ApplyDriveComponent implements OnInit {
 
       mergeMap((data) => {
 
+        this.student = this.studentService.currentStudent;
         this.courses = data;
-        return this.studentService.getUpcomingCompanies();
+        return forkJoin({
+          params: this.route.queryParams.pipe(take(1)),
+          companies: this.studentService.getUpcomingCompanies(),
+        });
       }),
 
-    ).
-    subscribe((data) => {
-      
-      this.route.queryParams.subscribe((params) => {
+      mergeMap((v) => {
+
+        const data = v.companies;
+        const params = v.params;
+
         data.companies.forEach((c:any) => {
-          this.driveId = c.id;
           if (c.id === +params.id) {
+            this.driveId = c.id;
             this.company = c;
           }
         });
-      });
-      this.student = this.studentService.currentStudent;
-      console.log(this.company);
-      console.log(this.studentService.currentStudent);
-    });
+
+        return of(null);
+      })
+
+    ).subscribe();
   }
 
   filterCourses(course_id: string) {

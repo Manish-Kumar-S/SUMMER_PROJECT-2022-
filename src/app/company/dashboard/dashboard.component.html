@@ -1,6 +1,61 @@
-<div class="company-container" [style]="isMobileView ? 'padding-top: 60px;padding: 20px' : ''">
+<div class="company-container">
 
-  <!-- <div fxFlex="1%"></div> -->
+  <h1 class="title">Dashboard</h1>
+
+  <div class="grid-layout">
+
+    <mat-card *ngFor="let drive of drives" (click)="redirect(company)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
+
+      <mat-card-title style="width: 100%;">
+        <div style="display: inline;" fxFlexLayout="row" fxLayoutAlign="end center">
+          <h5 fxFlayoutAlign="column" fxFlex>
+            {{drive?.drive_name}} <br>
+            <span style="font-size: 15px;color: rgb(97, 97, 97);">{{drive?.roles}}</span>
+          </h5>
+          <img src="https://library.kissclipart.com/20181003/szw/kissclipart-free-corner-ribbon-png-clipart-logo-f2cbd51c4ca46d94.png" style="vertical-align: middle;" width="60px">
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <div fxLayoutAlign="row wrap" fxLayoutGap="10px" class="card-content">
+          <div matTooltip="Minimum CGPA Criteria" fxFlex="10%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">assessment</mat-icon>
+            <span style="color: rgb(97, 97, 97);"><small>CGPA</small> {{drive?.eligibility_in_present/10}}+</span>
+          </div>
+          <div fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">currency_rupee</mat-icon>
+            <span style="color: rgb(97, 97, 97);">{{drive.ctc_for_ug}} LPA</span>
+          </div>
+          <div fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">today</mat-icon>
+            <span style="color: rgb(97, 97, 97);">Deadline: {{drive?.registration_deadline.split('T')[0]}}</span>
+          </div>
+          <div matTooltip="Assessment date" fxFlex="30%" class="card-row-content">
+            <mat-icon style="vertical-align: middle;font-size: 20px;">quiz</mat-icon>
+            <span style="color: rgb(97, 97, 97);">Assesment: {{drive?.date_time_of_test.split('T')[0]}}</span>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info">
+          {{drive?.other_information}}
+        </div>
+        <!-- <div fxLayout="row" fxLayoutAlign="end end" style="margin-top: 10px;" class="tags">
+          <div *ngIf="drive.category.id === 1" matTooltip="Single Offer" style="background-color: rgb(250, 177, 42);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">PRODUCT</b></div>
+          <div *ngIf="drive.category.id === 2" matTooltip="Multiple Offer" style="background-color: rgb(63, 184, 59);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">SERVICE</b></div>
+          <div *ngIf="drive.employment_type.id === 1 || drive.employment_type.id === 3" matTooltip="Full-Time Offer" style="background-color: rgb(94, 76, 179);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">FULL-TIME</b></div>
+          <div *ngIf="drive.employment_type.id === 2 || drive.employment_type.id === 3" matTooltip="Internship Offer" style="background-color: rgb(45, 128, 161);border-radius: 1em;padding: 3px;font-size: 10px;text-align: center;display: inline;margin: 3px;"><b style="padding: 5px;color: white;">INTERN</b></div>
+          <mat-icon *ngIf="eligible_status(drive)" matTooltip="Your profile meets the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: green;margin-left: auto;">check</mat-icon>
+          <mat-icon *ngIf="!eligible_status(drive)" matTooltip="Your profile does not meet the Eligibility Criteria" style="vertical-align: middle;font-size: 30px;font-weight: bolder;color: rgb(207, 70, 70);margin-left: auto;">close</mat-icon>
+        </div> -->
+      </mat-card-content>
+
+    </mat-card>
+    
+  </div>
+
+</div>
+
+
+<!-- <div class="company-container" [style]="isMobileView ? 'padding-top: 60px;padding: 20px' : ''">
 
   <h1>Dashboard</h1>
   <br *ngIf="isTabView || isMobileView">
@@ -8,75 +63,6 @@
   <div>
     <mat-accordion class="example-headers-align" multi>
       <mat-spinner [fxShow]="isLoading" [fxHide]="!isLoading" style="margin: auto;margin-bottom: 100px;" [diameter]="70"></mat-spinner>
-      <!-- <mat-expansion-panel [fxHide]="isLoading">
-        <mat-expansion-panel-header style="height: 100px;">
-          <mat-panel-title fxFlex="100%">
-            <div fxLayout="column" fxLayoutGap="10px" fxFlex>
-              <h3 fxFlex="100%"> Pienzatech Campus Drive Anna University</h3>
-              <div fxLayout="row">
-                <div fxLayout="row" fxFlex>
-                  <div fxLayout="column" fxFlex="30%">
-                    <p> Role: </p>
-                    <p> Applied On: </p>
-                  </div>
-                  <div fxLayout="column" fxFlex="70%">
-                    <i>SDE</i>
-                    <i>19/01/2021</i>
-                  </div>
-                </div>
-                <div fxLayout="row" fxFlex>
-                  <div fxLayout="column" fxFlex="50%">
-                    <p> Online test Schedule </p>
-                    <p> Interview Schedule: </p>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <i>19/01/2021</i>
-                    <i>19/01/2021</i>
-                  </div>
-                </div>
-                <div fxLayout="row" fxFlex>
-                  <div fxLayout="column" fxFlex="50%">
-                    <p> Eligible Departments </p>
-                    <p> CGPA Criteria </p>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <i>CSE, IT, MECH, AUTO...</i>
-                    <i>7.5+</i>
-                  </div>
-                </div>
-              </div>
-              <p fxFlex> Role: <i> SDE </i>  </p>
-              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p>
-            </div>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div fxFlex="100%">
-          <div fxLayout="column" fxLayoutGap="5px">
-
-            <div fxLayout="column">
-              <div fxLayoutAlign="end">
-                <button mat-raised-button color="primary" style="margin: 2px">View Registered Students</button>
-                <button mat-raised-button color="success" style="margin: 2px">Download <mat-icon>download</mat-icon></button>
-              </div>
-              <br>
-              <mat-divider></mat-divider>
-            </div>
-
-            <mat-form-field appearance="fill">
-              <mat-label>First name</mat-label>
-              <input matInput>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>Age</mat-label>
-              <input matInput type="number" min="1">
-            </mat-form-field>
-          </div>
-          
-        </div>
-    
-      </mat-expansion-panel> -->
 
       <p *ngIf="driveResponse?.length === 0">Seems like you haven't Created a Drive. Please Create one <a routerLink="../campus-drive">here</a></p>
     
@@ -84,7 +70,7 @@
         <mat-expansion-panel-header [style]="isTabView ? 'height:150px' : isMobileView ? 'height: 300px' : 'height: 150px;'">
           <mat-panel-title fxFlex="100%">
             <div fxLayout="column" fxLayoutGap="10px" fxFlex>
-              <h3 fxFlex="100%">  {{drive.drive_name}} <!-- <a mat-raised-button color="success">Registration</a> --> </h3>
+              <h3 fxFlex="100%">  {{drive.drive_name}} </h3>
               <div [fxLayout]="isTabView || isMobileView ? 'column' : 'row'">
                 <div fxLayout="row" fxFlex>
                   <div fxLayout="column" fxFlex="50%">
@@ -119,8 +105,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <p fxFlex> Role: <i> SDE </i>  </p>
-              <p fxFlex="10%"> Applied On: <i> 19/01/2021 </i> </p> -->
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -154,8 +138,6 @@
   <div #tableView [fxHide]="!show">
     
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFlex="100%">
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
     
       <ng-container matColumnDef="reg_no">
         <mat-header-cell *matHeaderCellDef> Reg No </mat-header-cell>
@@ -223,4 +205,4 @@
   </div>
 
 </div>
-<div fxLayout="column" fxFlexOffSet="40px"></div>
+<div fxLayout="column" fxFlexOffSet="40px"></div> -->

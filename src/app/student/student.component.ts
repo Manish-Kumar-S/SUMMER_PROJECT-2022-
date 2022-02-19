@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NavInput } from '../shared/components/nav/nav.component';
 import { AuthService } from '../shared/auth/auth.service';
@@ -14,13 +14,13 @@ import { StudentService } from './student.service';
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss'],
 })
-export class StudentComponent implements OnInit {
+export class StudentComponent implements OnInit, OnDestroy {
 
   navInput: NavInput = {
 
     title: 'CUIC | STUDENT',
-    name: '',
-    reg_no: 0,
+    primaryInfo: '',
+    secondaryInfo: 0,
     isPlacementRep: false,
 
     routes: [
@@ -61,6 +61,8 @@ export class StudentComponent implements OnInit {
 
   first_login = new BehaviorSubject<boolean>(false);
 
+  subs = new Subscription();
+
   constructor(
     private studentService: StudentService,
     private authSerivce: AuthService,
@@ -86,14 +88,14 @@ export class StudentComponent implements OnInit {
       this.studentService.currentStudent = student;
     });
 
-    this.studentService.currentStudentChange$.subscribe(data => {
+    const s1 = this.studentService.currentStudentChange$.subscribe(data => {
 
-      this.navInput.name = data?.first_name + ' ' + data?.last_name;
-      this.navInput.reg_no = data?.reg_number;
+      this.navInput.primaryInfo = data?.first_name + ' ' + data?.last_name;
+      this.navInput.secondaryInfo = data?.reg_number;
       this.navInput.routes[this.navInput.routes.length - 1].show = data?.is_placement_representative;
     });
 
-    this.first_login.subscribe((data) => {
+    const s2 = this.first_login.subscribe((data) => {
 
       console.log(data);  
       if(data) {
@@ -101,7 +103,15 @@ export class StudentComponent implements OnInit {
         this.router.navigateByUrl('student/personal-details');
         this.visualFeedbackService.snackBar("Complete your profile to proceed!", 5000);
       }
-    })
+    });
+
+    this.subs.add(s1).add(s2);
+  }
+
+  ngOnDestroy(): void {
+      
+    this.subs.unsubscribe();
+    this.studentService.currentStudent = null;
   }
 
 }

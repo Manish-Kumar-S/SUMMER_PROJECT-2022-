@@ -9,7 +9,7 @@ import { CompanyDashboardComponent } from './dashboard/dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CampusDriveComponent, ConfirmationDialog } from './campus-drive/campus-drive.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
-import { DriveUpdateComponent } from './dashboard/drive-update/drive-update.component';
+import { DriveUpdateComponent } from './drive-update/drive-update.component';
 import { CompanyDetailsDialog } from './company-details/company-model/company-model.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
