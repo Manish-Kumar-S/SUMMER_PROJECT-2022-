@@ -14,8 +14,6 @@ export class UpcomingCompaniesComponent implements OnInit {
   companies: any[];
   courses: CourseModel[];
 
-  driveDetails = false;
-
   eligible_status(company): boolean {
 
     return company.eligible_status.eligible_status;
@@ -46,7 +44,6 @@ export class UpcomingCompaniesComponent implements OnInit {
   }
 
   redirect(company: any){
-    this.driveDetails = true;
     this.router.navigate([`/student/upcoming-companies/apply-drive`],{queryParams: {id: company.id}});
   }
 }

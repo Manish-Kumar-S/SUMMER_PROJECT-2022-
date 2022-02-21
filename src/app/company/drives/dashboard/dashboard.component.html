@@ -4,7 +4,7 @@
 
   <div class="grid-layout">
 
-    <mat-card *ngFor="let drive of drives" (click)="redirect(company)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
+    <mat-card *ngFor="let drive of drives" (click)="redirect(drive)" class="box" style="transition: box-shadow .3s;cursor: pointer;">
 
       <mat-card-title style="width: 100%;">
         <div style="display: inline;" fxFlexLayout="row" fxLayoutAlign="end center">

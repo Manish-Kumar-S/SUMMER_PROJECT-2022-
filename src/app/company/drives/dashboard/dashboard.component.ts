@@ -1,9 +1,10 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
-import { CompanyService } from '../company.service';
+import { CompanyService } from '../../company.service';
 
 export interface DashboardData {
   reg_number: number;
@@ -37,11 +38,17 @@ export class CompanyDashboardComponent implements OnInit, AfterViewInit {
   isTabView: boolean = false;
   isMobileView: boolean = false;
 
-  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
+  constructor(private router: Router,private route: ActivatedRoute ,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
     this.isLoading = true;
     this.show = false;
     this.displayedColumns = ['reg_no', 'name', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
     // this.dataSource = ELEMENT_DATA;
+  }
+
+  redirect(company) {
+
+    console.log(company.id);
+    this.router.navigate(['drive'], { relativeTo: this.route, queryParams: { id: company.id} });
   }
 
   getStudentDetails(driveID: number, $element: any) {
