@@ -1,5 +1,25 @@
 <div class="company-container">
 
-    {{ drive_id }}
+    <h1 class="title">
+        <a routerLink="../">Dashboard</a>
+        <span style="color: #989898"> > </span> 
+        Drive
+    </h1>
+        
+    <mat-tab-group mat-stretch-tabs>
+
+        <mat-tab label="Update Drive" style="padding: 10px !important;">
+                
+            <app-drive-update style="margin: 3px; margin-top: 20px;" [drive]="driveResponse"></app-drive-update>
+            
+        </mat-tab>
+        
+        <mat-tab label="Registered Students">
+            
+            hgi
+
+        </mat-tab>
+
+    </mat-tab-group>
 
 </div>

@@ -59,13 +59,33 @@ export class CompanyService {
     // DRIVE
     /////////////////
 
+    getDriveFromDriveID(driveID: number) {
+
+        return this.http.get(`${API}/company/drive?drive_id=${driveID}`).pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+
+        );
+
+        // return this.getCompanyDrives().pipe(
+
+        //     map((res) => {
+
+        //         res.drives = res.drives.filter((drive) => drive.id === driveID)[0];
+
+        //         return res;
+        //     })
+
+        // );
+    }
+
     /** 
      * Request Type: GET
      * @returns All the drives for this company
      */
     getCompanyDrives() {
 
-        return this.http.get(`${API}/company/drive`).pipe(
+        return this.http.get(`${API}/company/drives`).pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),
 

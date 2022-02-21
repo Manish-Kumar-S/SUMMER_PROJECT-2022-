@@ -115,12 +115,6 @@ export class StudentService {
 
     return this.http.get(`${API}/student/drives/upcoming`).pipe(
 
-        // catchError((err: HttpErrorResponse) => {
-
-        //   return this.visualFeedbackService.standardApiErrorHandling(),(err);
-
-        // })
-
         this.visualFeedbackService.standardApiErrorHandling(),
 
       );

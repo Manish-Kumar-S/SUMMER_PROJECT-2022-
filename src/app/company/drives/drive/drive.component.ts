@@ -9,23 +9,20 @@ import { CompanyService } from "../../company.service";
     styleUrls: ['./drive.component.scss']
 })
 export class DriveComponent implements OnInit {
+
     constructor(private route: ActivatedRoute, private companyService: CompanyService) { }
 
     drive_id: number;
+    driveResponse: any;
 
     ngOnInit() {
 
         this.drive_id = this.route.snapshot.queryParams['id'];
 
-        // this.companyService.getCompanyDrives().pipe(
+        this.companyService.getDriveFromDriveID(this.drive_id).pipe(
 
-        //     map(res => res.drives),
+            map((res) => this.driveResponse = res.drive)
 
-        //     map(drive => {
-
-
-        //     })
-
-        // )
+        ).subscribe(console.log);
     }
 }

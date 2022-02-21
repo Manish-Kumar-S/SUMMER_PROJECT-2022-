@@ -13,7 +13,14 @@ import { CompanyService } from '../company.service';
 })
 export class DriveUpdateComponent implements OnInit {
   
-  @Input() driveResponse: any[] = [];
+  driveResponse: any[] = [];
+
+  @Input() set drive(v: any) {
+
+    this.driveResponse = v;
+    this.patchForm();
+  }
+
   driveID: any;
   updateLoading: boolean;
   updateSuccess: boolean;
@@ -143,6 +150,12 @@ export class DriveUpdateComponent implements OnInit {
     this.getCourses().subscribe((res) => {
       this.courses = res;
     });
+
+  }
+
+  patchForm() {
+
+    if(!this.driveResponse) return;
 
     this.form.get('drive_name').setValue(this.driveResponse['drive_name']);
     this.form.get('category').setValue(this.driveResponse['category']['id']);

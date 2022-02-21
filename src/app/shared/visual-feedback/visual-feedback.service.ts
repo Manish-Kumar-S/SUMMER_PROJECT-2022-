@@ -75,7 +75,7 @@ export class VisualFeedbackService {
             catchError((err: HttpErrorResponse) => {
 
                 //check if token expired and logout if yes
-                if('is_expired' in err.error) {
+                if(Object.keys(err.error).includes('is_expired')) {
                     
                     if(err.error.is_expired) {
 
