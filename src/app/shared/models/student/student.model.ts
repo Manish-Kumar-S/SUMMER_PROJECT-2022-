@@ -15,6 +15,10 @@ export interface StudentModel {
     code: string;
     branch: string;
   };
+  placed_status: {
+    id: number;
+    status: string;
+  };
   // course_id: number; NOT IN RESPONSE SCHEMA
   course_type: number;
   course_percentage: number;

@@ -1,0 +1,220 @@
+
+<div style="margin-top: 10px;">
+
+    <div *ngIf="!!studentList && studentList.length === 0" style="width: 100%; height: 30vh; border:dashed grey; opacity: 0.6; position: relative;">
+    
+        <div style="width: 100%; text-align: center; vertical-align:bottom; position: absolute; top: 50%; font-size:large">No Students</div>
+    
+    </div>
+    
+    <div *ngIf="!!studentList && studentList.length !== 0">
+
+        <div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
+
+            <div style="overflow-x: auto;">
+        
+                <mat-table [dataSource]="dataSource">
+            
+                    <!-- Serial Number Column -->
+                    <ng-container matColumnDef="serial_number">
+    
+                        <mat-header-cell *matHeaderCellDef>
+                            No. 
+                        </mat-header-cell>
+                        d
+                        <mat-cell *matCellDef="let element"> {{ element.serial_number }} </mat-cell>
+                    </ng-container>
+            
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Name 
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'name', type: 'text'}">
+                                <mat-icon *ngIf="filters.name.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.name.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+                    </ng-container>
+            
+                    <!-- Registration No. Column -->
+                    <ng-container matColumnDef="reg_no">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Registration Number 
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'reg_no', type: 'number'}">
+                                <mat-icon *ngIf="filters.reg_no.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.reg_no.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.reg_no }} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Registration No. Column -->
+                    <ng-container matColumnDef="gender">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Gender
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'gender', type: 'string'}">
+                                <mat-icon *ngIf="filters.gender.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.gender.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.gender }} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Registration No. Column -->
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Email
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'email', type: 'string'}">
+                                <mat-icon *ngIf="filters.email.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.email.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Registration No. Column -->
+                    <ng-container matColumnDef="phone">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Phone
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'phone', type: 'number'}">
+                                <mat-icon *ngIf="filters.phone.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.phone.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
+                    </ng-container>
+    
+                    <!-- Registration No. Column -->
+                    <ng-container matColumnDef="grade_x">
+                        <mat-header-cell *matHeaderCellDef> 
+                            10th Grade
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'grade_x', type: 'number'}">
+                                <mat-icon *ngIf="filters.grade_x.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.grade_x.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.grade_x }} </mat-cell>
+                    </ng-container>
+                    
+                     <!-- Registration No. Column -->
+                     <ng-container matColumnDef="grade_xii">
+                        <mat-header-cell *matHeaderCellDef> 
+                            12th Grade
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'grade_xii', type: 'number'}">
+                                <mat-icon *ngIf="filters.grade_xii.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.grade_xii.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.grade_xii }} </mat-cell>
+                    </ng-container>
+
+                     <!-- Registration No. Column -->
+                     <ng-container matColumnDef="history_of_arrears">
+                        <mat-header-cell *matHeaderCellDef> 
+                            History of arrears
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'history_of_arrears', type: 'string'}">
+                                <mat-icon *ngIf="filters.history_of_arrears.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.history_of_arrears.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.history_of_arrears }} </mat-cell>
+                    </ng-container>
+
+                     <!-- Registration No. Column -->
+                     <ng-container matColumnDef="backlogs">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Backlogs 
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'backlogs', type: 'number'}">
+                                <mat-icon *ngIf="filters.backlogs.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.backlogs.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.backlogs }} </mat-cell>
+                    </ng-container>
+
+                     <!-- Registration No. Column -->
+                     <ng-container matColumnDef="cgpa">
+                        <mat-header-cell *matHeaderCellDef> 
+                            CGPA
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'cgpa', type: 'number'}">
+                                <mat-icon *ngIf="filters.cgpa.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.cgpa.filters.length > 0">filter_alt</mat-icon>
+                            </button> 
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ element.cgpa }} </mat-cell>
+                    </ng-container>
+
+                     <!-- Registration No. Column -->
+                     <ng-container matColumnDef="resume">
+                        <mat-header-cell *matHeaderCellDef> 
+                            Resume
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> 
+                            
+                            <button mat-icon-button color="primary" (click)="openNewTab(element.resume)">
+                                <mat-icon class="mat-18">insert_link</mat-icon>
+                            </button> 
+
+                        </mat-cell>
+                    </ng-container>
+            
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                
+            </div>
+    
+            <mat-paginator style="width: 100%;" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
+            </mat-paginator>
+
+        </div>
+
+    </div>
+
+    <mat-menu #filterMenu="matMenu">
+
+        <ng-template matMenuContent let-column="column" let-type="type">
+            
+            <div fxLayout="column" fxLayoutGap="5px" (click)="$event.stopPropagation()" style="text-align: center; margin: 15px;">
+      
+                
+                <h2>Apply Filter</h2>
+                    
+            
+                <mat-form-field appearance="fill">
+                  <mat-label>Filters</mat-label>
+                  <mat-chip-list #chipList aria-label="Filter selection">
+                    <mat-chip *ngFor="let filter of filters[column].filters" (removed)="remove(filter, column)">
+                      {{filter}}
+                      <div fxLayout="row" fxLayoutAlign="center">
+                          <button mat-icon-button matChipRemove>
+                            <mat-icon style="position: absolute; top: -1.8px; left: -5px; font-size: 18px;">cancel</mat-icon>
+                          </button>
+                      </div>
+                    </mat-chip>
+                    <input style="max-height: 100px;" placeholder="Filter..."
+                           [type]="type"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]="true"
+                           (matChipInputTokenEnd)="add($event, column, type)">
+                  </mat-chip-list>
+                </mat-form-field>
+
+                <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+
+                    <button (click)="clearFilters(column)" style="width: 18px; height: 18px; text-align: center;" mat-icon-button>
+                        <mat-icon style="position: absolute; top: -3.8px; left: -4px; font-size: 18px;">cancel</mat-icon>
+                    </button>
+
+                </div>
+      
+            </div>
+
+        </ng-template>
+
+    </mat-menu>
+
+</div>
+

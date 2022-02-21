@@ -117,7 +117,7 @@ export class PlacementStatusComponent implements OnInit {
 
             filteredData = filteredData.filter((student) => {
 
-                const pred = this.filters[filterColumn].filters.includes(student[filterColumn]);
+                const pred = this.filters[filterColumn].filters.map((filter) => filter.toString().toLowerCase()).includes(student[filterColumn].toString().toLowerCase());
                 return pred;
             });
         });

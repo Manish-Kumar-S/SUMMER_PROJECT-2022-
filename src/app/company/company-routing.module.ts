@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CampusDriveComponent } from './campus-drive/campus-drive.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { CompanyComponent } from './company.component';
-import { CompanyDashboardComponent } from './drives/dashboard/dashboard.component';
-import { DriveComponent } from './drives/drive/drive.component';
+import { CompanyDashboardComponent } from './dashboard/dashboard.component';
+import { DriveComponent } from './drive/drive.component';
 import { DrivesComponent } from './drives/drives.component';
 
 const routes: Routes = [

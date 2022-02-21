@@ -4,7 +4,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { API } from 'src/environments/environment';
-import { CompanyService } from '../../company.service';
+import { CompanyService } from '../company.service';
 
 export interface DashboardData {
   reg_number: number;

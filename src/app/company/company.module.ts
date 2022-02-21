@@ -10,10 +10,11 @@ import { CampusDriveComponent, ConfirmationDialog } from './campus-drive/campus-
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { CompanyDetailsDialog } from './company-details/company-model/company-model.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { CompanyDashboardComponent } from './drives/dashboard/dashboard.component';
+import { CompanyDashboardComponent } from './dashboard/dashboard.component';
 import { DriveUpdateComponent } from './drive-update/drive-update.component';
 import { DrivesComponent } from './drives/drives.component';
-import { DriveComponent } from './drives/drive/drive.component';
+import { DriveComponent } from './drive/drive.component';
+import { RegisteredStudentsComponent } from './registered-students/registered-students.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DriveComponent } from './drives/drive/drive.component';
     DriveUpdateComponent,
     ConfirmationDialog,
     CompanyDetailsDialog,
+    RegisteredStudentsComponent
   ],
   imports: [
     CommonModule,

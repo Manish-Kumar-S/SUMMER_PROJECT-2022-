@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { map } from "rxjs/operators";
-import { CompanyService } from "../../company.service";
+import { CompanyService } from "../company.service";
 
 @Component({
     selector: 'app-drive',
@@ -17,7 +17,7 @@ export class DriveComponent implements OnInit {
 
     ngOnInit() {
 
-        this.drive_id = this.route.snapshot.queryParams['id'];
+        this.drive_id = parseInt(this.route.snapshot.queryParams['id']);
 
         this.companyService.getDriveFromDriveID(this.drive_id).pipe(
 
