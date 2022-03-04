@@ -7,7 +7,7 @@
     
     </div>
     
-    <div *ngIf="!!studentList && studentList.length !== 0">
+    <div *ngIf="!!studentList && studentList.length !== 0" fxLayout="column" fxLayoutGap="10px">
 
         <div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
 
@@ -19,16 +19,15 @@
                     <ng-container matColumnDef="serial_number">
     
                         <mat-header-cell *matHeaderCellDef>
-                            No. 
+                            {{ columnNames[0] }}
                         </mat-header-cell>
-                        d
                         <mat-cell *matCellDef="let element"> {{ element.serial_number }} </mat-cell>
                     </ng-container>
             
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
                         <mat-header-cell *matHeaderCellDef> 
-                            Name 
+                            {{ columnNames[1] }} 
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'name', type: 'text'}">
                                 <mat-icon *ngIf="filters.name.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.name.filters.length > 0">filter_alt</mat-icon>
@@ -40,7 +39,7 @@
                     <!-- Registration No. Column -->
                     <ng-container matColumnDef="reg_no">
                         <mat-header-cell *matHeaderCellDef> 
-                            Registration Number 
+                            {{ columnNames[2] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'reg_no', type: 'number'}">
                                 <mat-icon *ngIf="filters.reg_no.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.reg_no.filters.length > 0">filter_alt</mat-icon>
@@ -52,7 +51,7 @@
                     <!-- Registration No. Column -->
                     <ng-container matColumnDef="gender">
                         <mat-header-cell *matHeaderCellDef> 
-                            Gender
+                            {{ columnNames[3] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'gender', type: 'string'}">
                                 <mat-icon *ngIf="filters.gender.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.gender.filters.length > 0">filter_alt</mat-icon>
@@ -64,7 +63,7 @@
                     <!-- Registration No. Column -->
                     <ng-container matColumnDef="email">
                         <mat-header-cell *matHeaderCellDef> 
-                            Email
+                            {{ columnNames[4] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'email', type: 'string'}">
                                 <mat-icon *ngIf="filters.email.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.email.filters.length > 0">filter_alt</mat-icon>
@@ -76,7 +75,7 @@
                     <!-- Registration No. Column -->
                     <ng-container matColumnDef="phone">
                         <mat-header-cell *matHeaderCellDef> 
-                            Phone
+                            {{ columnNames[5] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'phone', type: 'number'}">
                                 <mat-icon *ngIf="filters.phone.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.phone.filters.length > 0">filter_alt</mat-icon>
@@ -88,7 +87,7 @@
                     <!-- Registration No. Column -->
                     <ng-container matColumnDef="grade_x">
                         <mat-header-cell *matHeaderCellDef> 
-                            10th Grade
+                            {{ columnNames[6] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'grade_x', type: 'number'}">
                                 <mat-icon *ngIf="filters.grade_x.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.grade_x.filters.length > 0">filter_alt</mat-icon>
@@ -100,7 +99,7 @@
                      <!-- Registration No. Column -->
                      <ng-container matColumnDef="grade_xii">
                         <mat-header-cell *matHeaderCellDef> 
-                            12th Grade
+                            {{ columnNames[7] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'grade_xii', type: 'number'}">
                                 <mat-icon *ngIf="filters.grade_xii.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.grade_xii.filters.length > 0">filter_alt</mat-icon>
@@ -112,7 +111,7 @@
                      <!-- Registration No. Column -->
                      <ng-container matColumnDef="history_of_arrears">
                         <mat-header-cell *matHeaderCellDef> 
-                            History of arrears
+                            {{ columnNames[8] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'history_of_arrears', type: 'string'}">
                                 <mat-icon *ngIf="filters.history_of_arrears.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.history_of_arrears.filters.length > 0">filter_alt</mat-icon>
@@ -124,7 +123,7 @@
                      <!-- Registration No. Column -->
                      <ng-container matColumnDef="backlogs">
                         <mat-header-cell *matHeaderCellDef> 
-                            Backlogs 
+                            {{ columnNames[9] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'backlogs', type: 'number'}">
                                 <mat-icon *ngIf="filters.backlogs.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.backlogs.filters.length > 0">filter_alt</mat-icon>
@@ -136,7 +135,7 @@
                      <!-- Registration No. Column -->
                      <ng-container matColumnDef="cgpa">
                         <mat-header-cell *matHeaderCellDef> 
-                            CGPA
+                            {{ columnNames[10] }}
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'cgpa', type: 'number'}">
                                 <mat-icon *ngIf="filters.cgpa.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.cgpa.filters.length > 0">filter_alt</mat-icon>
@@ -148,7 +147,7 @@
                      <!-- Registration No. Column -->
                      <ng-container matColumnDef="resume">
                         <mat-header-cell *matHeaderCellDef> 
-                            Resume
+                            {{ columnNames[11] }}
                         </mat-header-cell>
                         <mat-cell *matCellDef="let element"> 
                             
@@ -169,6 +168,8 @@
             </mat-paginator>
 
         </div>
+
+        <button (click)="downloadAsExcel()" style="width: 150px; background-color: rgb(147, 147, 255); color: white;" mat-raised-button>Download as Excel</button>
 
     </div>
 

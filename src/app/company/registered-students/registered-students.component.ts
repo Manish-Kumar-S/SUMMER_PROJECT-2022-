@@ -10,6 +10,7 @@ import { forkJoin, of } from "rxjs";
 import { VisualFeedbackService } from "src/app/shared/visual-feedback/visual-feedback.service";
 import { CompanyService } from "../company.service";
 import { StudentModel } from "src/app/shared/models/student/student.model";
+import { ExcelService } from "src/app/shared/excel.service";
 
 interface RegisteredStudentModel extends StudentModel {
 
@@ -56,6 +57,8 @@ export class RegisteredStudentsComponent implements OnInit {
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
     displayedColumns = ['serial_number', 'name', 'reg_no', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
+
+    columnNames = ['No.', 'Name', 'Registration Number', 'Gender', 'Email', 'Phone', '10th Grade', '12th Grade', 'History of arrears', 'Backlogs', 'CGPA', 'Resume'];
 
     studentList: RegisteredStudent[];
 
@@ -126,7 +129,7 @@ export class RegisteredStudentsComponent implements OnInit {
         return this.selection.selected.length;
     }
 
-    constructor(private companyService: CompanyService, private visualFeedbackService: VisualFeedbackService) { }
+    constructor(private companyService: CompanyService, private excelService: ExcelService, private visualFeedbackService: VisualFeedbackService) { }
 
     ngOnInit(): void {
 
@@ -136,6 +139,23 @@ export class RegisteredStudentsComponent implements OnInit {
     openNewTab(resume) {
 
         window.open(resume);
+    }
+
+    downloadAsExcel() {
+
+        if(this.dataSource.data.length === 0) {
+
+            this.visualFeedbackService.snackBar('No data to download (Try changing filters, if any)');
+            return;
+        }
+
+        let data: any[][]= [this.columnNames];
+
+        data = data.concat(this.dataSource.data.map(student => Object.values(student)));
+
+        console.log(data);
+
+        this.excelService.generateExcel(data, 'Registered Students', 'Registered Students');
     }
 
     ///////////////////////
