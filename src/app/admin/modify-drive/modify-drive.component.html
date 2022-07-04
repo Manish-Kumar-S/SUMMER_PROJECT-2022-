@@ -1,0 +1,31 @@
+<div class="student-container">
+
+    <h1>Modify Company Drive</h1>
+
+    <br>
+
+    <div [formGroup]="form" fxLayout="row" fxLayoutGap="10px" style="width: 50vw;">
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Choose Company</mat-label>
+            <mat-select required formControlName="company_form_control">
+                <mat-option *ngFor="let c of companies" [value]="c.company_id">
+                {{ c.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Choose Drive</mat-label>
+            <mat-select required formControlName="drive_form_control" [disabled]="!selectedCompany">
+                <mat-option *ngFor="let d of company_drives" [value]="d.id">
+                {{ d.drive_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <app-drive-update style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
+
+</div>

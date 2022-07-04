@@ -39,5 +39,8 @@ import { RegisteredStudentsComponent } from './registered-students/registered-st
     RouterModule,
     SharedModule,
   ],
+  exports: [
+    DriveUpdateComponent
+  ]
 })
 export class CompanyModule {}
