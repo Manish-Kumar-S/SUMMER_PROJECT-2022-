@@ -26,6 +26,6 @@
 
     </div>
 
-    <app-drive-update style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
+    <app-drive-update [isAdmin]="true" style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
 
 </div>
