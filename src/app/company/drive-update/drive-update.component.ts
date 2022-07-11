@@ -86,6 +86,7 @@ export class DriveUpdateComponent implements OnInit {
     history_of_arrears: new FormControl(""),
     current_arrears: new FormControl(""),
     atmost_number_of_arrears: new FormControl(""),
+    preferred_schedule: new FormControl(""),
     date_of_visiting: new FormControl(""),
     ppt_session: new FormControl(""),
     number_of_tests: new FormControl(""),
@@ -104,6 +105,13 @@ export class DriveUpdateComponent implements OnInit {
     hr_interview: new FormControl(""),
     posted_date: new FormControl(""),
     registration_deadline: new FormControl(""),
+    ug_vacancies: new FormControl(""),
+    pg_vacancies: new FormControl(""),
+    virtual_mode: new FormControl(""),
+    bond_details: new FormControl(""),
+    allow_foreign_nationals: new FormControl(""),
+    foreign_nationality_preferred: new FormControl(""),
+    academic_year: new FormControl(""),
     other_information: new FormControl("")
   })
 
@@ -208,6 +216,7 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('year_batch_eligible').setValue(Number(this.driveResponse['year_batch_eligible'][0]));
     this.form.get('history_of_arrears').setValue(this.driveResponse['history_of_arrears'] === true ? '1' : '2');
     this.form.get('current_arrears').setValue(this.driveResponse['atmost_number_of_arrears']);
+    this.form.get('preferred_schedule').setValue(this.driveResponse['preferred_schedule'].substring(0, (this.driveResponse['preferred_schedule'] as String).length-1).split('T')[0]);
     this.form.get('date_of_visiting').setValue(this.driveResponse['date_of_visiting'].substring(0, (this.driveResponse['date_of_visiting'] as String).length-1).split('T')[0]);
     this.form.get('ppt_session').setValue(this.driveResponse['ppt_session'].substring(0, (this.driveResponse['ppt_session'] as String).length-1));
     this.form.get('number_of_tests').setValue(this.driveResponse['number_of_tests']);
@@ -226,10 +235,22 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('hr_interview').setValue(this.driveResponse['hr_interview']);
     this.form.get('posted_date').setValue(this.driveResponse['posted_date'].split('T')[0]);
     this.form.get('registration_deadline').setValue(this.driveResponse['registration_deadline'].substring(0, (this.driveResponse['registration_deadline'] as String).length-1));
+    this.form.get('ug_vacancies').setValue(this.driveResponse['ug_vacancies']);
+    this.form.get('pg_vacancies').setValue(this.driveResponse['pg_vacancies']);
+    this.form.get('virtual_mode').setValue(this.driveResponse['virtual_mode']);
+    this.form.get('bond_details').setValue(this.driveResponse['bond_details']);
+    this.form.get('allow_foreign_nationals').setValue(this.driveResponse['allow_foreign_nationals']);
+    this.form.get('foreign_nationality_preferred').setValue(this.driveResponse['foreign_nationality_preferred']);
+    this.form.get('academic_year').setValue(this.driveResponse['academic_year']);
     this.form.get('other_information').setValue(this.driveResponse['other_information']);
 
     if(this.form.get('history_of_arrears').value == true)
       this.historyOfArrears = true;
+    
+    if(this.form.get('virtual_mode').value === 'true')
+      this.isVirtual = true;
+    else
+      this.isVirtual = false;
 
   }
 
@@ -256,6 +277,7 @@ export class DriveUpdateComponent implements OnInit {
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
     req.append('atmost_number_of_arrears', this.form.get('current_arrears').value)
+    req.append('preferred_schedule', this.form.get('preferred_schedule').value)
     req.append('date_of_visiting', this.form.get('date_of_visiting').value)
     req.append('ppt_session',this.form.get('ppt_session').value)
     req.append('number_of_tests', '2')
@@ -273,6 +295,13 @@ export class DriveUpdateComponent implements OnInit {
     req.append('technical_plus_hr_interview',this.form.get('technical_plus_hr_interview').value ? 'true' : 'false')
     req.append('hr_interview',this.form.get('hr_interview').value ? 'true' : 'false')
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
+    req.append('ug_vacancies', this.form.get('ug_vacancies').value)
+    req.append('pg_vacancies', this.form.get('pg_vacancies').value)
+    req.append('virtual_mode',this.isVirtual ? 'true' : 'false')
+    req.append('bond_details', this.form.get('bond_details').value)
+    req.append('allow_foreign_nationals', this.form.get('allow_foreign_nationals').value ? 'true' : 'false')
+    req.append('foreign_nationality_preferred', this.form.get('allow_foreign_nationals').value ? this.form.get('foreign_nationality_preferred').value : 'nil')
+    req.append('academic_year', this.form.get('academic_year').value)
     req.append('other_information',this.form.get('other_information').value)
 
     this.companyService.updateDrive(this.driveID, req).subscribe(

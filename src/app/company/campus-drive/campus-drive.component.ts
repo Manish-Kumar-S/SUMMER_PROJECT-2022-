@@ -1,6 +1,6 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
@@ -22,11 +22,18 @@ export class ConfirmationDialog {}
 })
 export class CampusDriveComponent implements OnInit {
 
+  @Input() isAdmin? = false;
+
   historyOfArrears: boolean;
-  bond: boolean;
   valid: boolean;
   updateLoading: boolean;
   courses: any;
+  ug_courses: any;
+  pg_courses: any;
+  isVirtual: boolean;
+  isForeignNational: boolean;
+  fte: boolean;
+  intern: boolean;
   year = new Date().getFullYear();
   isTabView: boolean = false;
   isMobileView: boolean = false;
@@ -71,11 +78,13 @@ export class CampusDriveComponent implements OnInit {
     eligibility_12: new FormControl(""),
     eligibility_graduation: new FormControl(""),
     eligibility_in_present: new FormControl(""),
-    eligible_courses_id: new FormControl(""),
+    ug_eligible_courses_id: new FormControl(""),
+    pg_eligible_courses_id: new FormControl(""),
     year_batch_eligible: new FormControl(""),
     history_of_arrears: new FormControl(""),
     current_arrears: new FormControl(""),
     atmost_number_of_arrears: new FormControl(""),
+    preferred_schedule: new FormControl(""),
     date_of_visiting: new FormControl(""),
     ppt_session: new FormControl(""),
     number_of_tests: new FormControl(""),
@@ -94,11 +103,17 @@ export class CampusDriveComponent implements OnInit {
     hr_interview: new FormControl(""),
     posted_date: new FormControl(""),
     registration_deadline: new FormControl(""),
+    ug_vacancies: new FormControl(""),
+    pg_vacancies: new FormControl(""),
+    virtual_mode: new FormControl(""),
+    bond_details: new FormControl(""),
+    allow_foreign_nationals: new FormControl(""),
+    foreign_nationality_preferred: new FormControl(""),
+    academic_year: new FormControl(""),
     other_information: new FormControl("")
   })
 
   constructor(private http: HttpClient,private router: Router,public dialog: MatDialog,public breakpointObserver: BreakpointObserver,private companyService: CompanyService) {
-    this.bond = false;
     this.valid = false;
     this.updateLoading = false;
   }
@@ -110,11 +125,6 @@ export class CampusDriveComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
       this.router.navigateByUrl('company/dashboard');
     });
-  }
-
-  showBondDetails(e: MatRadioChange) {
-    if (e.value == 2) this.bond = false;
-    else this.bond = true;
   }
 
   showBacklogsDetails(e: MatRadioChange) {
@@ -130,6 +140,8 @@ export class CampusDriveComponent implements OnInit {
 
     this.companyService.getCourses().pipe(map((res: any) => res.courses)).subscribe((res) => {
       this.courses = res;
+      this.ug_courses = this.courses.filter(val => val.programme === "UG");
+      this.pg_courses = this.courses.filter(val => val.programme === "PG");
     });
 
     //Breakpoint Observer for Screen Size
@@ -153,6 +165,27 @@ export class CampusDriveComponent implements OnInit {
       }
     );
 
+  }
+
+  showFNDetails(e: MatRadioChange){
+    if(e.value === 'false')
+      this.isForeignNational = false;
+    else
+    this.isForeignNational = true;
+  }
+
+  setEmploymentType(e: any){
+    console.log(e.value);
+    if(e.value === 1){
+      this.fte = true;
+      this.intern = false;
+    } else if(e.value === 2){
+      this.fte = false;
+      this.intern = true;
+    } else {
+      this.fte = true;
+      this.intern = true;
+    }
   }
 
   OnSubmit() {
@@ -180,11 +213,12 @@ export class CampusDriveComponent implements OnInit {
     req.append('eligibility_12', this.form.get('eligibility_12').value)
     req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value + 0)*10).toString())
     req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value + 0)*10).toString())
-    req.append('eligible_courses_id', this.form.get('eligible_courses_id').value)
+    req.append('eligible_courses_id', this.form.get('ug_eligible_courses_id').value.extend(this.form.get('pg_eligible_courses_id').value))
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
     req.append('atmost_number_of_arrears', this.form.get('current_arrears').value)
+    req.append('preferred_schedule', this.form.get('preferred_schedule').value)
     req.append('date_of_visiting', this.form.get('date_of_visiting').value)
     req.append('ppt_session',this.form.get('ppt_session').value + ':00')
     req.append('number_of_tests', '2')
@@ -203,6 +237,13 @@ export class CampusDriveComponent implements OnInit {
     req.append('hr_interview',this.form.get('hr_interview').value ? 'true' : 'false')
     // req.append('posted_date',this.form.get('posted_date').value)
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
+    req.append('ug_vacancies', this.form.get('ug_vacancies').value)
+    req.append('pg_vacancies', this.form.get('pg_vacancies').value)
+    req.append('virtual_mode',this.isVirtual ? 'true' : 'false')
+    req.append('bond_details', this.form.get('bond_details').value)
+    req.append('allow_foreign_nationals', this.form.get('allow_foreign_nationals').value ? 'true' : 'false')
+    req.append('foreign_nationality_preferred', this.form.get('allow_foreign_nationals').value ? this.form.get('foreign_nationality_preferred').value : 'nil')
+    req.append('academic_year', this.form.get('academic_year').value)
     req.append('other_information',this.form.get('other_information').value)
 
     this.companyService.uploadDrive(req).subscribe(
@@ -215,6 +256,13 @@ export class CampusDriveComponent implements OnInit {
       },
       (err) => console.log(err)
     );
+  }
+
+  setToggle(e: any) {
+    if(e.checked)
+      this.isVirtual = true;
+    else
+      this.isVirtual = false;
   }
 
 }
