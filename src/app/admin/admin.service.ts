@@ -33,16 +33,16 @@ export class AdminService {
    * Request Type: GET
    * @returns List of all Companies
    * */
-   getCompanies() {
-    return this.http
-        .get<any>(`${API}/get/companies`)
-        .pipe(
+  getCompanies() {
+  return this.http
+      .get<any>(`${API}/get/companies`)
+      .pipe(
 
-            this.visualFeedbackService.standardApiErrorHandling(),
-    
-            map((res) => res.companies)
-            
-        );
+          this.visualFeedbackService.standardApiErrorHandling(),
+  
+          map((res) => res.companies)
+          
+      );
   }
 
   /** 
@@ -65,7 +65,7 @@ export class AdminService {
    * Request Type: GET
    * @returns Placement Statistics Branch wise
    * */
-   getPlacementStatistics(query: string) {
+   getBranchWisePlacementStatistics(query: string) {
     return this.http
         .get<any>(`${API}/admin/placementstatistics?campus=${query}`)
         .pipe(

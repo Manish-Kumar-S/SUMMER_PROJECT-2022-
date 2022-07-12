@@ -39,18 +39,10 @@ export class ModifyDriveComponent implements OnInit {
     drive_update_enabled: boolean = false;
     driveResponse: any;
 
-    constructor(private adminService: AdminService, private companyService: CompanyService) {
-
-    }
+    constructor(private adminService: AdminService, private companyService: CompanyService) { }
 
     ngOnInit(): void {
 
-        this.adminService.getPlacementStatistics("MIT").subscribe(
-            (data: any) => {
-                console.log(data);
-            }
-        );
-        
         this.adminService.getCompanies().subscribe(
             (data: any) => {
                 console.log(data);

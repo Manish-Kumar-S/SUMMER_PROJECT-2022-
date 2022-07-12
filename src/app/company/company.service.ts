@@ -16,6 +16,19 @@ export class CompanyService {
     // COMPANY
     /////////////////
 
+    /**
+     * Request Type: GET
+     * @returns All the drives
+     */
+    getAllDrives() {
+
+        return this.http.get(`${API}/get/alldrives`).pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+
+        );
+    }
+
     /** 
    * Request Type: GET
    * @returns Details of the company 
@@ -66,17 +79,6 @@ export class CompanyService {
             this.visualFeedbackService.standardApiErrorHandling(),
 
         );
-
-        // return this.getCompanyDrives().pipe(
-
-        //     map((res) => {
-
-        //         res.drives = res.drives.filter((drive) => drive.id === driveID)[0];
-
-        //         return res;
-        //     })
-
-        // );
     }
 
     /** 

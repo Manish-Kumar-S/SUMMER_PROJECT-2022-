@@ -2,7 +2,8 @@
 
     <div fxLayout="row">
 
-        <button (click)="makePDF(branchWiseStatHtml)">Branch Wise Placement Statistics</button>
+        <button (click)="generateReport('branch-wise-stat')">Branch Wise Placement Statistics</button>
+        <button (click)="generateReport('placement-schedule')">Placement Schedule</button>
         <!-- <app-branch-wise-stat></app-branch-wise-stat> -->
     </div>
 
