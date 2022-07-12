@@ -207,9 +207,9 @@ export class DriveUpdateComponent implements OnInit {
 
     courses.forEach(element => {
       if((this.ug_courses?.map(val => val.id.toString())).includes(element))
-        ug_courses.push(element)
+        ug_courses.push(parseInt(element))
       else
-        pg_courses.push(element)
+        pg_courses.push(parseInt(element))
     });
     console.log(courses)
 
