@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ModifyDriveComponent } from './modify-drive/modify.component';
 import { ReportsComponent } from './reports/reports.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
         path: 'modify-drive',
         component: ModifyDriveComponent,
         data: { title: 'CUIC | Modify Drive' },
+      },
+      {
+        path: 'user-management',
+        component: UserManagementComponent,
+        data: { title: 'CUIC | User Management' },
       },
       {
         path: 'reports',

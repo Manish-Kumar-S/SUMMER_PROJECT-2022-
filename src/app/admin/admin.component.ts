@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             show: true,
         },
         {
-            path: './upcoming-companies',
+            path: './user-management',
             icon: 'fa-users',
             name: 'User Management',
             show: true,

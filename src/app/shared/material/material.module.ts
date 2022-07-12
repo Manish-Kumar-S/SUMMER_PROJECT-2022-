@@ -62,7 +62,8 @@ const materialModules = [
   MatTooltipModule,
   MatProgressBarModule,
   MatChipsModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatDialogModule
 ];
 
 @NgModule({

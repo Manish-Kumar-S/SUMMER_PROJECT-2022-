@@ -1,0 +1,61 @@
+@import "/src/app/shared/scss/main.scss";
+
+
+.student-container {
+  @media (max-width: 400px) {
+    padding: 1em;
+    .title {
+      margin-top: 2em;
+    }
+  }
+}
+
+.title {
+  font-size: 1.75em;
+  font-weight: 600;
+  padding: 0.35em;
+  margin: 1em 0;
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary-color;
+    }
+  }
+
+  @include sm-screen {
+    font-size: 1.5em;
+  }
+}
+
+
+.container-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5em;
+  .content-wrap {
+    display: flex;
+    flex-direction: column !important;
+    @media (max-width: 768px) {
+      max-width: unset !important;
+    }
+  }
+  @media (max-width: 768px) {
+    gap: unset;
+    flex-direction: column !important;
+  }
+}
+
+.flow, .tags {
+  flex-flow: row wrap;
+}
+.tags {
+  place-content: unset !important;
+}
+
+.mat-card {
+  height: auto !important;
+}
