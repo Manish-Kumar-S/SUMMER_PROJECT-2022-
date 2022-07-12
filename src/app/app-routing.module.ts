@@ -5,6 +5,7 @@ import { StudentGuard } from './auth/student.guard';
 import { CompanyGuard } from './auth/company.guard';
 import { LoginRegisterComponent, OTPComponent } from './login-register/login-register.component';
 import { LogoutGuard } from './auth/logout.guard';
+import { AdminGuard } from './auth/admin.guard';
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((mod) => mod.AdminModule),
+    canActivate: [AdminGuard]
   },
   {
     path: 'alogin',
