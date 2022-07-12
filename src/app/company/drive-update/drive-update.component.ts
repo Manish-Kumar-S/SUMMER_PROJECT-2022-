@@ -21,6 +21,8 @@ export class DriveUpdateComponent implements OnInit {
     this.patchForm();
   }
 
+  @Input() isAdmin? = false;
+
   driveID: any;
   updateLoading: boolean;
   updateSuccess: boolean;
@@ -30,7 +32,13 @@ export class DriveUpdateComponent implements OnInit {
   displayedColumns: string[];
   dashData: any[];
   courses: any;
-  historyOfArrears: Boolean;
+  ug_courses: any;
+  pg_courses: any;
+  historyOfArrears: boolean;
+  isVirtual: boolean;
+  isForeignNational: boolean;
+  fte: boolean;
+  intern: boolean;
   year = new Date().getFullYear();
 
   categories: any = [
@@ -72,11 +80,13 @@ export class DriveUpdateComponent implements OnInit {
     eligibility_12: new FormControl(""),
     eligibility_graduation: new FormControl(""),
     eligibility_in_present: new FormControl(""),
-    eligible_courses_id: new FormControl(""),
+    ug_eligible_courses_id: new FormControl(""),
+    pg_eligible_courses_id: new FormControl(""),
     year_batch_eligible: new FormControl(""),
     history_of_arrears: new FormControl(""),
     current_arrears: new FormControl(""),
     atmost_number_of_arrears: new FormControl(""),
+    preferred_schedule: new FormControl(""),
     date_of_visiting: new FormControl(""),
     ppt_session: new FormControl(""),
     number_of_tests: new FormControl(""),
@@ -95,6 +105,13 @@ export class DriveUpdateComponent implements OnInit {
     hr_interview: new FormControl(""),
     posted_date: new FormControl(""),
     registration_deadline: new FormControl(""),
+    ug_vacancies: new FormControl(""),
+    pg_vacancies: new FormControl(""),
+    virtual_mode: new FormControl(""),
+    bond_details: new FormControl(""),
+    allow_foreign_nationals: new FormControl(""),
+    foreign_nationality_preferred: new FormControl(""),
+    academic_year: new FormControl(""),
     other_information: new FormControl("")
   })
 
@@ -116,6 +133,27 @@ export class DriveUpdateComponent implements OnInit {
       this.historyOfArrears = false;
     else
       this.historyOfArrears = true;
+  }
+
+  showFNDetails(e: MatRadioChange){
+    if(e.value === 'false')
+      this.isForeignNational = false;
+    else
+    this.isForeignNational = true;
+  }
+
+  setEmploymentType(e: any){
+    console.log(e.value);
+    if(e.value === 1){
+      this.fte = true;
+      this.intern = false;
+    } else if(e.value === 2){
+      this.fte = false;
+      this.intern = true;
+    } else {
+      this.fte = true;
+      this.intern = true;
+    }
   }
 
   compare(c1: {name: string}, c2: {name: string}) {
@@ -149,6 +187,8 @@ export class DriveUpdateComponent implements OnInit {
 
     this.getCourses().subscribe((res) => {
       this.courses = res;
+      this.ug_courses = this.courses.filter(val => val.programme === "UG");
+      this.pg_courses = this.courses.filter(val => val.programme === "PG");
     });
 
   }
@@ -156,6 +196,8 @@ export class DriveUpdateComponent implements OnInit {
   patchForm() {
 
     if(!this.driveResponse) return;
+
+    this.setEmploymentType({value: this.driveResponse['employment_type']['id']});
 
     this.form.get('drive_name').setValue(this.driveResponse['drive_name']);
     this.form.get('category').setValue(this.driveResponse['category']['id']);
@@ -169,10 +211,12 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('eligibility_12').setValue(this.driveResponse['eligibility_12']);
     this.form.get('eligibility_graduation').setValue((this.driveResponse['eligibility_graduation']/10).toString());
     this.form.get('eligibility_in_present').setValue((this.driveResponse['eligibility_in_present']/10).toString());
-    this.form.get('eligible_courses_id').setValue(this.driveResponse['eligible_courses_id'][0].replace(/\s/g, "").split(','));
+    this.form.get('ug_eligible_courses_id').setValue(this.driveResponse['eligible_courses_id'][0].replace(/\s/g, "").split(','));
+    this.form.get('pg_eligible_courses_id').setValue(this.driveResponse['eligible_courses_id'][0].replace(/\s/g, "").split(','));
     this.form.get('year_batch_eligible').setValue(Number(this.driveResponse['year_batch_eligible'][0]));
     this.form.get('history_of_arrears').setValue(this.driveResponse['history_of_arrears'] === true ? '1' : '2');
     this.form.get('current_arrears').setValue(this.driveResponse['atmost_number_of_arrears']);
+    this.form.get('preferred_schedule').setValue(this.driveResponse['preferred_schedule'].substring(0, (this.driveResponse['preferred_schedule'] as String).length-1).split('T')[0]);
     this.form.get('date_of_visiting').setValue(this.driveResponse['date_of_visiting'].substring(0, (this.driveResponse['date_of_visiting'] as String).length-1).split('T')[0]);
     this.form.get('ppt_session').setValue(this.driveResponse['ppt_session'].substring(0, (this.driveResponse['ppt_session'] as String).length-1));
     this.form.get('number_of_tests').setValue(this.driveResponse['number_of_tests']);
@@ -191,10 +235,22 @@ export class DriveUpdateComponent implements OnInit {
     this.form.get('hr_interview').setValue(this.driveResponse['hr_interview']);
     this.form.get('posted_date').setValue(this.driveResponse['posted_date'].split('T')[0]);
     this.form.get('registration_deadline').setValue(this.driveResponse['registration_deadline'].substring(0, (this.driveResponse['registration_deadline'] as String).length-1));
+    this.form.get('ug_vacancies').setValue(this.driveResponse['ug_vacancies']);
+    this.form.get('pg_vacancies').setValue(this.driveResponse['pg_vacancies']);
+    this.form.get('virtual_mode').setValue(this.driveResponse['virtual_mode']);
+    this.form.get('bond_details').setValue(this.driveResponse['bond_details']);
+    this.form.get('allow_foreign_nationals').setValue(this.driveResponse['allow_foreign_nationals']);
+    this.form.get('foreign_nationality_preferred').setValue(this.driveResponse['foreign_nationality_preferred']);
+    this.form.get('academic_year').setValue(this.driveResponse['academic_year']);
     this.form.get('other_information').setValue(this.driveResponse['other_information']);
 
     if(this.form.get('history_of_arrears').value == true)
       this.historyOfArrears = true;
+    
+    if(this.form.get('virtual_mode').value === 'true')
+      this.isVirtual = true;
+    else
+      this.isVirtual = false;
 
   }
 
@@ -216,11 +272,12 @@ export class DriveUpdateComponent implements OnInit {
     req.append('eligibility_12', this.form.get('eligibility_12').value)
     req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value + 0)*10).toString())
     req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value + 0)*10).toString())
-    req.append('eligible_courses_id', this.form.get('eligible_courses_id').value)
+    req.append('eligible_courses_id', this.form.get('ug_eligible_courses_id').value.extend(this.form.get('pg_eligible_courses_id').value))
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
     req.append('atmost_number_of_arrears', this.form.get('current_arrears').value)
+    req.append('preferred_schedule', this.form.get('preferred_schedule').value)
     req.append('date_of_visiting', this.form.get('date_of_visiting').value)
     req.append('ppt_session',this.form.get('ppt_session').value)
     req.append('number_of_tests', '2')
@@ -238,6 +295,13 @@ export class DriveUpdateComponent implements OnInit {
     req.append('technical_plus_hr_interview',this.form.get('technical_plus_hr_interview').value ? 'true' : 'false')
     req.append('hr_interview',this.form.get('hr_interview').value ? 'true' : 'false')
     req.append('registration_deadline',this.form.get('registration_deadline').value.split('T')[0])
+    req.append('ug_vacancies', this.form.get('ug_vacancies').value)
+    req.append('pg_vacancies', this.form.get('pg_vacancies').value)
+    req.append('virtual_mode',this.isVirtual ? 'true' : 'false')
+    req.append('bond_details', this.form.get('bond_details').value)
+    req.append('allow_foreign_nationals', this.form.get('allow_foreign_nationals').value ? 'true' : 'false')
+    req.append('foreign_nationality_preferred', this.form.get('allow_foreign_nationals').value ? this.form.get('foreign_nationality_preferred').value : 'nil')
+    req.append('academic_year', this.form.get('academic_year').value)
     req.append('other_information',this.form.get('other_information').value)
 
     this.companyService.updateDrive(this.driveID, req).subscribe(
@@ -252,6 +316,13 @@ export class DriveUpdateComponent implements OnInit {
         }
       },
       (err) => console.log(err));
+  }
+
+  setToggle(e: any) {
+    if(e.checked)
+      this.isVirtual = true;
+    else
+      this.isVirtual = false;
   }
 
 }
