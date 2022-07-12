@@ -210,7 +210,7 @@ export class LoginRegisterComponent implements OnInit {
   registerError: string;
   logo: string;
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute) {
     this.url = `${API}/user`;
     this.logo = `${IMG_URL}/annauniv-logo.png`;
     this.roles = [
@@ -221,7 +221,6 @@ export class LoginRegisterComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
-      role: new FormControl(null, Validators.required),
     });
     this.registerForm = new FormGroup({
       email: new FormControl(null, Validators.required),
@@ -231,20 +230,54 @@ export class LoginRegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get isStudent(): boolean {
+    return Array.from(this.route.snapshot.url)[0].path.toString() === 'student';
+  }
+
+  get isCompany(): boolean {
+    return Array.from(this.route.snapshot.url)[0].path.toString() === 'company';
+  }
+
+  get isAdmin(): boolean {
+    return Array.from(this.route.snapshot.url)[0].path.toString() === 'admin';
+  }
+
   onLogin() {
+    const url = Array.from(this.route.snapshot.url);
+    let role = 1;
+
+    switch(url[0].path.toString()) {
+
+      case 'student': {
+        role = 1;
+        break;
+      }
+
+      case 'company': {
+        role = 2;
+        break;
+      }
+
+      case 'admin': {
+        role = 3;
+        break;
+      }
+    }
+
+
     const form = new FormData();
     form.append('email', this.loginForm.get('email').value);
     form.append('password', this.loginForm.get('password').value);
-    form.append('role', this.loginForm.get('role').value);
+    form.append('role', role.toString());
     
       this.authService.authenticateUser(form).subscribe(
         (data) => {
           console.log(data.headers.get('Tokenstring'));
-          if(this.loginForm.get('role').value == 1)
+          if(role == 1)
             this.router.navigateByUrl('student');
-          else if(this.loginForm.get('role').value == 2)
+          else if(role == 2)
             this.router.navigateByUrl('company');
-          else if(this.loginForm.get('role').value == 3)
+          else if(role == 3)
             this.router.navigateByUrl('admin');
           localStorage.setItem('errorJWT', data.headers.get('Tokenstring'));
         },

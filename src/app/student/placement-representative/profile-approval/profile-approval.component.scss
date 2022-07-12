@@ -1,5 +1,12 @@
 @import "/src/app/shared/scss/main.scss";
 
+@media only screen and (max-width: 630px) {
+    .mat-column-approve {
+        border-left: solid 0.5px rgb(189, 189, 189);
+        padding: 15px;
+    }
+}
+
 table {
     width: 100%;
 }

@@ -9,12 +9,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyModule } from '../company/company.module';
 import { DriveUpdateComponent } from '../company/drive-update/drive-update.component';
+import { ReportsComponent } from './reports/reports.component';
+import { Annexure1Component } from './reports/annexure-1/annexure-1.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    ModifyDriveComponent
+    ModifyDriveComponent,
+
+    ReportsComponent,
+    Annexure1Component
   ],
   imports: [
     CommonModule,
@@ -22,7 +27,7 @@ import { DriveUpdateComponent } from '../company/drive-update/drive-update.compo
     SharedModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    CompanyModule
+    CompanyModule,
   ]
 })
 export class AdminModule { }

@@ -10,7 +10,7 @@ import { forkJoin, of } from "rxjs";
 import { VisualFeedbackService } from "src/app/shared/visual-feedback/visual-feedback.service";
 import { CompanyService } from "../company.service";
 import { StudentModel } from "src/app/shared/models/student/student.model";
-import { ExcelService } from "src/app/shared/excel.service";
+import { FileService } from "src/app/shared/file.service";
 
 interface RegisteredStudentModel extends StudentModel {
 
@@ -57,6 +57,10 @@ export class RegisteredStudentsComponent implements OnInit {
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
     displayedColumns = ['serial_number', 'name', 'reg_no', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
+
+    visible: number[] = [1,1,1,1,1,1,1,1,1,1,1,1]
+
+    visibleColumns: string[] = []
 
     columnNames = ['No.', 'Name', 'Registration Number', 'Gender', 'Email', 'Phone', '10th Grade', '12th Grade', 'History of arrears', 'Backlogs', 'CGPA', 'Resume'];
 
@@ -129,11 +133,31 @@ export class RegisteredStudentsComponent implements OnInit {
         return this.selection.selected.length;
     }
 
-    constructor(private companyService: CompanyService, private excelService: ExcelService, private visualFeedbackService: VisualFeedbackService) { }
+    constructor(private companyService: CompanyService, private fileService: FileService, private visualFeedbackService: VisualFeedbackService) { }
 
     ngOnInit(): void {
-
         if(!this.studentList) this.setDatasource();
+    }
+
+    setVisibleColumns() {
+
+        let visibleColumns: string[] = [];
+
+        if(!this.visible) {
+
+            this.visibleColumns = this.displayedColumns;
+            return;
+        }
+
+        this.visible.forEach((visible, index) => {
+
+            if(visible === 1) {
+
+                visibleColumns.push(this.displayedColumns[index])
+            }
+        })
+
+        this.visibleColumns = visibleColumns;
     }
 
     openNewTab(resume) {
@@ -155,7 +179,7 @@ export class RegisteredStudentsComponent implements OnInit {
 
         console.log(data);
 
-        this.excelService.generateExcel(data, 'Registered Students', 'Registered Students');
+        this.fileService.generateExcel(data, 'Registered Students', 'Registered Students');
     }
 
     ///////////////////////
@@ -252,22 +276,26 @@ export class RegisteredStudentsComponent implements OnInit {
 
                 if(!drive) return [];
 
+                // this.visible = drive.visible_list;
+
+                this.setVisibleColumns();
+
                 return drive.student_list.map((student: RegisteredStudentModel, index: number): RegisteredStudent => {
 
                     return {
 
                         serial_number: index + 1,
-                        name: student.first_name + ' ' + student.last_name,
-                        reg_no: student.reg_number,
-                        gender: student.gender,
-                        email: student.email,
-                        phone: student.phone,
-                        grade_x: student.grade_10_percentage,
-                        grade_xii: student.grade_12_percentage,
+                        name: (student.first_name || '') + ' ' + (student.last_name || ''),
+                        reg_no: student.reg_number || 0,
+                        gender: student.gender || null,
+                        email: student.email || null,
+                        phone: student.phone || null,
+                        grade_x: student.grade_10_percentage || null,
+                        grade_xii: student.grade_12_percentage || null,
                         history_of_arrears: student.history_of_arrears ? 'Yes' : 'No',
-                        backlogs: student.number_of_arrears,
+                        backlogs: student.number_of_arrears || null,
                         cgpa: student.ug_course_percentage / 10,
-                        resume: student.resume_link,
+                        resume: student.resume_link || null,
                     }
                 })
             }),

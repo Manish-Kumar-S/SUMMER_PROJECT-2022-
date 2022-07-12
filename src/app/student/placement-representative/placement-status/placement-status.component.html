@@ -98,7 +98,7 @@
                     </ng-container>
     
                     <!-- Checkbox Column -->
-                    <ng-container matColumnDef="select">
+                    <ng-container matColumnDef="select" stickyEnd>
                         <mat-header-cell *matHeaderCellDef>
                             <mat-checkbox [color]="'primary'" (change)="$event ? masterToggle() : null"
                                 [checked]="selection.hasValue() && isAllSelected()"

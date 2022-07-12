@@ -35,7 +35,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             show: true,
         },
         {
-            path: './personal-details',
+            path: './reports',
             icon: 'fa-chart-bar',
             name: 'Statistics',
             show: true,

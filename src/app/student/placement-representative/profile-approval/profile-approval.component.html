@@ -48,7 +48,7 @@
                     </ng-container>
             
                     <!-- Checkbox Column -->
-                    <ng-container matColumnDef="approve">
+                    <ng-container matColumnDef="approve" stickyEnd>
                         <mat-header-cell *matHeaderCellDef>
                             <mat-checkbox [color]="'primary'" (change)="$event ? masterToggle() : null"
                                 [checked]="selection.hasValue() && isAllSelected()"

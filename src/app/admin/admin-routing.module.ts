@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { ModifyDriveComponent } from './modify-drive/modify.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
         path: 'modify-drive',
         component: ModifyDriveComponent,
         data: { title: 'CUIC | Modify Drive' },
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent,
+        data: { title: 'CUIC | Reports' },
       }
     ]
   },

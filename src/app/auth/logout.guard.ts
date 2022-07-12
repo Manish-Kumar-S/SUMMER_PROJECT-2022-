@@ -67,7 +67,7 @@ export class LogoutGuard implements CanActivate {
       if(role === Roles.STUDENT) url = 'student';
       if(role === Roles.COMPANY) url = 'company';
       if(role === Roles.ADMIN) url = 'admin';
-      this.router.navigate([url]);
+      this.router.navigateByUrl(url);
     })
     return false;
   }

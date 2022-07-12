@@ -9,8 +9,33 @@ import { LogoutGuard } from './auth/logout.guard';
 const routes: Routes = [
   {
     path: '',
-    component: LoginRegisterComponent,
-    data: { title: 'CUIC | Anna University' },
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    children: [
+      {
+        path: '',
+        redirectTo: 'student',
+        pathMatch: 'full'
+      },
+      {
+        path: 'student',
+        component: LoginRegisterComponent,
+        data: { title: 'CUIC | Anna University | Student' },
+      },
+      {
+        path: 'company',
+        component: LoginRegisterComponent,
+        data: { title: 'CUIC | Anna University | Company' },
+      },
+      {
+        path: 'admin',
+        component: LoginRegisterComponent,
+        data: { title: 'CUIC | Anna University | Admin' },
+      }
+    ],
     canActivate: [LogoutGuard],
   },
   {

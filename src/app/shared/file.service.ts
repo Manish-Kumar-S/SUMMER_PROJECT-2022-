@@ -1,13 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Workbook } from "exceljs";
 import * as fs from 'file-saver';
+declare var require: any;
+
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { PredefinedPageSize } from "pdfmake/interfaces";
+const htmlToPdfmake = require("html-to-pdfmake");
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
     providedIn: 'root'
 })
-export class ExcelService {
+export class FileService {
 
     constructor() { }
+
+    generatePDFfromHTML(htmlString: string) {
+
+        var html = htmlToPdfmake(htmlString);
+        const documentDefinition: { content: string, pageSize: PredefinedPageSize} = { content: html, pageSize: `A5` };
+        const pdf = pdfMake.createPdf(documentDefinition);   
+        pdf.download();     
+    }
 
     generateExcel(data: any[][], title: string, sheetName: string) {
         
