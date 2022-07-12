@@ -1,0 +1,80 @@
+
+<div style="margin-top: 10px;">
+    
+    <div  fxLayout="column" fxLayoutGap="10px">
+
+        <div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
+
+            <div style="overflow-x: auto;" fxLayout="row">
+
+                <form [formGroup]="selectColumn" fxFlex fxLayout="column" autocomplete="off" style="margin: 30px" class="form">
+
+                    <button mat-raised-button color="warn" (click)="OnSubmit()" style="margin: auto;" >
+
+                        <h3>Update Columns</h3>
+
+                    </button>
+
+                    <mat-selection-list formControlName="userType" multiple>
+
+                        <mat-list-option #allSelected [value]="0" (click)="toggleAllSelection()">Select All</mat-list-option>
+                        <mat-list-option *ngFor="let list of boolList" [value]="list.key" (click)="tosslePerOne(list.key)">
+                        {{list.value}}
+                        </mat-list-option>
+
+                    </mat-selection-list>
+                    
+                </form>
+                
+            </div>
+    
+        </div>
+
+    </div>
+
+    <mat-menu #filterMenu="matMenu">
+
+        <ng-template matMenuContent let-column="column" let-type="type">
+            
+            <div fxLayout="column" fxLayoutGap="5px" (click)="$event.stopPropagation()" style="text-align: center; margin: 15px;">
+      
+                
+                <h2>Apply Filter</h2>
+                    
+            
+                <mat-form-field appearance="fill">
+                  <mat-label>Filters</mat-label>
+                  <mat-chip-list #chipList aria-label="Filter selection">
+                    <mat-chip *ngFor="let filter of filters[column].filters" (removed)="remove(filter, column)">
+                      {{filter}}
+                      <div fxLayout="row" fxLayoutAlign="center">
+                          <button mat-icon-button matChipRemove>
+                            <mat-icon style="position: absolute; top: -1.8px; left: -5px; font-size: 18px;">cancel</mat-icon>
+                          </button>
+                      </div>
+                    </mat-chip>
+                    <input style="max-height: 100px;" placeholder="Filter..."
+                           [type]="type"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]="true"
+                           (matChipInputTokenEnd)="add($event, column, type)">
+                  </mat-chip-list>
+                </mat-form-field>
+
+                <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+
+                    <button (click)="clearFilters(column)" style="width: 18px; height: 18px; text-align: center;" mat-icon-button>
+                        <mat-icon style="position: absolute; top: -3.8px; left: -4px; font-size: 18px;">cancel</mat-icon>
+                    </button>
+
+                </div>
+      
+            </div>
+
+        </ng-template>
+
+    </mat-menu>
+
+</div>
+

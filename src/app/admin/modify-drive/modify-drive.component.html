@@ -25,7 +25,20 @@
         </mat-form-field>
 
     </div>
+    <mat-tab-group mat-stretch-tabs>
 
-    <app-drive-update [isAdmin]="true" style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
+        <mat-tab label="Update Drive" style="padding: 10px !important;">
+                
+            <app-drive-update style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
+            
+        </mat-tab>
+        
+        <mat-tab label="Registered Students">
+            
+           <app-modify-columns style="margin: 3px; margin-top: 20px;"></app-modify-columns>
 
+        </mat-tab>
+
+    </mat-tab-group>
+    
 </div>
