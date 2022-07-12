@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyModule } from '../company/company.module';
 import { ReportsComponent } from './reports/reports.component';
 import { RegisterAdminDialog, UserManagementComponent } from './user-management/user-management.component';
-import { DriveUpdateComponent } from '../company/drive-update/drive-update.component';
 import { ModifyColumnsComponent } from './modify-columns/modify-columns.component';
 
 

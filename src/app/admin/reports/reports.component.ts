@@ -72,11 +72,6 @@ export class ReportsComponent {
                     <td style="text-align: center;">${element.eligible_count}</td>
                     <td style="text-align: center;">${element.placed_count}</td>
                     <td style="text-align: center;">${element.percentage}</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center;">${element.eligible_count}</td>
-                    <td style="text-align: center;">${element.placed_count}</td>
-                    <td style="text-align: center;">${element.percentage}</td>
                 </tr>
             `
         })

@@ -1,16 +1,16 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { filter, map, mergeMap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from "@angular/material/chips";
-import { forkJoin, of } from "rxjs";
 import { VisualFeedbackService } from "src/app/shared/visual-feedback/visual-feedback.service";
 import { CompanyService } from "../company.service";
 import { StudentModel } from "src/app/shared/models/student/student.model";
 import { FileService } from "src/app/shared/file.service";
+
+const DEFAULT_VISIBLE_COLUMNS = [1,1,1,0,1,1,1,1,1,1,0];
 
 interface RegisteredStudentModel extends StudentModel {
 
@@ -58,7 +58,7 @@ export class RegisteredStudentsComponent implements OnInit {
 
     displayedColumns = ['serial_number', 'name', 'reg_no', 'gender', 'email', 'phone', 'grade_x', 'grade_xii', 'history_of_arrears', 'backlogs', 'cgpa', 'resume'];
 
-    visible: number[] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    visible: number[] = DEFAULT_VISIBLE_COLUMNS
 
     visibleColumns: string[] = []
 
@@ -276,7 +276,7 @@ export class RegisteredStudentsComponent implements OnInit {
 
                 if(!drive) return [];
 
-                // this.visible = drive.visible_list;
+                this.visible = (drive.visible_columns as string[] | null)?.map(column => parseInt(column));
 
                 this.setVisibleColumns();
 
@@ -296,6 +296,7 @@ export class RegisteredStudentsComponent implements OnInit {
                         backlogs: student.number_of_arrears || null,
                         cgpa: student.ug_course_percentage / 10,
                         resume: student.resume_link || null,
+
                     }
                 })
             }),
@@ -308,6 +309,7 @@ export class RegisteredStudentsComponent implements OnInit {
             this.selection.clear();
 
             this.studentListChange.emit(this.studentList);
+
         });
     }
 }

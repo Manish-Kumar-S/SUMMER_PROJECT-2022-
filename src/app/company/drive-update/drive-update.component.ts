@@ -1,5 +1,4 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
@@ -13,7 +12,7 @@ import { CompanyService } from '../company.service';
 })
 export class DriveUpdateComponent implements OnInit {
   
-  driveResponse: any[] = [];
+  driveResponse: any = {};
 
   @Input() set drive(v: any) {
 
@@ -117,7 +116,7 @@ export class DriveUpdateComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private http: HttpClient,public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
+  constructor(public breakpointObserver: BreakpointObserver,private changeDetection: ChangeDetectorRef, private companyService: CompanyService) {
     this.isLoading = true;
     this.updateLoading = false;
     this.updateSuccess = false;
@@ -258,7 +257,7 @@ export class DriveUpdateComponent implements OnInit {
     this.updateLoading = true;
     const req = new FormData();
     this.driveID = this.driveResponse['id'];
-    req.append('id', this.driveResponse['id'])
+    req.append('company_id', this.driveResponse['company_id'])
     req.append('drive_id', this.driveResponse['id'])
     req.append('drive_name', this.form.get('drive_name').value)
     req.append('category', this.form.get('category').value)
