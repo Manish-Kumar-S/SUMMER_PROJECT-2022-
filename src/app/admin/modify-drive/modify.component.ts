@@ -44,6 +44,12 @@ export class ModifyDriveComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        this.adminService.getPlacementStatistics("MIT").subscribe(
+            (data: any) => {
+                console.log(data);
+            }
+        );
         
         this.adminService.getCompanies().subscribe(
             (data: any) => {

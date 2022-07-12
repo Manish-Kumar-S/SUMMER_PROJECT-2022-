@@ -63,6 +63,22 @@ export class AdminService {
 
   /** 
    * Request Type: GET
+   * @returns Placement Statistics Branch wise
+   * */
+   getPlacementStatistics(query: string) {
+    return this.http
+        .get<any>(`${API}/admin/placementstatistics?campus=${query}`)
+        .pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+    
+            map((res) => res.report)
+            
+        );
+  }
+
+  /** 
+   * Request Type: GET
    * @returns All the courses done by the student 
    * */
 //   getCourses() {
