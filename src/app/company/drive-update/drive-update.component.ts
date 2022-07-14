@@ -42,11 +42,11 @@ export class DriveUpdateComponent implements OnInit {
   categories: any = [
     {
       id:1,
-      name: "PRODUCT"
+      name: "IT PRODUCT / CORE"
     },
     {
       id:2,
-      name: "SERVICE"
+      name: "IT SERVICE"
     }
   ]
   employment_t: any = [

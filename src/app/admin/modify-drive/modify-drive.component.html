@@ -29,11 +29,11 @@
 
         <mat-tab label="Update Drive" style="padding: 10px !important;">
                 
-            <app-drive-update style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [drive]="driveResponse"></app-drive-update>
+            <app-drive-update style="margin: 3px; margin-top: 20px;" *ngIf="drive_update_enabled" [isAdmin]="true" [drive]="driveResponse"></app-drive-update>
             
         </mat-tab>
         
-        <mat-tab label="Registered Students">
+        <mat-tab label="Visible fields for Company">
             
            <app-modify-columns [drive]="driveResponse" style="margin: 3px; margin-top: 20px;"></app-modify-columns>
 

@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
+import { element } from "protractor";
 import { forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
 import { CompanyService } from "src/app/company/company.service";
 import { FileService } from "src/app/shared/file.service";
 import { AdminService } from "../admin.service";
@@ -34,9 +36,20 @@ export class ReportsComponent {
             name: "Company Wise Placement Statistics (PDF)",
             tag: "company-wise-stat",
         },
-    ]
+    ];
 
-    constructor(private fileService: FileService, private adminService: AdminService, private companyService: CompanyService) { }
+    courses: any;
+
+    constructor(private fileService: FileService, private adminService: AdminService, private companyService: CompanyService) {
+        this.getCourses().subscribe(
+            (data) => this.courses = data
+        );
+    }
+
+    getCourses() {
+        return this.companyService.getCourses()
+          .pipe(map((res: any) => res.courses));
+    }
 
     get branchWiseStatHtml(): string {
 
@@ -87,7 +100,7 @@ export class ReportsComponent {
                     <td style="text-align: center;width: 100%;font-weight: bold;" colspan="5">CENTRE FOR UNIVERSITY-INDUSTRY COLLABORATION</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;width: 100%;font-weight: bold;" colspan="5">BRANCH-WISE PLACEMENT STATISTICS FOR THE YEAR 2021 - 2022 (As on 13-07-2022)</td>
+                    <td style="text-align: center;width: 100%;font-weight: bold;" colspan="5">BRANCH-WISE PLACEMENT STATISTICS FOR THE YEAR 2021 - 2022 (As on 15-07-2022)</td>
                 </tr>
                 <tr><td style="padding: 10px;" colspan="5"></td></tr>
                 <tr>
@@ -160,7 +173,7 @@ export class ReportsComponent {
             <td style="text-align: center;width: 100%;font-weight: bold;" colspan="10">CENTRE FOR UNIVERSITY-INDUSTRY COLLABORATION</td>
         </tr>
         <tr>
-            <td style="text-align: center;width: 100%;font-weight: bold;" colspan="10">TENTATIVE CAMPUS PLACMENT SCHEDULE 2021 - 2022 (As on 13-07-2022)</td>
+            <td style="text-align: center;width: 100%;font-weight: bold;" colspan="10">TENTATIVE CAMPUS PLACMENT SCHEDULE 2021 - 2022 (As on 15-07-2022)</td>
         </tr>
         <tr><td style="padding: 10px;" colspan="10"></td></tr>
         <tr>
@@ -219,7 +232,7 @@ export class ReportsComponent {
                     <td style="padding: 10px;">${sequence}</td>
                     <td style="padding: 10px;">${element['bond_details']}</td>
                     <td style="padding: 10px;">${element['roles'].toString()}</td>
-                    <td style="padding: 10px;">${element['date_of_visiting']}</td>
+                    <td style="padding: 10px;">${element['date_of_visiting'].split('T')[0]}</td>
                     <td style="padding: 10px;">Confirmed</td>
                 </tr>
             `
@@ -242,7 +255,7 @@ export class ReportsComponent {
                     <td style="text-align: center;width: 100%;font-weight: bold;" colspan="19">CENTRE FOR UNIVERSITY-INDUSTRY COLLABORATION</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center;width: 100%;font-weight: bold;" colspan="19">PLACEMENT STATISTICS FOR THE YEAR XXXX - XXXX (As on XX-XX-XXXX)</td>
+                    <td style="text-align: center;width: 100%;font-weight: bold;" colspan="19">PLACEMENT STATISTICS FOR THE YEAR 2021 - 2022 (As on 15-07-2022)</td>
                 </tr>
                 <tr><td style="padding: 10px;" colspan="19"></td></tr>
                 <tr>
@@ -289,13 +302,71 @@ export class ReportsComponent {
                 </tr>
         `;
 
+        let row = 1;
+
         this.data.forEach((element, index) => {
+            if(index != 0){
+                if(this.data[index-1].drive_name == this.data[index].drive_name){
+                    this.data[index].drive_name = "";
+                    this.data[index].eligible_courses_id = [];
+                    this.data[index].date_of_visiting = "";
+                    this.data[index].ctc_for_ug = "";
+                    this.data[index].ctc_for_pg = "";
+                } else {
+                    let sum = 0;
+                    this.data[index]["sno"] = row;
+                    (this.data as any[]).filter(val => val.drive_name === element.drive_name).map(v => sum+=parseInt(v.branch_count))
+                    this.data[index]["total"] = sum;
+                    row +=1;
+                }
+            } else {
+                let sum = 0;
+                this.data[index]["sno"] = row;
+                (this.data as any[]).filter(val => val.drive_name === element.drive_name).map(v => sum+=parseInt(v.branch_count))
+                this.data[index]["total"] = sum;
+                row +=1;
+            }
+        });
+
+        this.data.forEach((element, index) => {
+
+            console.log(this.data);
+
+            let ug_depts = element.eligible_courses_id[0]?.split(',').map(
+                (cid) => {
+                    if((this.courses as any[]).find(val => val.id === parseInt(cid) && val.programme === 'UG'))
+                        return((this.courses as any[]).find(val => val.id === parseInt(cid)).code)
+                }
+            )
+            let pg_depts = element.eligible_courses_id[0]?.split(',').map(
+                (cid) => {
+                    if((this.courses as any[]).find(val => val.id === parseInt(cid) && val.programme === 'PG'))
+                        return((this.courses as any[]).find(val => val.id === parseInt(cid)).code)
+                }
+            )
+
+            let depts = ""
+            if(ug_depts)
+                depts = depts + "UG: " + ug_depts;
+            if(pg_depts)
+                depts = depts + " PG: " + pg_depts;
+
+            let salary = ""
+            if(element.ctc_for_ug)
+                salary = salary + "UG: ₹" + element.ctc_for_ug;
+            if(element.ctc_for_pg)
+                salary = salary + " PG: ₹" + element.ctc_for_pg;
 
             html += `
                 <tr>
                             
-                    <td>${index+1}</td>
+                    <td>${element.sno ? element.sno : ""}</td>
                     <td>${element.drive_name}</td>
+                    <td>${depts}</td>
+                    <td>${element.date_of_visiting?.split('T')[0]}</td>
+                    <td>${element.total ? element.total : ""}</td>
+                    <td>${element.branch}</td>
+                    <td>${element.branch_count}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -306,13 +377,8 @@ export class ReportsComponent {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>${element.total ? element.total : ""}</td>
+                    <td>${salary}</td>
                 
                 </tr>
             `
