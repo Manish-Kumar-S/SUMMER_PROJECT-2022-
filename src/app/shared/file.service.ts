@@ -68,13 +68,16 @@ export class FileService {
 
     constructor() { }
 
-    generatePDFfromHTML(htmlString: string, options: { pageSize: string, pageOrientation: 'landscape' | 'portrait' } = { pageSize: 'A4', pageOrientation: 'portrait' }) {
+    generatePDFfromHTML(htmlString: string, options: { pageSize?: string, pageOrientation?: 'landscape' | 'portrait',  } = { pageSize: 'A4', pageOrientation: 'portrait' }) {
 
         var html = htmlToPdfmake(htmlString);
 
         const { pageSize, pageOrientation } = options;
 
-        const documentDefinition: { content: string, pageSize: {width: number, height: number}, pageOrientation: 'landscape' | 'portrait'} = { content: html, pageSize: {width: STANDARD_PAGE_SIZES[pageSize][0], height: STANDARD_PAGE_SIZES[pageSize][1]}, pageOrientation };
+        const documentDefinition: { content: string, pageSize: {width: number, height: number}, pageOrientation: 'landscape' | 'portrait', defaultStyle: {margin: [number, number, number, number]}} = { content: html, pageSize: {width: STANDARD_PAGE_SIZES[pageSize][0], height: STANDARD_PAGE_SIZES[pageSize][1]}, pageOrientation, defaultStyle: {
+
+			margin: [1, 1, 1, 1],
+		} };
         
         const pdf = pdfMake.createPdf(documentDefinition); 
 

@@ -11,6 +11,9 @@ import { CompanyModule } from '../company/company.module';
 import { ReportsComponent } from './reports/reports.component';
 import { RegisterAdminDialog, UserManagementComponent } from './user-management/user-management.component';
 import { ModifyColumnsComponent } from './modify-columns/modify-columns.component';
+import { StudentModule } from '../student/student.module';
+import { CompanyApprovalComponent, ConfirmApprovalDialog } from './company-approval/company-approval.component';
+import { StudentTableComponent } from './students-table/student-table.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { ModifyColumnsComponent } from './modify-columns/modify-columns.componen
     UserManagementComponent,
     RegisterAdminDialog,
     ReportsComponent,
-    ModifyColumnsComponent
+    ModifyColumnsComponent,
+    CompanyApprovalComponent,
+    ConfirmApprovalDialog,
+    StudentTableComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +35,7 @@ import { ModifyColumnsComponent } from './modify-columns/modify-columns.componen
     FlexLayoutModule,
     ReactiveFormsModule,
     CompanyModule,
-  ]
+    StudentModule
+  ],
 })
 export class AdminModule { }

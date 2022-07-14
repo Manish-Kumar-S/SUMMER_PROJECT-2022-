@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/company/company.service';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { StudentModel } from 'src/app/shared/models/student/student.model';
+import { VisualFeedbackService } from 'src/app/shared/visual-feedback/visual-feedback.service';
+import { StudentService } from 'src/app/student/student.service';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -56,14 +59,49 @@ export class RegisterAdminDialog {
 })
 export class UserManagementComponent implements OnInit {
 
-    constructor(private adminService: AdminService, private authService: AuthService, private dialog: MatDialog) {
+    studentList: StudentModel[];
 
+    constructor(private dialog: MatDialog, private adminService: AdminService, private vis: VisualFeedbackService) {
     }
 
     ngOnInit(): void {
 
-        
+        this.setDatasource();
+    }
 
+    setDatasource() {
+
+        this.adminService.getStudents()
+            .subscribe(
+                (data) => {
+                    this.studentList = (data as StudentModel[]).sort((a, b) => a.reg_number - b.reg_number);
+                    console.log(this.studentList);
+                }
+            );
+    }
+
+    changePr(reg: number) {
+
+        const student = this.studentList.find(s => s.reg_number === reg);
+
+        this.studentList = null;
+
+        this.adminService.changePrStatus([reg], !student.is_placement_representative).subscribe(() => {
+
+            this.vis.snackBar('Placement representative status changed successfully');
+            this.setDatasource();
+        })   
+    }
+
+    btnText(reg: number) {
+
+        if(!reg) return;
+
+        const student = this.studentList.find(s => s.reg_number === reg);
+
+        if(!student) return null;
+
+        return !student.is_placement_representative ? "Assign PR" : "Remove PR";
     }
 
     openDialog() {

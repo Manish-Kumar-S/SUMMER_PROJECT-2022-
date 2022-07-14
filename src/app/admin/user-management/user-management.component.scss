@@ -31,6 +31,17 @@
   }
 }
 
+.btn {
+  background: $primary-color;
+  color: white;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  &:disabled {
+      background: gainsboro;
+      cursor: not-allowed;
+  }
+}
+
 
 .container-wrap {
   display: flex;

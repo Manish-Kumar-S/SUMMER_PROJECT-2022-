@@ -51,7 +51,7 @@ export const currentRoundOptions = {
 }
 
 export enum CompanyStatusOptions {
-
+    
     ONGOING=0,
     COMPLETED=1,
     DEFERRED=2,

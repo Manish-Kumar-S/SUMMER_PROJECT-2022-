@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { currentRoundOptions, PlacementStatusOptions, placementStatusOptions } from "src/app/student/student.resources";
@@ -18,9 +18,27 @@ export class ChangePlacementStatusComponent {
 
     selectEnable = true;
 
+    admin = false;
+
+    constructor(@Inject(MAT_DIALOG_DATA) data: {studentList: StudentPlacementStatus[], admin?: boolean}, private dialogRef: MatDialogRef<ChangePlacementStatusComponent>) {
+
+        this.statusForm = new FormGroup({
+            current_round: new FormControl(data.studentList[0].current_round_number, Validators.required),
+            status: new FormControl(data.studentList[0].status_number, Validators.required),
+            reject_others: new FormControl(true),
+        });
+
+        this.admin = data.admin;
+
+        this.statuses = this.admin ? [0,1,2,3,4,5,6] : [0,1,2,3,4,5];
+        
+        this.selectEnabled();
+        this.statusForm.get('status').valueChanges.subscribe(() => this.selectEnable = this.selectEnabled());
+    }
+
     selectEnabled(): boolean {
 
-        if(this.statusForm.get('status').value === PlacementStatusOptions.AWAITED || this.statusForm.get('status').value === PlacementStatusOptions.REJECTED) {
+        if(this.statusForm.get('status').value === PlacementStatusOptions.AWAITED) {
 
             this.statusForm.get('current_round').enable();
             return true;
@@ -29,19 +47,6 @@ export class ChangePlacementStatusComponent {
         this.statusForm.get('current_round').disable();
 
         return false;
-    }
-
-    constructor(@Inject(MAT_DIALOG_DATA) data: {studentList: StudentPlacementStatus[]}, private dialogRef: MatDialogRef<ChangePlacementStatusComponent>) {
-
-        
-        this.statusForm = new FormGroup({
-            current_round: new FormControl(data.studentList[0].current_round_number, Validators.required),
-            status: new FormControl(data.studentList[0].status_number, Validators.required),
-            reject_others: new FormControl(true)
-        });
-        
-        this.selectEnabled();
-        this.statusForm.get('status').valueChanges.subscribe(() => this.selectEnable = this.selectEnabled());
     }
 
     getPlacementStatus(status: number) {
@@ -55,6 +60,7 @@ export class ChangePlacementStatusComponent {
     }
 
     onSubmit() {
+
         const form: FormData = new FormData();
 
         let current_round = this.statusForm.get('current_round').value;
@@ -67,6 +73,11 @@ export class ChangePlacementStatusComponent {
         form.append('current_round', current_round);
         form.append('status', this.statusForm.value['status']);
 
-        this.dialogRef.close({form: form, reject_others: this.statusForm.get('reject_others').value});
+        const DATA = {
+                form,
+                reject_others: this.statusForm.get('reject_others').value,
+        }
+
+        this.dialogRef.close(DATA);
     }
 }

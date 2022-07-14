@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit, OnDestroy {
             path: './home',
             icon: 'fa-home',
             name: 'Home',
-            show: true,
+            show: false,
         },
         {
             path: './modify-drive',
@@ -44,12 +44,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             path: './user-management',
             icon: 'fa-users',
             name: 'User Management',
-            show: true,
-        },
-        {
-            path: './upcoming-companies',
-            icon: 'fa-user-friends',
-            name: 'PR Management',
             show: true,
         },
     ]

@@ -1,0 +1,45 @@
+@import "/src/app/shared/scss/main.scss";
+
+@media only screen and (max-width: 630px) {
+    .mat-column-approve {
+        border-left: solid 0.5px rgb(189, 189, 189);
+        padding: 15px;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-size: 1.02em;
+}
+
+td {
+    font-size: 1em;
+}
+
+.btn {
+    background: $primary-color;
+    color: white;
+    margin-top: 1em;
+    &:disabled {
+        background: gainsboro;
+        cursor: not-allowed;
+    }
+}
+
+mat-row:hover {
+    background-color: rgb(219, 219, 219);
+    cursor: pointer;
+}
+
+.mat-form-field-wrapper, .mat-form-field {
+    overflow-y: auto !important;
+    max-height: 300px !important;
+}
+
+mat-table {
+
+    min-width: 1200px !important;
+}

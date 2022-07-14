@@ -29,6 +29,63 @@ export class AdminService {
   // Admin
   ////////////
 
+  /**
+   * 
+   * @param register_no_list List of register numbers of students to be modfied
+   * @param is_pr new pr status of the students
+   * @desc Modifies the PR status of the students
+   */
+  changePrStatus(register_no_list: number[], is_pr: boolean) {
+
+    const req = new FormData();
+
+    req.append('register_no_list', register_no_list.toString());
+    req.append('is_pr', is_pr ? 'true' : 'false');
+
+    return this.http
+        .post<any>(`${API}/pr/assignpr`, req)
+        .pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+
+        );
+  }
+
+  /**
+   * Request Type: GET
+   * @returns List of all Students
+   */
+  getStudents() {
+      
+      return this.http
+          .get<any>(`${API}/admin/viewstudents`)
+          .pipe(
+  
+              this.visualFeedbackService.standardApiErrorHandling(),
+      
+              map((res) => res.students)
+              
+          );
+  }
+
+  /**
+   * Request Type: GET
+   * @desc
+   * Approves the given drive
+   * */
+  approveDrive(driveId: number) {
+
+    return this.http
+        .put<any>(`${API}/admin/approvedrive?drive_id=${driveId}`, {})
+        .pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+    
+            map((res) => res.report)
+            
+        );
+  }
+
   /** 
    * Request Type: GET
    * @returns List of all Companies
@@ -67,7 +124,23 @@ export class AdminService {
    * */
    getBranchWisePlacementStatistics(query: string) {
     return this.http
-        .get<any>(`${API}/admin/placementstatistics?campus=${query}`)
+        .get<any>(`${API}/admin/branchwiseplacementstatistics?campus=${query}`)
+        .pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+    
+            map((res) => res.report)
+            
+        );
+  }
+
+  /** 
+   * Request Type: GET
+   * @returns Placement Statistics Company wise
+   * */
+   getCompanyWisePlacementStatistics() {
+    return this.http
+        .get<any>(`${API}/admin/companywiseplacementstatistics`)
         .pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),

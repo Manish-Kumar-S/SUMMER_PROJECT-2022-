@@ -1,0 +1,79 @@
+<div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
+
+    <div style="overflow-x: auto;">
+
+        <mat-table [dataSource]="dataSource">
+    
+            <ng-container matColumnDef="sno">
+                <mat-header-cell *matHeaderCellDef> 
+                    No.
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.sno}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> 
+                    Name 
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="reg_no">
+                <mat-header-cell *matHeaderCellDef> 
+                    Registration Number 
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.reg_no}} </mat-cell>
+            </ng-container>
+    
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> 
+                    Email
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef> 
+                    Phone
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="campus">
+                <mat-header-cell *matHeaderCellDef> 
+                    Campus
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.campus}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="gender">
+                <mat-header-cell *matHeaderCellDef> 
+                    Gender
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.gender}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="placed_status">
+                <mat-header-cell *matHeaderCellDef> 
+                    Placed Status
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.placed_status}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="is_pr">
+                <mat-header-cell *matHeaderCellDef> 
+                    Placement Representative 
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.is_pr}} </mat-cell>
+            </ng-container>
+    
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-mat-row" (click)="changePr(row)"></mat-row>
+        </mat-table>
+
+    </div>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
+
+</div>

@@ -12,7 +12,7 @@
   <div class="auth-wrap">
     <div class="img"></div>
     <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Login">
+      <mat-tab [label]="isAdmin ? 'Admin Login' : 'Login'">
         <form [formGroup]="loginForm">
           <div class="msg error" *ngIf="loginError">{{ loginError }}</div>
           <mat-form-field class="form-field">

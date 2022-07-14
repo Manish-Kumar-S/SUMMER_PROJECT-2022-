@@ -1,12 +1,13 @@
+
 <div style="margin-top: 10px;">
 
-    <div *ngIf="!!studentList && studentList.length === 0" style="width: 100%; height: 30vh; border:dashed grey; opacity: 0.6; position: relative;">
+    <div *ngIf="!!driveList && driveList.length === 0" style="width: 100%; height: 30vh; border:dashed grey; opacity: 0.6; position: relative;">
     
         <div style="width: 100%; text-align: center; vertical-align:bottom; position: absolute; top: 50%; font-size:large">All approved</div>
     
     </div>
     
-    <div *ngIf="!!studentList && studentList.length !== 0">
+    <div *ngIf="!!driveList && driveList.length !== 0">
 
         <div style="border:0.6px solid rgba(128, 128, 128, 0.418);">
 
@@ -25,7 +26,7 @@
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
                         <mat-header-cell *matHeaderCellDef> 
-                            Name 
+                            Drive Name 
                             <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'name', type: 'string'}">
                                 <mat-icon *ngIf="filters.name.filters.length === 0">filter_list</mat-icon>
                                 <mat-icon *ngIf="filters.name.filters.length > 0">filter_alt</mat-icon>
@@ -35,35 +36,19 @@
                     </ng-container>
             
                     <!-- Registration No. Column -->
-                    <ng-container matColumnDef="reg_no">
+                    <ng-container matColumnDef="company_name">
                         <mat-header-cell *matHeaderCellDef> 
-                            Registration Number 
-                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'reg_no', type: 'number'}">
-                                <mat-icon *ngIf="filters.reg_no.filters.length === 0">filter_list</mat-icon>
-                                <mat-icon *ngIf="filters.reg_no.filters.length > 0">filter_alt</mat-icon>
+                            Company Name
+                            <button mat-icon-button [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: 'company_name', type: 'string'}">
+                                <mat-icon *ngIf="filters.company_name.filters.length === 0">filter_list</mat-icon>
+                                <mat-icon *ngIf="filters.company_name.filters.length > 0">filter_alt</mat-icon>
                             </button> 
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.reg_no}} </mat-cell>
-                    </ng-container>
-            
-                    <!-- Checkbox Column -->
-                    <ng-container matColumnDef="approve" stickyEnd>
-                        <mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox [color]="'primary'" (change)="$event ? masterToggle() : null"
-                                [checked]="selection.hasValue() && isAllSelected()"
-                                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                            </mat-checkbox>
-                            ({{ selectedNumber }})
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                            <mat-checkbox [color]="'primary'" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                            </mat-checkbox>
-                        </mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.company_name}} </mat-cell>
                     </ng-container>
             
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-mat-row" (click)="detailedView(row)"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-mat-row" (click)="approveDrive(row)"></mat-row>
                 </mat-table>
         
             </div>

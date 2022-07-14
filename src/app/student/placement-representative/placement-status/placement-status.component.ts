@@ -43,6 +43,8 @@ interface StudentPlacementStatusFilters {
 })
 export class PlacementStatusComponent implements OnInit {
 
+    @Input() admin?: boolean = false;
+
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
     displayedColumns = ['serial_number' ,'name', 'reg_number', 'drive_name', 'company_name', 'current_round', 'status', 'select'];
@@ -258,7 +260,8 @@ export class PlacementStatusComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ChangePlacementStatusComponent, {
             data: {
-                studentList: this.selection.selected
+                studentList: this.selection.selected,
+                admin: this.admin
             }
         });
 
@@ -294,7 +297,7 @@ export class PlacementStatusComponent implements OnInit {
 
                 return forkJoin([
                     this.studentService.changePlacementStatus(result),
-                    remainingStudents.length === 0 || !reject_others ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus)
+                    remainingStudents.length === 0 || !reject_others ? of(null) : this.studentService.changePlacementStatus(remainingStudentStatus),
                 ])
 
             })

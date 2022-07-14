@@ -36,10 +36,10 @@ export class ModifyColumnsComponent implements OnInit {
       key: 2, value: 'Registration Number',
     },
     {
-      key: 3, value: 'Email',
+      key: 3, value: 'Gender',
     },
     {
-      key: 4, value: 'Gender',
+      key: 4, value: 'Email',
     },
     {
       key: 5, value: 'Phone',

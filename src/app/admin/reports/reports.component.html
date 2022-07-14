@@ -1,10 +1,15 @@
 <div class="student-container">
 
-    <div fxLayout="row">
+    <h1>Reports</h1>
 
-        <button (click)="generateReport('branch-wise-stat')">Branch Wise Placement Statistics</button>
-        <button (click)="generateReport('placement-schedule')">Placement Schedule</button>
-        <!-- <app-branch-wise-stat></app-branch-wise-stat> -->
-    </div>
+    <br>
+
+    <mat-list>
+        <mat-list-item (click)="generateReport(report.tag)" *ngFor="let report of reports">
+          <mat-icon mat-list-icon>insights</mat-icon>
+          <div mat-line>{{report.name}}</div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
 
 </div>

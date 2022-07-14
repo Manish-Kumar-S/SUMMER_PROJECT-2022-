@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, mergeMap } from 'rxjs/operators';
-import { API } from 'src/environments/environment';
 import { StudentModel } from '../../../shared/models/student/student.model';
 import { StudentService } from '../../student.service';
 import { StudentApprovalDetailsComponent } from './student-approval-details/student-approval-details.component';
@@ -88,7 +87,7 @@ export class PlacementRepresentativeApproval implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  constructor(private http: HttpClient, private dialog: MatDialog, private studentService: StudentService) { }
+  constructor(private dialog: MatDialog, private studentService: StudentService) { }
 
   ngOnInit(): void {
       

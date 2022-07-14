@@ -126,7 +126,7 @@
     
 
         <button [disabled]="selectedNumber === 0 || changingStatus" mat-raised-button class="btn" (click)="openStatusDialog()"> 
-            <div *ngIf="!changingStatus">Approve</div>
+            <div *ngIf="!changingStatus">Change Status</div>
             <div *ngIf="changingStatus">
                 <i class="fas fa-spinner fa-spin"></i>
             </div>
