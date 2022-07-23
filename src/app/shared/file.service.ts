@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Workbook } from "exceljs";
-import * as fs from 'file-saver';
+
+import * as XLSX from 'xlsx';
+
 declare var require: any;
 
 import * as pdfMake from "pdfmake/build/pdfmake";
@@ -85,22 +86,31 @@ export class FileService {
     }
 
     generateExcel(data: any[][], title: string, sheetName: string) {
-        
-        // Use this if you want seperate styles for headers and rows
-        // const headers: string[] = data[0];
 
-        // const rows = data.slice(1);
+		let json = [];
 
-        const workbook = new Workbook();
+		for(let i=1; i<data.length; i++) {
 
-        const worksheet = workbook.addWorksheet(title);
+			let t = {};
 
-        worksheet.addRows(data);
+			for(let j=0; j<data[i].length; j++) {
 
-        workbook.xlsx.writeBuffer().then((data) => {
-            let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            fs.saveAs(blob, sheetName + '.xlsx');
-        });
-        
+				t[data[0][j]] = data[i][j];
+			}
+
+			json.push(t);
+		}
+
+		console.log(json);
+
+		// let element = document.getElementById('excel-table');
+		const ws: XLSX.WorkSheet =XLSX.utils.json_to_sheet(json);
+	
+		/* generate workbook and add the worksheet */
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, sheetName);
+	
+		// /* save to file */  
+		XLSX.writeFile(wb, `${title}.xlsx`);
     }
 }
