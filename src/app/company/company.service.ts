@@ -21,13 +21,24 @@ export class CompanyService {
      * @returns All the drives
      */
     getAllDrives() {
-
+        
         return this.http.get(`${API}/get/alldrives`).pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),
 
         );
     }
+
+    getAllDrivesschedule(startdate:Date) {
+        const req=new FormData();
+        req.append('sdate', startdate.toString());
+        return this.http.post(`${API}/get/alldrivesschedule`,req).pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+
+        );
+    }
+
 
     /** 
    * Request Type: GET
@@ -100,7 +111,7 @@ export class CompanyService {
      * @returns Uploads the drive details to the database
      * */
     uploadDrive(req: FormData) {
-
+        console.log("reqest is sending")
         return this.http.post(`${API}/company/drive`, req).pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),

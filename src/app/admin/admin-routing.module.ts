@@ -4,7 +4,7 @@ import { AdminComponent } from './admin.component';
 import { ModifyDriveComponent } from './modify-drive/modify.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-
+import { ScheduleComponent } from './schedule/schedule.component';
 const routes: Routes = [
   {
     path: '',
@@ -29,6 +29,11 @@ const routes: Routes = [
         path: 'reports',
         component: ReportsComponent,
         data: { title: 'CUIC | Reports' },
+      },
+      {
+        path: 'schedule',
+        component: ScheduleComponent,
+        data: { title: 'CUIC | schedule' },
       }
     ]
   },

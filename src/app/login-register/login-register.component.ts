@@ -309,6 +309,17 @@ export class LoginRegisterComponent implements OnInit {
     const form = new FormData();
     form.append('email', this.registerForm.get('email').value);
     form.append('password', this.registerForm.get('password').value);
+    let role:number;
+    if(this.router.url == "/login/student")
+    {
+      role = 1;
+    }
+    if(this.router.url == "/login/company")
+    {
+      role = 2;
+    }
+    console.log(role);
+    form.append('role', role.toString());
     this.authService.registerUser(form)
       .subscribe(
         (data) => {

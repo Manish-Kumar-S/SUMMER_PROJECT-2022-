@@ -176,17 +176,19 @@ export class CompanyApprovalComponent implements OnInit, AfterViewInit {
             finalize(() => {
 
                 this._approving = false;
-                this.visualFeedback.snackBar("Drive approved successfully");
+                // this.visualFeedback.snackBar("Drive approved successfully");
             }) 
 
         ).subscribe(() => {
     
             this.setDatasource();
+            this.visualFeedback.snackBar("Drive approved successfully");
 
         }
         , (error) => {
     
             console.log(error);
+            this.visualFeedback.snackBar(error);
         }
         );
     })
