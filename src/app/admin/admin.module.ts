@@ -14,7 +14,10 @@ import { ModifyColumnsComponent } from './modify-columns/modify-columns.componen
 import { StudentModule } from '../student/student.module';
 import { CompanyApprovalComponent, ConfirmApprovalDialog } from './company-approval/company-approval.component';
 import { StudentTableComponent } from './students-table/student-table.component';
-
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DriveDoneStatusComponent } from './schedule/drive-done-status/drive-done-status.component';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { StudentTableComponent } from './students-table/student-table.component'
     ModifyColumnsComponent,
     CompanyApprovalComponent,
     ConfirmApprovalDialog,
-    StudentTableComponent
+    StudentTableComponent,
+    ScheduleComponent,
+    DriveDoneStatusComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +40,9 @@ import { StudentTableComponent } from './students-table/student-table.component'
     FlexLayoutModule,
     ReactiveFormsModule,
     CompanyModule,
-    StudentModule
+    StudentModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class AdminModule { }

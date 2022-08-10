@@ -244,18 +244,19 @@ export class CampusDriveComponent implements OnInit {
   }
 
   OnSubmit() {
-
+    console.log("this form is submiteeed")
     if(this.form.invalid || this.form.pristine){
       this.valid = true;
-      console.log("Helloo thisss")
-      
+      console.log("inside valid part")
       return;
     }
-
+    console.log("before valid")
     this.valid = false;
 
     this.updateLoading = true;
+    console.log("after uploading")
     const req = new FormData();
+    console.log("this form is seddd")
     // req.append('compa', '1')
     req.append('drive_name', this.form.get('drive_name').value)
     // req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
@@ -358,7 +359,7 @@ export class CampusDriveComponent implements OnInit {
           this.openDialog();
         }
       },
-      (err) => console.log(err)
+      (err) => console.log('error due to uploading data',err)
     );
   }
 

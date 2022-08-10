@@ -50,6 +50,17 @@ export class AdminService {
 
         );
   }
+  changecompanydrivestatus(driveids:number[]){
+    const req=new FormData();
+    req.append('driveids', driveids.toString());
+    console.log("converting : ",driveids.toString(),req)
+    return this.http
+    .post<any>(`${API}/admin/drivestatus`, req)
+    .pipe(
+        this.visualFeedbackService.standardApiErrorHandling(),
+
+    );
+  }
 
   /**
    * Request Type: GET
@@ -80,7 +91,6 @@ export class AdminService {
         .pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),
-    
             map((res) => res.report)
             
         );
@@ -148,6 +158,14 @@ export class AdminService {
             map((res) => res.report)
             
         );
+  }
+
+  getunfinisheddrive(){
+    console.log("Calling unfinished drive!")
+    return this.http.get<any>(`${API}/admin/unfinisheddrive`).pipe(
+        this.visualFeedbackService.standardApiErrorHandling(),
+            map((res) => res.companies)
+    )
   }
 
   /** 

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 import * as XLSX from 'xlsx';
 
 declare var require: any;
@@ -85,32 +86,88 @@ export class FileService {
         pdf.open();    
     }
 
-    generateExcel(data: any[][], title: string, sheetName: string) {
+    // generateExcel(datas: any[][], title: string, sheetName: string) {
 
-		let json = [];
+	// 	let json = [];
+		
+		
+	// 	for(let i=1; i<datas.length; i++) {
 
-		for(let i=1; i<data.length; i++) {
+	// 		let t = {};
 
-			let t = {};
+	// 		for(let j=0; j<datas[i].length; j++) {
 
-			for(let j=0; j<data[i].length; j++) {
+	// 			t[datas[0][j]] = datas[i][j];
+	// 		}
 
-				t[data[0][j]] = data[i][j];
+	// 		json.push(t);
+	// 	}
+
+	// 	console.log(json);
+
+	// 	// let element = document.getElementById('excel-table');
+	// 	const ws: XLSX.WorkSheet =XLSX.utils.json_to_sheet(json);
+	// 	const titleofsheet = 'Anna University,Chennai';
+	// 	let titleRow = ws.addRow([titleofsheet]); 
+	// 	titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true };
+	// 	ws.addRow([]);
+	
+	// 	/* generate workbook and add the worksheet */
+	// 	const wb: XLSX.WorkBook = XLSX.utils.book_new();
+	// 	XLSX.utils.book_append_sheet(wb, ws, sheetName);
+	
+	// 	// /* save to file */  
+	// 	XLSX.writeFile(wb, `${title}.xlsx`);
+    // }
+	generateExcel(datas: any[][], title: string, sheetName: string) {
+		let workbook = new Workbook()
+		let worksheet = workbook.addWorksheet(sheetName)
+		let titleRow=worksheet.addRow([title])
+		titleRow.font = { name: 'Malgun Gothic', family: 4, size: 16, bold: true };
+		titleRow=worksheet.addRow(['CENTRE FOR UNIVERSITY - INDUSTRIAL COLLABORATION'])
+		titleRow.font = { name: 'Malgun Gothic', family: 4, size: 16,  bold: true };
+		titleRow=worksheet.addRow(['TENTATIVE CAMPUS PLACEMENT SCHEDULE'])
+		titleRow.font = { name: 'Malgun Gothic', family: 4, size: 16, bold: true };
+
+		worksheet.addRow([]);
+		let header=["SI NO","Company Name","Branches Considered","Elgibility Criteria","Annual CTC in Lakh(LPA)","Sequence of Selection","Banking and delinking amount","Job Role","Dates Allotted","Status"]
+		let headerRow =worksheet.addRow(header)
+		headerRow.eachCell((cell, number) => {
+			cell.fill = {
+			  type: 'pattern',
+			  pattern: 'solid',
+			  fgColor: { argb: 'FFFFFF00' },
+			  bgColor: { argb: 'FF0000FF' }
 			}
-
-			json.push(t);
-		}
-
-		console.log(json);
-
-		// let element = document.getElementById('excel-table');
-		const ws: XLSX.WorkSheet =XLSX.utils.json_to_sheet(json);
-	
-		/* generate workbook and add the worksheet */
-		const wb: XLSX.WorkBook = XLSX.utils.book_new();
-		XLSX.utils.book_append_sheet(wb, ws, sheetName);
-	
-		// /* save to file */  
-		XLSX.writeFile(wb, `${title}.xlsx`);
-    }
+			cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+			cell.alignment = { wrapText: true ,vertical:'middle',horizontal:'left'}
+			
+		  });
+		  headerRow.font={bold:true}
+		  headerRow.alignment={vertical:'middle',horizontal:'center'}
+		  datas.forEach(d=>{
+			let row=worksheet.addRow(d)
+			row.eachCell((cell,number)=>{
+				cell.alignment = { wrapText: true ,vertical:'middle',horizontal:'left'}
+			})
+		  })
+		  worksheet.columns.forEach(function (column, i) {
+			if(i!==0)
+			{
+				var maxLength = 0;
+				column["eachCell"]({ includeEmpty: true }, function (cell) {
+					var columnLength = cell.value ? cell.value.toString().length : 10;
+					if (columnLength > maxLength ) {
+						maxLength = columnLength;
+					}
+				});
+				column.width = maxLength < 15 ? 15 : maxLength;
+			}
+		});
+		
+		workbook.xlsx.writeBuffer().then((data) => {
+			let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+			fs.saveAs(blob, 'schedule.xlsx');
+	  });
+	}
 }

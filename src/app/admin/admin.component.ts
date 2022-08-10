@@ -46,6 +46,12 @@ export class AdminComponent implements OnInit, OnDestroy {
             name: 'User Management',
             show: true,
         },
+        {
+          path: './schedule',
+          icon: 'fa-edit',
+          name: 'Tentative Placement Schedule',
+          show: true,
+      },
     ]
   }
 
