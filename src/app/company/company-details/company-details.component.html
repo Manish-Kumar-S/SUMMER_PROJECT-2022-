@@ -22,16 +22,36 @@
           <i class="fas fa-mobile-alt"></i>
           <p>+91 {{ company.phone }}</p>
         </div>
+      </div>
+
+      <div class="details">
+          <i class="far fa-building"></i>
+          <p>{{ company.head_office_address }}</p>
+        </div>
         <div class="details">
           <i class="far fa-building"></i>
-          <p>{{ company.address }}</p>
+          <p>{{ company.branch_office_address }}</p>
         </div>
-      </div>
+
+     
+
     </div>
     <div class="box">
       <h3>Company Information</h3>
       <div class="additional-details">
         <div class="grid c-2 equal">
+
+          <!-- 
+          <div class="details col">
+            <h3>Designation</h3>
+            <p class="outline">{{ company.turn_over }}</p>
+          </div>
+          <div class="details col">
+            <h3>About Company</h3>
+            <p class="outline">{{ company.type_of_hiring }}</p>
+          </div>
+-->
+
           <div class="details col">
             <h3>Ambassador Name</h3>
             <p class="outline">{{ company.ambassador_name }}</p>
@@ -45,6 +65,13 @@
             <p class="outline">{{ company.details_of_office }}</p>
           </div>
         </div>
+
+        <div class="details col">
+          <h3>Annual turn-over</h3>
+          <p class="outline">{{ company.annual_turnover }}</p>
+        </div>
+
+
       </div>
     </div>
   </div>

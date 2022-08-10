@@ -36,25 +36,39 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-  
-        <mat-form-field appearance="outline" fxFlex>
-          <mat-label>Employment Type</mat-label>
-          <mat-select required (selectionChange)="setEmploymentType($event)" formControlName="employment_type">
-            <mat-option *ngFor="let e of employment_t" [value]="e.id">{{
-              e.name
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+
+        <!-- Change here -->
   
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>Years Eligible</mat-label>
-          <mat-select required formControlName="year_batch_eligible">
-            <mat-option [value]="year - 1"
-              >Pre-Final Years (3rd Year)</mat-option
-            >
-            <mat-option [value]="year">Final Years (4th Year)</mat-option>
+          <mat-select required (selectionChange)="setEmploymentOption($event)" formControlName="year_batch_eligible">
+            <mat-option [value]="c.id" *ngFor="let c of employ">
+              >{{c.name}}
+            </mat-option>
+
           </mat-select>
         </mat-form-field>
+  
+        <mat-form-field appearance="outline" fxFlex>
+
+          <mat-label>Employment Type</mat-label>
+
+          <mat-select required (selectionChange)="setEmploymentType($event)" formControlName="employment_type">
+
+            <mat-option [fxShow]="fullOption" *ngFor="let e of employment_t" [value]="e.id">{{
+              e.name
+            }}</mat-option>
+
+
+              <mat-option [fxShow]="internOption" *ngFor="let em of employment_intern" [value]="em.id">{{
+                em.name
+              }}</mat-option>
+
+          </mat-select>
+
+        </mat-form-field>
+
+        
       </div>
   
       <h3>Interview/Shortlist Process</h3>
@@ -90,42 +104,56 @@
         </div>
   
         <div fxLayout="column" [fxFlex]="isTabView ? '50%' : '60%'">
-          <div [fxLayout]="isTabView ? 'row wrap' : isMobileView ? 'column' : 'row'" fxLayoutGap="2px">
-            <mat-form-field [fxShow]="isAdmin" appearance="outline" fxFlex>
-              <mat-label>Date of Visiting</mat-label>
-              <input
-                matInput
-                type="date"
-                placeholder="start date"
-                required
-                formControlName="date_of_visiting"
-              />
-              <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
-            </mat-form-field>
-            <mat-form-field [fxShow]="isAdmin" appearance="outline" fxFlex>
-              <mat-label>Pre-Placement Talk Schedule</mat-label>
-              <input
-                matInput
-                type="datetime-local"
-                placeholder="start date"
-                required
-                formControlName="ppt_session"
-              />
-              <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
-            </mat-form-field>
-          </div>
+          <!-- <div [fxLayout]="isTabView ? 'row wrap' : isMobileView ? 'column' : 'row'" fxLayoutGap="2px" *ngif = "isAdmin ; then admin_form_input_1"></div> -->
+            <ng-template #admin_form_input_1>
+              <mat-form-field  appearance="outline" fxFlex>
+                <mat-label>Date of Visiting</mat-label>
+                <input
+                  matInput
+                  type="date"
+                  placeholder="start date"
+                  required
+                  formControlName="date_of_visiting"
+                />
+                <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Pre-Placement Talk Schedule</mat-label>
+                <input
+                  matInput
+                  type="datetime-local"
+                  placeholder="start date"
+                  required
+                  formControlName="ppt_session"
+                />
+                <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
+              </mat-form-field>
+            </ng-template>
+            
+          
           <div [fxLayout]="isTabView ? 'row wrap' : isMobileView ? 'column' : 'row wrap'" fxLayoutGap="2px">
-            <mat-form-field [fxShow]="isAdmin" appearance="outline" fxFlex="49%">
-              <mat-label>First Assesment Schedule</mat-label>
-              <input
-                matInput
-                type="datetime-local"
-                placeholder="start date"
-                required
-                formControlName="date_time_of_test"
-              />
-              <mat-hint>Date of the 1st Assesment</mat-hint>
-            </mat-form-field>
+            <ng-template ngif = "isAdmin; then admin_form_input_2">
+              
+                <ng-template #admin_form_input_2>
+                  <mat-form-field  appearance="outline" fxFlex="49%" >
+                  <mat-label>First Assesment Schedule</mat-label>
+                  <input
+                    matInput
+                    type="datetime-local"
+                    placeholder="start date"
+                    required
+                    formControlName="date_time_of_test"
+                  />
+                  <mat-hint>Date of the 1st Assesment</mat-hint>
+                </mat-form-field>
+                </ng-template>
+            </ng-template>
+            
+              
+
+            
+            
+           
             <mat-form-field appearance="outline" fxFlex="49%">
               <mat-label>Preferred Schedule</mat-label>
               <input
@@ -133,37 +161,54 @@
                 type="date"
                 placeholder="start date"
                 required
-                formControlName="date_of_visiting"
-              />
+                formControlName="date_of_visiting" />
               <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
-            </mat-form-field>
-            <mat-form-field [fxShow]="isAdmin" appearance="outline" fxFlex="49%">
-              <mat-label>Interview Schedule</mat-label>
-              <input
-                matInput
-                type="datetime-local"
-                placeholder="start date"
-                required
-                formControlName="date_time_of_interview"
-              />
-              <mat-hint>Date for the First Interview Round</mat-hint>
-            </mat-form-field>
+             </mat-form-field>
+
+            
+             <ng-template *ngif = "isAdmin; then admin_form_input_3">
+              <ng-template #admin_form_input_3>
+                <mat-form-field appearance="outline" fxFlex="49%" >
+                <mat-label>Interview Schedule</mat-label>
+                <input
+                  matInput
+                  type="datetime-local"
+                  placeholder="start date"
+                  required
+                  formControlName="date_time_of_interview"
+                />
+                <mat-hint>Date for the First Interview Round</mat-hint>
+              </mat-form-field>
+              </ng-template>
+
+             </ng-template>
+            
+            
+              
             <mat-form-field appearance="outline" fxFlex="49%">
               <mat-label>Duration of Test</mat-label>
               <input
-                type="number"
+                type="number" min=0
                 matInput
                 placeholder="Hours"
                 formControlName="duration_of_test"
               />
               <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
+
+            <div fxLayout="row wrap">
+              <span>If you are considering IT and non IT branches, are you willing to have two different recruitment dates, viz., one for IT job profile and the other for Non-IT ( Core job profile ) ?</span>
+            <mat-checkbox value="1" formControlName="different_recruitment_dates" (change)="setDifferentRecruitmentDates($event)"
+              >Yes</mat-checkbox><br>
+            </div>
+
           </div>
+          
           <div fxLayout="row wrap" fxFlex fxLayoutGap="2px">
             <mat-form-field appearance="outline" fxFlex="49%">
               <mat-label>Approx no of Vacancies - UG</mat-label>
               <input
-                type="number"
+                type="number" min=0
                 matInput
                 placeholder="Count"
                 formControlName="ug_vacancies"
@@ -174,7 +219,7 @@
             <mat-form-field appearance="outline" fxFlex="49%">
               <mat-label>Approx no of Vacancies - PG</mat-label>
               <input
-                type="number"
+                type="number" min=0
                 matInput
                 placeholder="Count"
                 formControlName="pg_vacancies"
@@ -202,74 +247,95 @@
       <H3>Compensation Details</H3>
       <br />
   
-      <div fxLayout="row wrap" fxFlex fxLayoutGap="5px">
-        <div [fxShow]="fte" fxLayout="column" fxFlex>
-          <h4>FTE Compensation</h4>
+      <div fxLayout="col wrap" fxFlex fxLayoutGap="5px" >
+        <div [fxShow]="fte" fxLayout="column" fxFlex *ngIf="fte ; then placement_block"></div>
+        <ng-template #placement_block>
+          <h4>Placement - Compensation Details</h4>
           <div>
-            <mat-form-field appearance="outline" fxFlex floatLabel="always">
-              <mat-label>Salary Offered for UG</mat-label>
+            <mat-form-field appearance="outline" fxFlex required  > <!--  floatLabel="always">-->
+              <mat-label>Duration of Training / Probation</mat-label>
               <input
                 matInput
-                type="number"
+                type="string"
                 class="example-right-align"
                 placeholder="0"
                 required
-                formControlName="ctc_for_ug"
+                formControlName="duration_training_probation"
               />
-              <span matPrefix>₹&nbsp;</span>
-              <span matSuffix>CTC</span>
             </mat-form-field>
-          </div>
-  
-          <div>
-            <mat-form-field appearance="outline" fxFlex floatLabel="always">
-              <mat-label>Salary Offered for PG</mat-label>
+
+            <mat-form-field appearance="outline" fxFlex required  floatLabel="always">
+              <mat-label>Training / Probation - Monthly Salary</mat-label>
               <input
                 matInput
-                type="number"
+                type="number" min=0
                 class="example-right-align"
                 placeholder="0"
                 required
-                formControlName="ctc_for_pg"
+                formControlName="salary_training_probation"
               />
               <span matPrefix>₹&nbsp;</span>
-              <span matSuffix>CTC</span>
+            </mat-form-field>
+
+          </div>
+  
+          <div>
+            
+
+            <mat-form-field appearance="outline" fxFlex required > <!--  floatLabel="always">-->
+              <mat-label>Annual Salary</mat-label>
+              <input
+                matInput
+                type="number" min=0
+                class="example-right-align"
+                placeholder="0"
+                required
+                formControlName="annual_salary"
+              />
+              <span matPrefix>₹&nbsp;</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex required  floatLabel="always">
+              <mat-label>CTC</mat-label>
+              <input
+                matInput
+                type="number" min=0
+                class="example-right-align"
+                placeholder="0"
+                required
+                formControlName="ctc"
+              />
+              <span matPrefix>₹&nbsp;</span>
+              <span matSuffix>CTC&nbsp;</span>
             </mat-form-field>
           </div>
-        </div>
+        </ng-template>
+          
+
+        
   
-        <div [fxShow]="intern" fxLayout="column" fxFlex>
-          <h4>Intern Compensation</h4>
+        <div  fxLayout="column"  fxFlex *ngIf="intern ; then intern_block"></div>
+        <ng-template #intern_block>
+          <h4>Monthly Stipend - Intern</h4>
           <div>
-            <mat-form-field appearance="outline" fxFlex floatLabel="always">
+            <mat-form-field appearance="outline" fxFlex required> <!--  floatLabel="always">-->
               <mat-label>Stipend Offered for UG</mat-label>
               <input
                 matInput
-                type="number"
+                type="number" min=0
                 class="example-right-align"
                 placeholder="0"
-                formControlName="stipend_for_internship_for_ug"
+                formControlName="stipend_for_internship"
               />
               <span matPrefix>₹&nbsp;</span>
-              <span matSuffix>CTC</span>
+              
             </mat-form-field>
           </div>
+        </ng-template>
+          
   
-          <div>
-            <mat-form-field appearance="outline" fxFlex floatLabel="always">
-              <mat-label>Stipend Offered for PG</mat-label>
-              <input
-                matInput
-                type="number"
-                class="example-right-align"
-                placeholder="0"
-                formControlName="stipend_for_internship_for_pg"
-              />
-              <span matPrefix>₹&nbsp;</span>
-              <span matSuffix>CTC</span>
-            </mat-form-field>
-          </div>
-        </div>
+          
+        
         <div>
           <div>
             <mat-form-field appearance="outline" fxFlex>
@@ -281,31 +347,43 @@
               />
             </mat-form-field>
           </div>
+          
           <div>
-            <mat-label>Will Foreign Nationals be considered for this Campus Placement Drive?* </mat-label>
-            <mat-radio-group
-              aria-label="Will Foreign Nationals be considered for this Campus Placement Drive?*"
-              required
-              (change)="showFNDetails($event)"
-              formControlName="allow_foreign_nationals"
-            >
-              <mat-radio-button value="true" [fxFlex]="isTabView || isMobileView ? '50%' : '25%'">Yes</mat-radio-button>
-              <mat-radio-button value="false" [fxFlex]="isTabView || isMobileView ? '50%' : '25%'">No</mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <div [fxShow]="isForeignNational">
-            <mat-form-field appearance="outline" fxFlex>
-              <mat-label>Nationality Preference (If Any)</mat-label>
-              <input
-                matInput
-                placeholder="Nationality Preference"
-                formControlName="foreign_nationality_preferred"
-              />
-            </mat-form-field>
+
+            <mat-label>Will Foreign Nationals be considered for this Campus Placement Drive?</mat-label>
+            <br />
+            <div>
+              <mat-radio-group
+                aria-label="Will Foreign Nationals be considered for this Campus Placement Drive?* "
+                fxFlex="100%"
+                required
+                (change)="showFNDetails($event)"
+                formControlName="allow_foreign_nationals"
+              >
+                <mat-radio-button value="1" [fxFlex]="isTabView || isMobileView ? '50%' : '25%'">Yes</mat-radio-button>
+                <mat-radio-button value="2" [fxFlex]="isTabView || isMobileView ? '50%' : '25%'">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <br />
+        
+            <div>
+              <mat-form-field [fxShow]="isNational" appearance="outline" fxFlex>
+                <mat-label>Nationality Preference (If Any)</mat-label>
+                <input
+                  type="text" 
+                  matInput
+                  placeholder="Nationality Preference"
+                  formControlName="foreign_nationality_preferred"
+                />
+                <!-- <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+            </div>
+  
           </div>
         </div>
       </div>
     </div>
+    
   
     <div fxLayout="column" fxFlex="40%">
   
@@ -319,12 +397,11 @@
           <mat-label>UG Eligible Programmes</mat-label>
           <mat-select
             multiple
-            [compareWith]="compare"
             formControlName="ug_eligible_courses_id"
           >
             <mat-select-trigger>
               <!-- {{dept.value ? dept.value[0] : ''}} -->
-              <span *ngIf="form.get('ug_eligible_courses_id').value?.length > 0">
+              <span *ngIf="form.get('ug_eligible_courses_id').value?.length > 0" [compareWith]="compare">
                 {{ form.get("ug_eligible_courses_id").value.length }}
                 {{
                   form.get("ug_eligible_courses_id").value?.length === 1
@@ -337,7 +414,7 @@
               *ngFor="let department of ug_courses"
               [value]="department.id"
             >
-              {{ department.name + " " + department.branch }}
+              {{ department.name + " " + department.branch + " " + department.id }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -348,12 +425,11 @@
           <mat-label>PG Eligible Programmes</mat-label>
           <mat-select
             multiple
-            [compareWith]="compare"
             formControlName="pg_eligible_courses_id"
           >
             <mat-select-trigger>
               <!-- {{dept.value ? dept.value[0] : ''}} -->
-              <span *ngIf="form.get('pg_eligible_courses_id').value?.length > 0">
+              <span *ngIf="form.get('pg_eligible_courses_id').value?.length > 0" [compareWith]="compare">
                 {{ form.get("pg_eligible_courses_id").value.length }}
                 {{
                   form.get("pg_eligible_courses_id").value?.length === 1
@@ -366,7 +442,7 @@
               *ngFor="let department of pg_courses"
               [value]="department.id"
             >
-              {{ department.name + " " + department.branch }}
+              {{ department.name + " " + department.branch + " " + department.id }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -376,26 +452,26 @@
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>UG CGPA Criteria</mat-label>
           <mat-select required formControlName="eligibility_in_present">
-            <mat-option value="9">9+</mat-option>
-            <mat-option value="8.5">8.5+</mat-option>
-            <mat-option value="8">8+</mat-option>
-            <mat-option value="7.5">7.5+</mat-option>
-            <mat-option value="7">7+</mat-option>
-            <mat-option value="6.5">6.5+</mat-option>
-            <mat-option value="6">6+</mat-option>
+            <mat-option value=9>9+</mat-option>
+            <mat-option value=8.5>8.5+</mat-option>
+            <mat-option value=8>8+</mat-option>
+            <mat-option value=7.5>7.5+</mat-option>
+            <mat-option value=7>7+</mat-option>
+            <mat-option value=6.5>6.5+</mat-option>
+            <mat-option value=6>6+</mat-option>
           </mat-select>
           <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>PG CGPA Criteria</mat-label>
           <mat-select formControlName="eligibility_graduation">
-            <mat-option value="9">9+</mat-option>
-            <mat-option value="8.5">8.5+</mat-option>
-            <mat-option value="8">8+</mat-option>
-            <mat-option value="7.5">7.5+</mat-option>
-            <mat-option value="7">7+</mat-option>
-            <mat-option value="6.5">6.5+</mat-option>
-            <mat-option value="6">6+</mat-option>
+            <mat-option value=9>9+</mat-option>
+            <mat-option value=8.5>8.5+</mat-option>
+            <mat-option value=8>8+</mat-option>
+            <mat-option value=7.5>7.5+</mat-option>
+            <mat-option value=7>7+</mat-option>
+            <mat-option value=6.5>6.5+</mat-option>
+            <mat-option value=6>6+</mat-option>
           </mat-select>
           <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
@@ -405,26 +481,26 @@
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>SSLC Criteria</mat-label>
           <mat-select required formControlName="eligibility_10">
-            <mat-option value="90">90%+</mat-option>
-            <mat-option value="85">85%+</mat-option>
-            <mat-option value="80">80%+</mat-option>
-            <mat-option value="75">75%+</mat-option>
-            <mat-option value="70">70%+</mat-option>
-            <mat-option value="65">65%+</mat-option>
-            <mat-option value="60">60%+</mat-option>
+            <mat-option value=90>90%+</mat-option>
+            <mat-option value=85>85%+</mat-option>
+            <mat-option value=80>80%+</mat-option>
+            <mat-option value=75>75%+</mat-option>
+            <mat-option value=70>70%+</mat-option>
+            <mat-option value=65>65%+</mat-option>
+            <mat-option value=60>60%+</mat-option>
           </mat-select>
           <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex>
           <mat-label>HSC Criteria</mat-label>
           <mat-select required formControlName="eligibility_12">
-            <mat-option value="90">90%+</mat-option>
-            <mat-option value="85">85%+</mat-option>
-            <mat-option value="80">80%+</mat-option>
-            <mat-option value="75">75%+</mat-option>
-            <mat-option value="70">70%+</mat-option>
-            <mat-option value="65">65%+</mat-option>
-            <mat-option value="60">60%+</mat-option>
+            <mat-option value=90>90%+</mat-option>
+            <mat-option value=85>85%+</mat-option>
+            <mat-option value=80>80%+</mat-option>
+            <mat-option value=75>75%+</mat-option>
+            <mat-option value=70>70%+</mat-option>
+            <mat-option value=65>65%+</mat-option>
+            <mat-option value=60>60%+</mat-option>
           </mat-select>
           <!-- <mat-hint>Hint</mat-hint> -->
         </mat-form-field>
@@ -452,7 +528,7 @@
         <mat-form-field [fxShow]="historyOfArrears" appearance="outline" fxFlex>
           <mat-label>Maximum Number of backlogs allowed</mat-label>
           <input
-            type="number"
+            type="number" min=0
             matInput
             placeholder="Number of backlogs"
             formControlName="current_arrears"
@@ -462,8 +538,11 @@
       </div>
   
       <div>
-        <mat-form-field [fxShow]="isAdmin" appearance="outline" fxFlex>
-          <mat-label>Registration Deadline</mat-label>
+        <ng-template *ngif = "isAdmin ; then admin_form_input_4">
+
+          <ng-template #admin_form_input_4>
+            <mat-form-field appearance="outline" fxFlex >
+            <mat-label>Registration Deadline</mat-label>
           <input
             matInput
             type="datetime-local"
@@ -473,6 +552,12 @@
           />
           <!-- <mat-hint>Date for the First Coding/Aptitude Round</mat-hint> -->
         </mat-form-field>
+          </ng-template>
+        </ng-template>
+        
+          
+          
+        
       </div>
   
       <h3>Job Description & Other Information</h3>
@@ -510,6 +595,7 @@
         </div> -->
       </div>
     </div>
+    
   </form>
 
   <!-- <form fxLayout="column" [formGroup]="form">
