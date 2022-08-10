@@ -1,3 +1,4 @@
+import { E } from '@angular/cdk/keycodes';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
@@ -34,20 +35,39 @@ export class CampusDriveComponent implements OnInit {
   isForeignNational: boolean;
   fte: boolean;
   intern: boolean;
+  internOption: boolean;
+  fullOption: boolean;
   year = new Date().getFullYear();
   isTabView: boolean = false;
   isMobileView: boolean = false;
 
+  isDifferentRecruitmentDates: boolean;
+
+  isNational: boolean;
+
+  checking: any;
+
   categories: any = [
     {
       id: 1,
-      name: 'PRODUCT',
+      name: 'PRODUCT/CONSULTANCY/BANKING/OTHER CORE',
     },
     {
       id: 2,
-      name: 'SERVICE',
+      name: 'SERVICE/MANUFACTURING',
     },
   ];
+
+  employ: any = [
+    {
+      id: 1,
+      name: 'Pre-final year' ,
+    },
+    {
+      id: 2,
+      name: 'Final year' ,
+    }
+  ]
 
   employment_t: any = [
     {
@@ -55,14 +75,22 @@ export class CampusDriveComponent implements OnInit {
       name: 'FULL TIME',
     },
     {
-      id: 2,
-      name: 'INTERNSHIP',
-    },
-    {
       id: 3,
-      name: 'INTERNSHIP + FULLTIME',
+      name: 'INTERNSHIP (6 Months) + PLACEMENT',
     },
   ];
+
+  employment_intern: any = [
+    {
+      id: 2,
+      name: 'INTERN (2 Months)'
+    },
+
+    {
+      id: 4,
+      name: 'INTERN (6 Months)'
+    }
+  ]
 
   form = new FormGroup({
     drive_name: new FormControl(""),
@@ -70,10 +98,16 @@ export class CampusDriveComponent implements OnInit {
     category_id: new FormControl(""),
     roles: new FormControl(""),
     employment_type: new FormControl(""),
-    ctc_for_ug: new FormControl(""),
-    ctc_for_pg: new FormControl(""),
-    stipend_for_internship_for_ug: new FormControl(""),
-    stipend_for_internship_for_pg: new FormControl(""),
+    
+    
+
+    duration_training_probation: new FormControl(""),
+    salary_training_probation: new FormControl(""),
+    annual_salary: new FormControl(""),
+    ctc: new FormControl(""),
+    stipend_for_internship: new FormControl(""),
+
+
     eligibility_10: new FormControl(""),
     eligibility_12: new FormControl(""),
     eligibility_graduation: new FormControl(""),
@@ -110,7 +144,10 @@ export class CampusDriveComponent implements OnInit {
     allow_foreign_nationals: new FormControl(""),
     foreign_nationality_preferred: new FormControl(""),
     academic_year: new FormControl(""),
-    other_information: new FormControl("")
+    different_requirement_dates: new FormControl(""), 
+    other_information: new FormControl(""),
+
+    different_recruiment_dates: new FormControl("")
   })
 
   constructor(private http: HttpClient,private router: Router,public dialog: MatDialog,public breakpointObserver: BreakpointObserver,private companyService: CompanyService) {
@@ -132,7 +169,7 @@ export class CampusDriveComponent implements OnInit {
     else this.historyOfArrears = true;
   }
 
-  compare(c1: {name: string}, c2: {name: string}) {
+  compare(c1: {name: any}, c2: {name: any}) {
     return c1 && c2 && c1.name === c2.name;
   }
 
@@ -167,25 +204,43 @@ export class CampusDriveComponent implements OnInit {
 
   }
 
-  showFNDetails(e: MatRadioChange){
-    if(e.value === 'false')
-      this.isForeignNational = false;
-    else
-    this.isForeignNational = true;
+  showFNDetails(e: MatRadioChange) {
+    if (e.value == 2) this.isNational = false;
+    else this.isNational = true;
   }
+
 
   setEmploymentType(e: any){
     console.log(e.value);
     if(e.value === 1){
       this.fte = true;
       this.intern = false;
-    } else if(e.value === 2){
+    } else if(e.value === 2 ||  e.value === 4 ){
       this.fte = false;
       this.intern = true;
-    } else {
+    } else if(e.value === 3){
       this.fte = true;
       this.intern = true;
     }
+  }
+
+  setEmploymentOption(year_batch_eligible : any){
+    console.log(year_batch_eligible);
+
+      if(year_batch_eligible.value === 2){
+        this.internOption = false;
+        this.fullOption = true;
+      }
+      else if(year_batch_eligible.value === 1){
+        this.internOption = true;
+        this.fullOption = false;
+      }
+
+      else if(year_batch_eligible.value === ''){
+          this.internOption = true;
+          this.fullOption = true;
+      }
+      
   }
 
   OnSubmit() {
@@ -207,16 +262,54 @@ export class CampusDriveComponent implements OnInit {
     // req.append('category', this.categories.filter( (element) => element.id === this.form.get('category').value)[0]['name'])
     req.append('category', this.form.get('category').value)
     req.append('roles', this.form.get('roles').value.split(','))
+
     req.append('employment_type', this.form.get('employment_type').value)
-    req.append('ctc_for_ug', this.form.get('ctc_for_ug').value)
-    req.append('ctc_for_pg', this.form.get('ctc_for_pg').value)
-    req.append('stipend_for_internship_for_ug', this.form.get('stipend_for_internship_for_ug').value)
-    req.append('stipend_for_internship_for_pg', this.form.get('stipend_for_internship_for_pg').value)
+
+    if(this.form.get('employment_type').value === 1){
+
+      req.append('duration_training_probation', this.form.get('duration_training_probation').value)
+      req.append('salary_training_probation', this.form.get('salary_training_probation').value)
+      req.append('annual_salary', this.form.get('annual_salary').value)
+      req.append('ctc', this.form.get('ctc').value)
+      req.append('stipend_for_internship', null)
+
+    } else if(this.form.get('employment_type').value === 2 ||  this.form.get('employment_type').value === 4 ){
+
+      req.append('duration_training_probation', null)
+      req.append('salary_training_probation',  null)
+      req.append('annual_salary', null)
+      req.append('ctc', null)
+      req.append('stipend_for_internship', this.form.get('stipend_for_internship').value)
+
+    } else if(this.form.get('employment_type').value === 3){
+      req.append('duration_training_probation', this.form.get('duration_training_probation').value)
+      req.append('salary_training_probation', this.form.get('salary_training_probation').value)
+      req.append('annual_salary', this.form.get('annual_salary').value)
+      req.append('ctc', this.form.get('ctc').value)
+      req.append('stipend_for_internship', this.form.get('stipend_for_internship').value)
+    }
+
+
+    //req.append('ctc_for_ug', this.form.get('ctc_for_ug').value)
+    //req.append('ctc_for_pg', this.form.get('ctc_for_pg').value)
+    //req.append('stipend_for_internship_for_ug', this.form.get('stipend_for_internship_for_ug').value)
+    //req.append('stipend_for_internship_for_pg', this.form.get('stipend_for_internship_for_pg').value)
+
+    // req.append('duration_training_probation', this.form.get('duration_training_probation').value)
+    // req.append('salary_training_probation', this.form.get('salary_training_probation').value)
+    // req.append('annual_salary', this.form.get('annual_salary').value)
+    // req.append('ctc', this.form.get('ctc').value)
+    //req.append('stipend_for_internship_for_ug', this.form.get('stipend_for_internship_for_ug').value)
+
+
+
+
+
     req.append('eligibility_10', this.form.get('eligibility_10').value)
     req.append('eligibility_12', this.form.get('eligibility_12').value)
-    req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value + 0)*10).toString())
-    req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value + 0)*10).toString())
-    req.append('eligible_courses_id', this.form.get('ug_eligible_courses_id').value.extend(this.form.get('pg_eligible_courses_id').value))
+    req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value)*10).toString())
+    req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value)*10).toString())
+    //req.append('eligible_courses_id', this.form.get('ug_eligible_courses_id').value)
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)
     req.append('current_arrears', this.form.get('current_arrears').value > 0 ? 'true':'false')
@@ -243,12 +336,21 @@ export class CampusDriveComponent implements OnInit {
     req.append('ug_vacancies', this.form.get('ug_vacancies').value)
     req.append('pg_vacancies', this.form.get('pg_vacancies').value)
     req.append('virtual_mode',this.isVirtual ? 'true' : 'false')
+    //req.append('virtual_mode',this.form.get('virtual_mode').value)
     req.append('bond_details', this.form.get('bond_details').value)
-    req.append('allow_foreign_nationals', this.form.get('allow_foreign_nationals').value ? 'true' : 'false')
+    req.append('allow_foreign_nationals', this.form.get('allow_foreign_nationals').value)
+
     req.append('foreign_nationality_preferred', this.form.get('allow_foreign_nationals').value ? this.form.get('foreign_nationality_preferred').value : 'nil')
     req.append('academic_year', this.form.get('academic_year').value)
     req.append('other_information',this.form.get('other_information').value)
-    console.log("this form is seddd")
+
+    //req.append('different_recruitment_dates',this.form.get('different_recruitment_dates').value)
+    req.append('different_recruitment_dates',this.isDifferentRecruitmentDates ? 'true' : 'false')
+
+    var eligible_courses = (this.form.get('ug_eligible_courses_id').value as string[]).concat(this.form.get('pg_eligible_courses_id').value as string[]).toString()
+    req.append('eligible_courses_id', eligible_courses)
+
+
     this.companyService.uploadDrive(req).subscribe(
       (data:any) => {
         if(data.response.status === 200){
@@ -267,5 +369,14 @@ export class CampusDriveComponent implements OnInit {
     else
       this.isVirtual = false;
   }
+
+  setDifferentRecruitmentDates(e: any){
+    if(e.checked)
+      this.isDifferentRecruitmentDates = true;
+    else
+      this.isDifferentRecruitmentDates = false;
+    
+  }
+
 
 }

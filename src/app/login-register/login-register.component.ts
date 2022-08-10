@@ -270,6 +270,7 @@ export class LoginRegisterComponent implements OnInit {
     form.append('password', this.loginForm.get('password').value);
     form.append('role', role.toString());
     
+
       this.authService.authenticateUser(form).subscribe(
         (data) => {
           console.log(data.headers.get('Tokenstring'));

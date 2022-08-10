@@ -34,15 +34,30 @@
 
     <div fxLayout="column" fxLayoutGap="10px" fxFlex>
 
-        <mat-form-field appearance="outline" fxFlex>
+        <!-- <mat-form-field appearance="outline" fxFlex>
             <mat-label>Address</mat-label>
             <textarea matInput formControlName="address" required></textarea>
-        </mat-form-field>
+        </mat-form-field> -->
+
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Head Office Address</mat-label>
+          <textarea matInput formControlName="head_office_address" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Branch Office Address</mat-label>
+        <textarea matInput formControlName="branch_office_address" required></textarea>
+    </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Details of Office</mat-label>
             <textarea matInput formControlName="details_of_office"></textarea>
         </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Annual Turn-over</mat-label>
+          <input matInput type="number" formControlName="annual_turnover" required />
+      </mat-form-field>
 
     </div>
 
