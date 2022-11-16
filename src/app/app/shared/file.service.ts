@@ -129,9 +129,11 @@ export class FileService {
 		titleRow=worksheet.addRow(['TENTATIVE CAMPUS PLACEMENT SCHEDULE'])
 		titleRow.font = { name: 'Malgun Gothic', family: 4, size: 16, bold: true };
 
-		worksheet.addRow([]);
+		worksheet.addRow([]);//empty row
+		//adding the title header row 
 		let header=["SI NO","Company Name","Branches Considered","Elgibility Criteria","Annual CTC in Lakh(LPA)","Sequence of Selection","Banking and delinking amount","Job Role","Dates Allotted","Status"]
 		let headerRow =worksheet.addRow(header)
+		//styling for cell for the columns
 		headerRow.eachCell((cell, number) => {
 			cell.fill = {
 			  type: 'pattern',
@@ -145,12 +147,17 @@ export class FileService {
 		  });
 		  headerRow.font={bold:true}
 		  headerRow.alignment={vertical:'middle',horizontal:'center'}
+
+		  //adding the datas 
 		  datas.forEach(d=>{
 			let row=worksheet.addRow(d)
 			row.eachCell((cell,number)=>{
 				cell.alignment = { wrapText: true ,vertical:'middle',horizontal:'left'}
 			})
 		  })
+
+
+		  //for fitting the lengthy data in the cells 
 		  worksheet.columns.forEach(function (column, i) {
 			if(i!==0)
 			{

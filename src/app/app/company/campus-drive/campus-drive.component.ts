@@ -304,11 +304,10 @@ export class CampusDriveComponent implements OnInit {
 
 
 
-
     req.append('eligibility_10', this.form.get('eligibility_10').value)
     req.append('eligibility_12', this.form.get('eligibility_12').value)
-    req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value)*10).toString())
-    req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value)*10).toString())
+    req.append('eligibility_graduation', (parseFloat(this.form.get('eligibility_graduation').value+0)*100).toString())
+    req.append('eligibility_in_present', (parseFloat(this.form.get('eligibility_in_present').value+0)*100).toString())
     //req.append('eligible_courses_id', this.form.get('ug_eligible_courses_id').value)
     req.append('year_batch_eligible', this.form.get('year_batch_eligible').value)
     req.append('history_of_arrears', this.form.get('history_of_arrears').value)

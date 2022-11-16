@@ -260,7 +260,6 @@ export class DriveUpdateComponent implements OnInit {
 
     if(!this.driveResponse) 
     {
-      console.log("Found culprit");
       return;
     }
     this.setEmploymentType({value: this.driveResponse['employment_type']['id']});

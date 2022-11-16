@@ -21,15 +21,17 @@ const routes: Routes = [
           {
             path: '',
             component: CompanyDashboardComponent,
+            data: { title: 'CUIC | Dashboard' } ,
           },
           {
             path: 'drive',
             component: DriveComponent,
+            data: { title: 'CUIC | Company Drives' } ,
           }
         ]
       },
-      { path: 'campus-drive', component: CampusDriveComponent },
-      { path: 'company-details', component: CompanyDetailsComponent },
+      { path: 'campus-drive', component: CampusDriveComponent,data: { title: 'CUIC | Company Drives' } },
+      { path: 'company-details', component: CompanyDetailsComponent,data: { title: 'CUIC | Company Details' }, },
     ],
   },
 ];

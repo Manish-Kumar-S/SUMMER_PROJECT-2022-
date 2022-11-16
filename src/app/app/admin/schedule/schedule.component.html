@@ -1,8 +1,10 @@
 
 <div class="student-container">
-    <h1>Placement Schedule</h1>
-    <br>
-    <div [formGroup]="form" fxLayout="row wrap"  fxLayoutGap="5em">
+  <h1>Placement Schedule</h1> 
+  <mat-tab-group>
+    <mat-tab label="Automate">
+      <br>
+      <div [formGroup]="form" fxLayout="row wrap"  fxLayoutGap="5em">
         <mat-form-field appearance="outline"   >
             <mat-label>Schedule start date</mat-label>
             <input
@@ -14,9 +16,6 @@
           </mat-form-field>
             <mat-form-field appearance="outline"   >
                 <mat-label>Choose Format</mat-label>
-                <!-- [()]-two way binding
-                ()-html-ts
-                []-ts-html -->
                 <mat-select required formControlName="generate_format_control">
                     <mat-option *ngFor="let c of format_options" [value]="c.id">
                     {{ c.name }}
@@ -27,6 +26,28 @@
                 <button mat-flat-button color="primary" [disabled]="!form.valid" style="height: 4em;" (click)="generateReport()" name="placement-schedule">GENERATE</button>
             </div>
     </div>
+    </mat-tab>
+    <mat-tab label="Manual"> 
+      <br>
+      <div [formGroup]="manualform" fxLayout="row wrap"  fxLayoutGap="5em">
+    
+            <mat-form-field appearance="outline"   >
+                <mat-label>Choose Format</mat-label>
+                <mat-select required formControlName="manualgenerate_format_control">
+                    <mat-option *ngFor="let c of format_options" [value]="c.id">
+                    {{ c.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+              <div >
+                <button mat-flat-button color="primary" [disabled]="!manualform.valid" style="height: 4em;" (click)="manualgenerateReport()" name="placement-schedule">GENERATE</button>
+            </div>
+    </div>
+    </mat-tab>
+  </mat-tab-group>
+    
+   
+    
     <mat-divider></mat-divider>
     <app-drive-done-status></app-drive-done-status>
 </div>

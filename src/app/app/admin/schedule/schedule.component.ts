@@ -8,6 +8,7 @@ import { FileService } from "src/app/shared/file.service";
 import { AdminService } from "../admin.service";
 import { FormControl, FormGroup } from '@angular/forms';
 import { AdminModule } from "../admin.module";
+
 @Component({
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
@@ -17,10 +18,10 @@ export class ScheduleComponent {
     format_options: any[]=[
         {
             id:1,
-            name:"Print in PDF"
+            name:"Open in PDF"
         },{
             id:2,
-            name:"Print in EXCEL"
+            name:"Open in EXCEL"
         }
     ]
     form: FormGroup = new FormGroup(
@@ -29,7 +30,11 @@ export class ScheduleComponent {
             Scheduledate_form_control: new FormControl('')
         }
     )
-   
+    manualform :FormGroup=new FormGroup(
+        {
+            manualgenerate_format_control: new FormControl('')
+        }
+    )
     
 
     fullNames = {
@@ -66,7 +71,8 @@ export class ScheduleComponent {
         this.data.forEach((element,index)=>{
             let t=[]
             var eligibility = element['eligibility_10'] + "% in 10th, " + element['eligibility_12'] + "% in 12th, " + (parseFloat(element['eligibility_graduation'])/10).toString() + " in PG, " + (parseFloat(element['eligibility_in_present'])/10).toString() + " in UG";
-            var CTC = element['ctc_for_ug'] === element['ctc_for_pg'] ? "Rs. " + element['ctc_for_ug'] : "<b>UG:</b> Rs. " + element['ctc_for_ug'].toString() + "\nPG: Rs. " + element['ctc_for_pg'].toString();
+            // var CTC = element['ctc_for_ug'] === element['ctc_for_pg'] ? "Rs. " + element['ctc_for_ug'] : "<b>UG:</b> Rs. " + element['ctc_for_ug'].toString() + "\nPG: Rs. " + element['ctc_for_pg'].toString();
+            var CTC="Ctc : Rs."+element['ctc']+"\nDuration Probation : Rs."+element['duration_training_probation']+"\nSalaryTrainingProbation: Rs."+element['salary_training_probation']+"\nAnnual Salary : Rs."+element['annual_salary'];
             let sequence=""
             if(element['technical_interview1']) {
 
@@ -87,15 +93,24 @@ export class ScheduleComponent {
 
                 sequence += ", Technical + HR Interview";
             }
+            if(element['hr_interview']){
+                sequence += ",HR Interview";
+            }
             t.push((index+1).toString())
             t.push(element['company']['name'])
             t.push(eligibility)
-            t.push(element['eligible_courses'].map(course => course.branch).toString())
+            t.push(element['eligible_courses'].map(course => course.branch).toString()+'( '+element['employment_type']+' )')
             t.push(CTC)
             t.push(sequence)
             t.push(element['bond_details'])
             t.push(element['roles'].toString())
-            t.push("Day I: "+element['onlinetestdate']+"\nDay II: "+element['interviewdate'])
+            if(element['diffdateneed']==true){
+                t.push("Tech Branches :\nDay I: "+element['onlinetestdate']+"\nDay II: "+element['interviewdate']+"\nNon-Tech branches :\n Day I: "+element['nontechonlinetestdate']+"\nDay II: "+element['nontechinterviewdate'])
+            }
+            else{
+                t.push("Day I: "+element['onlinetestdate']+"\nDay II: "+element['interviewdate'])
+            }
+            
             t.push("Confirmed")
             content.push(t)
         })
@@ -140,10 +155,15 @@ export class ScheduleComponent {
         this.data.forEach((element, index) => {
 
             const eligibility = element['eligibility_10'] + "% in 10th, " + element['eligibility_12'] + "% in 12th, " + (parseFloat(element['eligibility_graduation'])/10).toString() + " in PG, " + (parseFloat(element['eligibility_in_present'])/10).toString() + " in UG";
-            const CTC = element['ctc_for_ug'] === element['ctc_for_pg'] ? "<b>Rs.</b> " + element['ctc_for_ug'] : "<b>UG:</b> Rs. " + element['ctc_for_ug'].toString() + "\n<b>PG:</b> Rs. " + element['ctc_for_pg'].toString();
-
+            var CTC="Ctc : Rs."+element['ctc']+"\nDuration Probation : Rs."+element['duration_training_probation']+"\nSalaryTrainingProbation: Rs."+element['salary_training_probation']+"\nAnnual Salary : Rs."+element['annual_salary'];
             let sequence = "";
-
+            var alloteddate;
+            if(element['diffdateneed']==true){
+            alloteddate=("Tech Branches :\nDay I: "+element['onlinetestdate']+"\nDay II: "+element['interviewdate']+"\nNon-Tech branches :\n Day I: "+element['nontechonlinetestdate']+"\nDay II: "+element['nontechinterviewdate'])
+            }
+            else{
+                alloteddate=("Day I: "+element['onlinetestdate']+"\nDay II: "+element['interviewdate'])
+            }
             if(element['technical_interview1']) {
 
                 sequence += "Technical Interview 1";
@@ -175,7 +195,7 @@ export class ScheduleComponent {
                     <td style="padding: 10px;">${sequence}</td>
                     <td style="padding: 10px;">${element['bond_details']}</td>
                     <td style="padding: 10px;">${element['roles'].toString()}</td>
-                    <td style="padding: 10px;"><p>Day I: ${element['onlinetestdate']}</p><p>Day II: ${element['interviewdate']}</p></td>
+                    <td style="padding: 10px;"><p>${alloteddate}</p></td>
                     <td style="padding: 10px;">Confirmed</td>
                 </tr>
             `
@@ -185,13 +205,26 @@ export class ScheduleComponent {
 
         return html;
     }
-
+    manualgenerateReport(){
+        let html = "";
+        this.companyService.getAllManualDrivesschedule().subscribe(res => {
+            this.data = res.companies;
+            html = this.placementScheduleHtml;
+            
+            if (this.manualform.value.manualgenerate_format_control==1){
+                this.makePDF(html, 'landscape');
+            }
+            else if (this.manualform.value.manualgenerate_format_control==2){
+                const datas=this.placementScheulearray
+                this.fileService.generateExcel(datas,"ANNA UNIVERSITY","PLACEMENT SCHEDULE")
+            }
+            
+        })
+    }
     generateReport() {
 
         let html = "";
         this.companyService.getAllDrivesschedule(this.form.value.Scheduledate_form_control).subscribe(res => {
-                    
-            console.log(res);
             this.data = res.companies;
             html = this.placementScheduleHtml;
             if (this.form.value.generate_format_control==1){
@@ -204,7 +237,7 @@ export class ScheduleComponent {
             
         })
     }
-    makePDF(html: string, pageOrientation: 'portrait' | 'landscape' = 'portrait', pageSize = 'A4') {
+    makePDF(html: string, pageOrientation: 'portrait' | 'landscape' = 'portrait', pageSize = 'A3') {
 
         console.log("Making PDF", html);
 

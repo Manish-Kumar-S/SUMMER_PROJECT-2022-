@@ -1,0 +1,165 @@
+@import "/src/app/shared/scss/main.scss";
+
+$num-of-char: 6;
+$char-width: 1ch;
+$gap: 0.4 * $char-width;
+$in-w: $num-of-char * ($char-width + ($gap));
+
+.msg {
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  border-bottom: 1.5px solid gainsboro;
+  padding: 1em;
+  .web-title {
+    display: flex;
+    align-items: center;
+    gap: 1.75em;
+    font-family: $primary_font;
+    img {
+      width: 75px;
+    }
+    .web-title-content {
+      h3 {
+        font-size: 1.4em;
+      }
+      p {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.center-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85%;
+  .auth-wrap {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    box-shadow: $medium_shadow;
+    padding: 1em;
+    height: 60vh;
+    width: 55vw;
+    min-width: max(55vw, 60%);
+    border-radius: 15px;
+    font-family: $secondary_font;
+
+    .img {
+      background-image: url("#{$img_url}/regi-img.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      input {
+        color: $primary-color;
+      }
+
+      h1,
+      h3,
+      h5 {
+        font-family: $secondary_font;
+        margin-bottom: 1em;
+      }
+
+      h1,
+      h3 {
+        font-weight: 600;
+      }
+
+      h1 {
+        font-size: 1.65em;
+      }
+
+      h5 {
+        font-weight: 500;
+        font-size: 0.85em;
+      }
+
+      .sub-head {
+        font-size: 1em;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+      }
+
+      .link {
+        cursor: pointer;
+        font-weight: 600;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: map-get($breakpoints,medium)) {
+  .center-wrap {
+    padding: 0.5em;
+    .auth-wrap {
+      grid-template-columns: 1fr;
+      width: 100%;
+      .img {
+        display: none;
+      }
+    }
+  }
+  .hide {
+    display: none;
+  }
+}
+
+@media (max-width: map-get($breakpoints,small)) {
+  .header {
+    .web-title {
+      gap: 1em;
+      .web-title-content {
+        h3 {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+  .center-wrap {
+    height: calc(85% - 122.3px);
+    .auth-wrap {
+      form {
+        padding: 0.85em;
+      }
+    }
+  }
+}
+
+input {
+  display: block;
+  border: none;
+  width: $in-w;
+  background: repeating-linear-gradient(
+      90deg,
+      #000 0,
+      #000 $char-width,
+      transparent 0,
+      transparent $char-width + $gap
+    )
+    0 100% / #{$in-w - $gap} 2px no-repeat;
+  font: 5ch droid sans mono, consolas, monospace;
+  letter-spacing: $gap;
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -62,6 +62,10 @@ export class AdminService {
     );
   }
 
+  setscheduledrive(req:FormData){
+    return this.http.post<any>(`${API}/admin/setschedule`, req).pipe(this.visualFeedbackService.standardApiErrorHandling());
+  }
+
   /**
    * Request Type: GET
    * @returns List of all Students

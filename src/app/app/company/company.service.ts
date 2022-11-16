@@ -38,6 +38,13 @@ export class CompanyService {
 
         );
     }
+    getAllManualDrivesschedule(){
+        return this.http.get(`${API}/get/allmanualdrivesschedule`).pipe(
+
+            this.visualFeedbackService.standardApiErrorHandling(),
+
+        );
+    }
 
 
     /** 
@@ -84,7 +91,6 @@ export class CompanyService {
     /////////////////
 
     getDriveFromDriveID(driveID: number) {
-
         return this.http.get(`${API}/company/drive?drive_id=${driveID}`).pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),
@@ -98,9 +104,10 @@ export class CompanyService {
      */
     getCompanyDrives() {
 
-        return this.http.get(`${API}/company/drives`).pipe(
+        return this.http.get<any>(`${API}/company/drives`).pipe(
 
             this.visualFeedbackService.standardApiErrorHandling(),
+            map((res) => res.drive)
 
         );
     }

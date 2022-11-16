@@ -1,5 +1,5 @@
 
-<div style="margin-top: 10px;">
+<div  style="margin-top: 10px;" >
 
     <div *ngIf="!!driveList && driveList.length === 0" style="width: 100%; height: 30vh; border:dashed grey; opacity: 0.6; position: relative;">
     
@@ -46,9 +46,15 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.company_name}} </mat-cell>
                     </ng-container>
-            
+                    <ng-container matColumnDef="button">
+                        <mat-header-cell *matHeaderCellDef> 
+                           Option
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">  <button mat-flat-button color="primary" class="tr-mat-row"  (click)="opendialogbox(element)">View</button> </mat-cell>
+                    </ng-container>
+                    
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-mat-row" (click)="approveDrive(row)"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
                 </mat-table>
         
             </div>

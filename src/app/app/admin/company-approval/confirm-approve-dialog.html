@@ -1,0 +1,341 @@
+<h2 mat-dialog-title>Confirm Approve Company Drive?</h2>
+<mat-dialog-content  class="mat-typography">     
+ 
+  <mat-horizontal-stepper>
+    <mat-step label="step 1">
+      <div class="step-one" fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0"  >
+        <div class="field-box">
+          <mat-form-field  appearance="fill">
+            <mat-label>Company Name</mat-label>
+            <input matInput readonly value="{{companyname}}">
+          </mat-form-field>
+        </div>
+        <div  class="field-box">
+          <mat-form-field  appearance="fill">
+            <mat-label>Drive Name</mat-label>
+            <input matInput readonly value="{{drivename}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-one" fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0"  >
+          <div  class="field-box"> 
+            <mat-form-field  appearance="fill">
+              <mat-label>UG Vacanies</mat-label>
+              <input matInput readonly value="{{ugvacancies}}">
+            </mat-form-field>
+          </div>
+          <div  class="field-box">
+            <mat-form-field  appearance="fill">
+              <mat-label>PG Vacanies</mat-label>
+              <input matInput readonly value="{{pgvacancies}}">
+            </mat-form-field>
+          </div>
+      </div>
+      <div fxLayout fxLayoutAlign="space-between center ">
+        <button mat-flat-button matStepperNext color="warn">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="step 2">
+      <h1><b>Eligibility </b></h1>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-label><span matBadge="{{noofugcourses}}" matBadgeOverlap="false" >UG Courses  </span></mat-label>
+          <mat-select>
+          <mat-option  *ngFor="let item of ugcourses" [Value]="item">{{item}} </mat-option>
+          </mat-select>
+        </div>
+        <div>
+          <mat-label ><span matBadge="{{noofpgcourses}}" matBadgeOverlap="false" >PG Courses  </span> </mat-label>
+          <mat-select>
+          <mat-option  *ngFor="let item of pgcourses" [Value]="item">{{item}} </mat-option>
+          </mat-select>
+        </div>
+        
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Years Eligible</mat-label>
+            <input matInput readonly value="{{yrseligible}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>BackLogs </mat-label>
+            <input matInput readonly value="{{arrears}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>UG CGPA</mat-label>
+            <input matInput readonly value="{{ugcgpa/10}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>PG CGPA</mat-label>
+            <input matInput readonly value="{{pgcgpa/10}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>SSLC</mat-label>
+            <input matInput readonly value="{{sslc}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>HSC</mat-label>
+            <input matInput readonly value="{{hsc}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div  >
+        
+        <div>
+          <mat-form-field  class="example-full-width" appearance="fill">
+            <mat-label>Foreign Nations  </mat-label>
+            <input matInput value="{{foreign_nations}}" >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div  fxLayout fxLayoutAlign="space-between center ">
+          <button mat-flat-button matStepperPrevious color="primary">Back</button>
+          <button mat-flat-button matStepperNext color="warn">Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Step 3">
+      <h1><b>About Job</b></h1>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Category </mat-label>
+            <input matInput readonly value="{{category}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Employment Type </mat-label>
+            <input matInput readonly value="{{emptype}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Roles</mat-label>
+            <input matInput readonly value="{{roles}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Bond Details</mat-label>
+            <input matInput readonly value="{{bonddetails}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Training probation</mat-label>
+            <input matInput readonly value="{{trainingprob}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>CTC</mat-label>
+            <input matInput readonly value="{{ctc}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Stipend</mat-label>
+            <input matInput readonly value="{{stipend}}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="fill">
+            <mat-label>Fixed Pay</mat-label>
+            <input matInput readonly value="{{fixedpay}}">
+          </mat-form-field>
+        </div>
+      </div>
+      <div >
+
+        <div >
+          <mat-form-field  class="example-full-width" appearance="fill">
+            <mat-label>JOB Description </mat-label>
+            <textarea matInput value="{{job_description}}" ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div >
+        
+        <div >
+            <mat-checkbox  [checked]="separate_date" disabled >Separate Date for Non Tech branches </mat-checkbox>
+        </div>
+      </div>
+      <div  fxLayout fxLayoutAlign="space-between center ">
+        <button mat-flat-button matStepperPrevious color="primary">Back</button>
+        <button mat-flat-button matStepperNext color="warn">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Step 4" [formGroup]="form">
+      <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Set Schedule Date</mat-label>
+          <input
+         
+              type="date"
+              matInput [min]="minDate" [max]="maxDate" required 
+              required
+              formControlName="date_tech"
+            /> 
+          
+          <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+      </div>
+      <div *ngIf="separate_date"> 
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Set Schedule Date for Non-Tech Branch </mat-label>
+          <input
+            
+              type="date"
+              matInput [min]="minDate" [max]="maxDate" required 
+              required
+              formControlName="date_nontech"
+            /> 
+          <mat-hint>MM/DD/YYYY</mat-hint>
+       
+        </mat-form-field>
+      </div>
+      <div > 
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Registration Deadline </mat-label>
+          <input
+            
+              type="date"
+              matInput [min]="minDate" [max]="maxDate" required 
+              required
+              formControlName="registration_end"
+            /> 
+
+          <mat-hint>MM/DD/YYYY</mat-hint>
+  
+        </mat-form-field>
+      </div>
+
+      <div class="step-two"  fxLayout fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+        <div><mat-checkbox  [checked]="confirm_status" >Status (Confirm/Not Confirm) </mat-checkbox></div>
+        <div> <button mat-flat-button  color="primary" (click)="set_schedule()" [disabled]="form.invalid ">Set Schedule</button></div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <!-- <mat-horizontal-stepper>
+    <mat-step label="Step 1">
+      
+      <h1><b>Drive Details</b></h1>
+     
+      
+      
+      <div class="round">
+        <h3><b>Rounds : </b></h3>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="3px">
+          <div>
+            <mat-checkbox value="2" >Coding Assesment</mat-checkbox>
+          </div>
+          <div >
+           <p matTooltip="Online Rounds !" style="margin: 2px 8px auto 0;" >Online</p>
+          </div>
+         
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="3px">
+          <div>
+            <mat-checkbox value="2" >Coding Assesment</mat-checkbox>
+          </div>
+          <div >
+           <p matTooltip="Online Rounds !" style="margin: 2px 8px auto 0;" >Online </p>
+          </div>
+         
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="3px">
+          <div>
+            <mat-checkbox value="2" >Coding Assesment</mat-checkbox>
+          </div>
+          <div >
+          <p matTooltip="Online Rounds !" style="margin: 2px 8px auto 0;" >Online </p>
+          </div>
+        
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="3px">
+          <div>
+            <mat-checkbox value="2" >Coding Assesment</mat-checkbox>
+          </div>
+          <div >
+          <p matTooltip="Online Rounds !" style="margin: 2px 8px auto 0;" >Online </p>
+          </div>
+        
+        </div>
+        <div fxLayout fxLayoutAlign="space-between center" fxLayoutGap="3px">
+          <div>
+            <mat-checkbox value="2" >Coding Assesment</mat-checkbox>
+          </div>
+          <div >
+           <p matTooltip="Online Rounds !" style="margin: 2px 8px auto 0;" >Online</p>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div align="end">
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+
+
+
+    <mat-step label="Step 2" >
+     
+      
+    
+    
+       
+      
+      
+    </mat-step>
+    <mat-step label="Step 3">
+      
+      
+      
+     
+     
+      
+     
+    </mat-step>
+    <mat-step label="Step 4">
+      
+      <div   fxLayout fxLayoutAlign="space-between center" >
+        <div>
+            <button mat-flat-button color="warn" > Modify </button>
+        </div>
+        <div>
+          <button mat-flat-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+   -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="warn" [mat-dialog-close]="true" cdkFocusInitial [disabled]="form.invalid " >Confirm</button>
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Close</button>
+</mat-dialog-actions>
